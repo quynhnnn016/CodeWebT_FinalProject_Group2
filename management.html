@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Travela - Website Management</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="Travela, Travel Management, Admin Dashboard"
+      name="keywords"
+    />
+    <meta
+      content="Manage travel packages easily with Travela's admin management system."
+      name="description"
+    />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet" />
+
+    <style>
+      .admin-container {
+        max-width: 1100px;
+        margin: 60px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .price-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #0d6efd;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: 500;
+      }
+
+      .back-btn {
+        background: #0d6efd;
+        color: #fff;
+        border-radius: 50px;
+        padding: 10px 25px;
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      .back-btn:hover {
+        background: #084ec4;
+        color: #fff;
+      }
+
+      h2 {
+        font-family: "Jost", sans-serif;
+        color: #0d6efd;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      #loginStatus {
+        text-align: center;
+        color: #28a745;
+        font-weight: 500;
+        margin-bottom: 25px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-primary px-5 d-none d-lg-block">
+      <div class="row gx-0">
+        <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+          <div class="d-inline-flex align-items-center" style="height: 45px">
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+              href="#"
+              ><i class="fab fa-twitter fw-normal"></i
+            ></a>
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+              href="#"
+              ><i class="fab fa-facebook-f fw-normal"></i
+            ></a>
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+              href="#"
+              ><i class="fab fa-linkedin-in fw-normal"></i
+            ></a>
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+              href="#"
+              ><i class="fab fa-instagram fw-normal"></i
+            ></a>
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle"
+              href="#"
+              ><i class="fab fa-youtube fw-normal"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center text-lg-end">
+          <div class="d-inline-flex align-items-center" style="height: 45px">
+            <a href="#" id="loginLink"
+              ><small class="me-3 text-light"
+                ><i class="fa fa-sign-in-alt me-2"></i>Login</small
+              ></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative p-0">
+      <nav
+        class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
+      >
+        <a href="index.html" class="navbar-brand p-0">
+          <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Travela</h1>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0">
+            <a href="index.html" class="nav-item nav-link">Home</a>
+            <a href="about.html" class="nav-item nav-link">About</a>
+            <a href="services.html" class="nav-item nav-link">Services</a>
+            <a href="packages.html" class="nav-item nav-link">Packages</a>
+            <a href="blog.html" class="nav-item nav-link">Blog</a>
+            <a href="contact.html" class="nav-item nav-link">Contact</a>
+          </div>
+          <a
+            href="booking.html"
+            class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4"
+            >Book Now</a
+          >
+        </div>
+      </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Management Section -->
+    <div class="admin-container">
+      <a href="index.html" class="back-btn"
+        ><i class="fa fa-arrow-left me-2"></i>Back to Home</a
+      >
+      <h2><i class="fas fa-tools me-2"></i>Website Management</h2>
+      <h5 id="loginStatus"></h5>
+
+      <!-- Add Form -->
+      <form id="packageForm" class="mb-4">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <input
+              type="text"
+              id="title"
+              class="form-control"
+              placeholder="Package Title"
+              required
+            />
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              id="location"
+              class="form-control"
+              placeholder="Location"
+              required
+            />
+          </div>
+          <div class="col-md-2">
+            <input
+              type="number"
+              id="price"
+              class="form-control"
+              placeholder="Price ($)"
+              required
+            />
+          </div>
+          <div class="col-md-2">
+            <input
+              type="text"
+              id="image"
+              class="form-control"
+              placeholder="Image URL"
+              required
+            />
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100 rounded-pill">
+              Add Package
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div id="packageList" class="row g-4"></div>
+    </div>
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5 mt-5 bg-primary text-white">
+      <div class="container text-center">
+        <p class="mb-0">© 2025 Travela | Designed by HTML Codex</p>
+      </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      // --- Giả lập login ---
+      const user = localStorage.getItem("travelaUser") || "Admin User";
+
+      // Hiển thị trạng thái login trên trang
+      document.getElementById(
+        "loginStatus"
+      ).textContent = `✅ You are logged in as ${user}`;
+
+      // Đổi nút Login → Logout
+      const loginLink = document.getElementById("loginLink");
+      loginLink.innerHTML =
+        '<small class="me-3 text-light"><i class="fa fa-sign-out-alt me-2"></i>Logout</small>';
+      loginLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("You have been logged out!");
+        localStorage.removeItem("travelaUser");
+        window.location.reload();
+      });
+
+      // --- Dữ liệu tour mặc định ---
+      let packages = JSON.parse(localStorage.getItem("travelaPackages")) || [
+        {
+          title: "Venice - Italy",
+          location: "Italy",
+          price: 349,
+          image: "img/italy_tour.webp",
+        },
+        {
+          title: "The New California",
+          location: "USA",
+          price: 449,
+          image: "img/calichinh.jpg",
+        },
+        {
+          title: "Discover Japan",
+          location: "Japan",
+          price: 549,
+          image: "img/japan_tour.webp",
+        },
+      ];
+
+      const listEl = document.getElementById("packageList");
+
+      // --- Render packages ---
+      function renderPackages() {
+        listEl.innerHTML = "";
+        packages.forEach((p, i) => {
+          const card = document.createElement("div");
+          card.className = "col-md-4";
+          card.innerHTML = `
+        <div class="card position-relative shadow-sm">
+          <span class="price-badge">$${p.price}.00</span>
+          <img src="${p.image}" class="card-img-top" style="height:200px; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title">${p.title}</h5>
+            <p class="text-muted"><i class="fa fa-map-marker-alt text-primary me-2"></i>${p.location}</p>
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-sm btn-outline-primary" onclick="editPackage(${i})"><i class="fa fa-edit me-1"></i>Edit</button>
+              <button class="btn btn-sm btn-outline-danger" onclick="deletePackage(${i})"><i class="fa fa-trash me-1"></i>Delete</button>
+            </div>
+          </div>
+        </div>`;
+          listEl.appendChild(card);
+        });
+      }
+
+      renderPackages();
+
+      // --- Thêm package mới ---
+      document
+        .getElementById("packageForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const title = document.getElementById("title").value.trim();
+          const location = document.getElementById("location").value.trim();
+          const price = document.getElementById("price").value.trim();
+          const image = document.getElementById("image").value.trim();
+
+          packages.push({ title, location, price, image });
+          localStorage.setItem("travelaPackages", JSON.stringify(packages));
+          renderPackages();
+          this.reset();
+        });
+
+      // --- Xóa package ---
+      function deletePackage(i) {
+        if (confirm("Are you sure you want to delete this package?")) {
+          packages.splice(i, 1);
+          localStorage.setItem("travelaPackages", JSON.stringify(packages));
+          renderPackages();
+        }
+      }
+
+      // --- Chỉnh sửa package ---
+      function editPackage(i) {
+        const pkg = packages[i];
+        const newTitle = prompt("Edit Title:", pkg.title);
+        const newLocation = prompt("Edit Location:", pkg.location);
+        const newPrice = prompt("Edit Price:", pkg.price);
+        const newImage = prompt("Edit Image URL:", pkg.image);
+
+        if (newTitle && newLocation && newPrice && newImage) {
+          packages[i] = {
+            title: newTitle,
+            location: newLocation,
+            price: newPrice,
+            image: newImage,
+          };
+          localStorage.setItem("travelaPackages", JSON.stringify(packages));
+          renderPackages();
+        }
+      }
+    </script>
+  </body>
+</html>
