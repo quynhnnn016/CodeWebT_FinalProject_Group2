@@ -53,8 +53,8 @@
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
-                        <a href="#"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                        <a href="register.html"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
+                        <a href="login.html"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
                             <div class="dropdown-menu rounded">
@@ -1307,90 +1307,156 @@
         </div>
         <!-- Gallery End -->
 
-        <!-- Tour Booking Start -->
-        <div class="container-fluid booking py-5">
-            <div class="container py-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6">
-                        <h5 class="section-booking-title pe-3">Booking</h5>
-                        <h1 class="text-white mb-4">Online Booking</h1>
-                        <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
-                        </p>
-                        <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
-                        </p>
-                        <a href="#" class="btn btn-light text-primary rounded-pill py-3 px-5 mt-2">Read More</a>
-                    </div>
-                    <div class="col-lg-6">
-                        <h1 class="text-white mb-3">Book A Tour Deals</h1>
-                        <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip With Travela. Get More Deal Offers Here.</p>
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control bg-white border-0" id="name" placeholder="Your Name">
-                                        <label for="name">Your Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-white border-0" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating date" id="date3" data-target-input="nearest">
-                                        <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
-                                        <label for="datetime">Date & Time</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <select class="form-select bg-white border-0" id="select1">
-                                            <option value="1">Destination 1</option>
-                                            <option value="2">Destination 2</option>
-                                            <option value="3">Destination 3</option>
-                                        </select>
-                                        <label for="select1">Destination</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <select class="form-select bg-white border-0" id="SelectPerson">
-                                            <option value="1">Persons 1</option>
-                                            <option value="2">Persons 2</option>
-                                            <option value="3">Persons 3</option>
-                                        </select>
-                                        <label for="SelectPerson">Persons</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <select class="form-select bg-white border-0" id="CategoriesSelect">
-                                            <option value="1">Kids</option>
-                                            <option value="2">1</option>
-                                            <option value="3">2</option>
-                                            <option value="3">3</option>
-                                        </select>
-                                        <label for="CategoriesSelect">Categories</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
-                                        <label for="message">Special Request</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Tour Booking End -->
+            <!-- Hero / Book Info Start -->
+    <div
+      class="container-fluid py-5 mb-5 hero-header"
+      style="
+        background: linear-gradient(
+            rgba(13, 53, 123, 0.6),
+            rgba(13, 53, 123, 0.6)
+          ),
+          url('img/book_banner.jpg') center center / cover no-repeat;
+      "
+    >
+      <div class="container py-5">
+        <div class="row g-5 align-items-center">
+          <!-- Left Info -->
+          <div class="col-lg-6 text-white">
+            <h5 class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px">
+              Booking
+            </h5>
+            <h1 class="display-4 fw-bold mb-4" style="color: white;">Online Booking</h1>
+            <p class="lead mb-4">
+              Get <span class="text-primary fw-bold">50% Off</span> on your first trip with Travela!
+            </p>
+            <p class="mb-4">
+              💡 If the destination or tour you want isn’t available in our packages,
+    please fill out the form below — our travel team will contact you shortly to arrange a customized tour just for you!
+  </p>
+            </p>
+            <a
+              href="packages.html"
+              class="btn btn-light rounded-pill py-3 px-5 fw-semibold"
+              >Packages</a
+            >
+          </div>
 
+          <!-- Right Booking Form -->
+          <div class="col-lg-6">
+            <div class="bg-white rounded p-4 shadow-lg">
+              <h2 class="mb-3 text-primary fw-bold text-center">
+                Book A Tour Deal
+              </h2>
+              <p class="text-center text-muted mb-4">
+                Get <span class="text-primary fw-bold">50% Off</span> on your
+                first trip with Travela!
+              </p>
+
+              <form>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control border-0 bg-light"
+                        id="name"
+                        placeholder="Your Name"
+                      />
+                      <label for="name">Your Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <input
+                        type="email"
+                        class="form-control border-0 bg-light"
+                        id="email"
+                        placeholder="Your Email"
+                      />
+                      <label for="email">Your Email</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control border-0 bg-light"
+                        id="date"
+                        placeholder="Date & Time"
+                      />
+                      <label for="date">Date & Time</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <select
+                        class="form-select border-0 bg-light"
+                        id="destination"
+                      >
+                        <option value="">Select Destination</option>
+                        <option value="bali">Bali, Indonesia</option>
+                        <option value="japan">Tokyo, Japan</option>
+                        <option value="france">Paris, France</option>
+                        <option value="usa">California, USA</option>
+                      </select>
+                      <label for="destination">Destination</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <select
+                        class="form-select border-0 bg-light"
+                        id="persons"
+                      >
+                        <option value="1">1 Person</option>
+                        <option value="2">2 Persons</option>
+                        <option value="3">3 Persons</option>
+                        <option value="4">4+ Persons</option>
+                      </select>
+                      <label for="persons">Persons</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <select
+                        class="form-select border-0 bg-light"
+                        id="category"
+                      >
+                        <option value="standard">Standard</option>
+                        <option value="family">Family</option>
+                        <option value="luxury">Luxury</option>
+                        <option value="adventure">Adventure</option>
+                      </select>
+                      <label for="category">Tour Type</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <textarea
+                        class="form-control border-0 bg-light"
+                        id="message"
+                        placeholder="Special Request"
+                        style="height: 100px"
+                      ></textarea>
+                      <label for="message">Special Request</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button
+                      type="submit"
+                      class="btn btn-primary w-100 py-3 fw-bold rounded-pill"
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hero / Book Info End -->
         <!-- Travel Guide Start -->
         <div class="container-fluid guide py-5">
             <div class="container py-5">
@@ -1805,6 +1871,47 @@ Find peace, comfort, and unforgettable ocean views.</p>
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="lib/lightbox/js/lightbox.min.js"></script>
         
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const username = localStorage.getItem("travelaLoggedIn");
+    const role = localStorage.getItem("travelaRole");
+    const topbar = document.querySelector(".col-lg-4 .d-inline-flex");
+
+    if (username) {
+      let adminMenu = "";
+      if (role === "admin") {
+        adminMenu = `<a href="management.html" class="dropdown-item text-primary"><i class="fas fa-tools me-2"></i> Website Management</a>`;
+      }
+
+      topbar.innerHTML = `
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown">
+            <small><i class="fa fa-user-circle me-2"></i> Welcome, ${username}</small>
+          </a>
+          <div class="dropdown-menu rounded">
+            <a href="dashboard.html" class="dropdown-item"><i class="fas fa-user me-2"></i> My Dashboard</a>
+            ${adminMenu}
+            <a href="#" id="logoutBtn" class="dropdown-item text-danger"><i class="fas fa-power-off me-2"></i> Logout</a>
+          </div>
+        </div>
+      `;
+
+      // Logout handler
+      setTimeout(() => {
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("travelaLoggedIn");
+            localStorage.removeItem("travelaRole");
+            window.location.reload();
+          });
+        }
+      }, 300);
+    }
+  });
+</script>
+
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
