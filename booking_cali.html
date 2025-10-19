@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Travela - California Trip Booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="California Tour, USA, Los Angeles, San Francisco, Yosemite, Travel Package, Trip Booking"
+      name="keywords"
+    />
+    <meta
+      content="Book your California dream adventure with Travela – explore Los Angeles, San Francisco, and Yosemite with transparent pricing and instant confirmation."
+      name="description"
+    />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet" />
+
+    <style>
+      .summary-box {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .summary-box img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+
+      .total-box {
+        background: #f0f7ff;
+        border: 1px solid #d1e7ff;
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      .btn-book {
+        background-color: #0d6efd;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 50px;
+        width: 100%;
+        padding: 12px 0;
+        border: none;
+      }
+
+      .btn-book:hover {
+        background-color: #084ec4;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-primary px-5 d-none d-lg-block">
+      <div class="row gx-0">
+        <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+          <div class="d-inline-flex align-items-center" style="height: 45px">
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+              href="#"
+              ><i class="fab fa-facebook-f fw-normal"></i
+            ></a>
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+              href="#"
+              ><i class="fab fa-twitter fw-normal"></i
+            ></a>
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+              href="#"
+              ><i class="fab fa-instagram fw-normal"></i
+            ></a>
+            <a
+              class="btn btn-sm btn-outline-light btn-sm-square rounded-circle"
+              href="#"
+              ><i class="fab fa-youtube fw-normal"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center text-lg-end">
+          <div class="d-inline-flex align-items-center" style="height: 45px">
+            <a href="#"
+              ><small class="me-3 text-light"
+                ><i class="fa fa-user me-2"></i>Register</small
+              ></a
+            >
+            <a href="#"
+              ><small class="me-3 text-light"
+                ><i class="fa fa-sign-in-alt me-2"></i>Login</small
+              ></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative p-0">
+      <nav
+        class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
+      >
+        <a href="index.html" class="navbar-brand p-0">
+          <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Travela</h1>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0">
+            <a href="index.html" class="nav-item nav-link">Home</a>
+            <a href="about.html" class="nav-item nav-link">About</a>
+            <a href="services.html" class="nav-item nav-link">Services</a>
+            <a href="packages.html" class="nav-item nav-link">Packages</a>
+            <a href="blog.html" class="nav-item nav-link">Blog</a>
+            <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                >Pages</a
+              >
+              <div class="dropdown-menu m-0">
+                <a href="destination.html" class="dropdown-item">Destination</a>
+                <a href="tour.html" class="dropdown-item">Explore Tour</a>
+                <a href="booking.html" class="dropdown-item">Travel Booking</a>
+                <a href="gallery.html" class="dropdown-item">Our Gallery</a>
+                <a href="guides.html" class="dropdown-item">Travel Guides</a>
+                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                <a href="policy.html" class="dropdown-item"
+                  >Terms & Conditions</a
+                >
+              </div>
+            </div>
+            <a href="contact.html" class="nav-item nav-link">Contact</a>
+          </div>
+          <a
+            href="booking.html"
+            class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4"
+            >Book Now</a
+          >
+        </div>
+      </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <div
+      class="container-fluid bg-breadcrumb"
+      style="
+        background: linear-gradient(
+            rgba(15, 23, 43, 0.6),
+            rgba(15, 23, 43, 0.6)
+          ),
+          url('img/cali_banner.jpg') center/cover no-repeat;
+      "
+    >
+      <div class="container text-center py-5" style="max-width: 900px">
+        <h3 class="text-white display-3 mb-4">California Trip Booking</h3>
+        <ol class="breadcrumb justify-content-center mb-0">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Pages</a></li>
+          <li class="breadcrumb-item active text-white">Booking</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Booking Section -->
+    <div class="container my-5">
+      <div class="row g-5">
+        <!-- Left Form -->
+        <div class="col-lg-7">
+          <div class="bg-light p-4 rounded shadow-sm">
+            <h4 class="mb-4 text-primary">Contact Information</h4>
+            <form>
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Full Name *"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="tel"
+                    class="form-control"
+                    placeholder="Phone Number *"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email *"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Address"
+                  />
+                </div>
+              </div>
+
+              <h5 class="text-primary mb-3">Passengers</h5>
+              <div class="row g-3 align-items-center mb-4">
+                <div class="col-md-4">
+                  <label>Adults</label>
+                  <input type="number" min="1" value="1" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                  <label>Children (2-11 yrs)</label>
+                  <input type="number" min="0" value="0" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                  <label>Infants (Under 2)</label>
+                  <input type="number" min="0" value="0" class="form-control" />
+                </div>
+              </div>
+
+              <h5 class="text-primary mb-3">Notes</h5>
+              <textarea
+                class="form-control mb-3"
+                rows="4"
+                placeholder="Leave a message or special request..."
+              ></textarea>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="terms" />
+                <label class="form-check-label" for="terms">
+                  I agree to the
+                  <a href="policy.html" class="text-primary"
+                    >terms & conditions</a
+                  >.
+                </label>
+              </div>
+
+              <button class="btn-book">Continue to Payment</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Summary -->
+        <div class="col-lg-5">
+          <div class="summary-box">
+            <img src="img/calichinh.jpg" alt="California Tour" />
+            <h5 class="fw-bold mb-2">
+              The New California Adventure – 5 Days 4 Nights
+            </h5>
+            <p class="text-muted mb-3">
+              <i class="fa fa-map-marker-alt text-primary me-2"></i>Los Angeles
+              – San Francisco – Yosemite
+            </p>
+
+            <h6 class="fw-semibold mb-2">Flight Details</h6>
+            <p class="small mb-1">
+              <i class="fa fa-plane text-primary me-2"></i>Departure: 20/08/2025
+              - 09:30 → 15:20
+            </p>
+            <p class="small mb-3">
+              <i class="fa fa-plane-arrival text-primary me-2"></i>Return:
+              25/08/2025 - 13:40 → 19:10
+            </p>
+
+            <div class="d-flex justify-content-between mb-2">
+              <span>1 Adult</span>
+              <span>$449</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Tax & Surcharge</span>
+              <span>$0</span>
+            </div>
+
+            <hr />
+
+            <div class="d-flex justify-content-between mb-2">
+              <span class="fw-bold">Discount Code</span>
+              <a href="#" class="text-decoration-none small text-primary"
+                >Apply</a
+              >
+            </div>
+            <input
+              type="text"
+              class="form-control form-control-sm mb-3"
+              placeholder="Enter discount code"
+            />
+
+            <div class="total-box mb-3">
+              <div class="d-flex justify-content-between">
+                <span class="fw-bold fs-5">Total:</span>
+                <span class="fw-bold fs-5 text-danger">$449</span>
+              </div>
+            </div>
+
+            <button class="btn-book">Confirm Booking</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5 mt-5">
+      <div class="container py-5 text-center text-white">
+        <p class="mb-0">© 2025 Travela | Designed by HTML Codex</p>
+      </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
