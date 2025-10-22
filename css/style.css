@@ -637,6 +637,11 @@
 .packages .packages-carousel .owl-nav .owl-next:hover i {
     color: var(--bs-white);
 }
+
+.packages-item .packages-content .row .col-6 a.btn-hover {
+  white-space: nowrap; 
+  text-align: center;
+}
 /*** Packages End ***/
 
 
