@@ -1179,4 +1179,16 @@
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     background: var(--bs-dark) !important;
 }
+.cong-thuong-logo {
+  height: 45px;
+  width: 120px;
+  margin-top: 10px;
+  display: block;
+  background: #fff;   /* giúp nổi bật logo đỏ trên nền tối */
+  border-radius: 6px;
+  padding: 4px;
+}
+
+
+
 /*** copyright end ***/
