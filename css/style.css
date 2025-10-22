@@ -1180,8 +1180,8 @@
     background: var(--bs-dark) !important;
 }
 .cong-thuong-logo {
-  height: 45px;
-  width: 120px;
+  height: 15px;
+  width: 50px;
   margin-top: 10px;
   display: block;
   background: #fff;   /* giúp nổi bật logo đỏ trên nền tối */
@@ -1192,3 +1192,4 @@
 
 
 /*** copyright end ***/
+
