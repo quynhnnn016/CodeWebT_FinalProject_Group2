@@ -418,6 +418,8 @@
 .bg-breadcrumb .breadcrumb-item a {
     color: var(--bs-secondary) !important;
 }
+
+
 /*** Single Page Hero Header End ***/
 
 
@@ -1193,11 +1195,10 @@
     background: var(--bs-dark) !important;
 }
 .cong-thuong-logo {
-  height: 15px;
-  width: 50px;
+  height:75px;
+  width: 140px;
   margin-top: 10px;
   display: block;
-  background: #fff;   /* giúp nổi bật logo đỏ trên nền tối */
   border-radius: 6px;
   padding: 4px;
 }
@@ -1205,5 +1206,4 @@
 
 
 /*** copyright end ***/
-
 
