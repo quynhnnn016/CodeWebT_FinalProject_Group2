@@ -399,7 +399,20 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    padding: 150px 0 50px 0;
+
+    /* Thay padding bằng flex để canh giữa */
+    display: flex;
+    align-items: center;       /* canh giữa dọc */
+    justify-content: center;   /* canh giữa ngang */
+    height: 350px;             /* chiều cao banner */
+    text-align: center;
+}
+
+.bg-breadcrumb h3 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 48px;
+    margin: 0;
 }
 
 .bg-breadcrumb .breadcrumb-item a {
@@ -1192,4 +1205,5 @@
 
 
 /*** copyright end ***/
+
 
