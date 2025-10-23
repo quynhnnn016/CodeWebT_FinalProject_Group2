@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Travela - Website Management</title>
+    <title>Triply - Website Management</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta
-      content="Travela, Travel Management, Admin Dashboard"
+      content="Triply, Travel Management, Admin Dashboard"
       name="keywords"
     />
     <meta
-      content="Manage travel packages easily with Travela's admin management system."
+      content="Manage travel packages easily with Triply's admin management system."
       name="description"
     />
 
@@ -162,7 +162,7 @@
         class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
       >
         <a href="index.html" class="navbar-brand p-0">
-          <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Travela</h1>
+          <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Triply</h1>
         </a>
         <button
           class="navbar-toggler"
@@ -252,7 +252,7 @@
     <!-- Footer Start -->
     <div class="container-fluid footer py-5 mt-5 bg-primary text-white">
       <div class="container text-center">
-        <p class="mb-0">© 2025 Travela | Designed by HTML Codex</p>
+        <p class="mb-0">© 2025 Triply | Designed by HTML Codex</p>
       </div>
     </div>
     <!-- Footer End -->
@@ -266,7 +266,7 @@
 
     <script>
       // --- Giả lập login ---
-      const user = localStorage.getItem("travelaUser") || "Admin User";
+      const user = localStorage.getItem("TriplyUser") || "Admin User";
 
       // Hiển thị trạng thái login trên trang
       document.getElementById(
@@ -280,12 +280,12 @@
       loginLink.addEventListener("click", (e) => {
         e.preventDefault();
         alert("You have been logged out!");
-        localStorage.removeItem("travelaUser");
+        localStorage.removeItem("TriplyUser");
         window.location.reload();
       });
 
       // --- Dữ liệu tour mặc định ---
-      let packages = JSON.parse(localStorage.getItem("travelaPackages")) || [
+      let packages = JSON.parse(localStorage.getItem("TriplyPackages")) || [
         {
           title: "Venice - Italy",
           location: "Italy",
@@ -344,7 +344,7 @@
           const image = document.getElementById("image").value.trim();
 
           packages.push({ title, location, price, image });
-          localStorage.setItem("travelaPackages", JSON.stringify(packages));
+          localStorage.setItem("TriplyPackages", JSON.stringify(packages));
           renderPackages();
           this.reset();
         });
@@ -353,7 +353,7 @@
       function deletePackage(i) {
         if (confirm("Are you sure you want to delete this package?")) {
           packages.splice(i, 1);
-          localStorage.setItem("travelaPackages", JSON.stringify(packages));
+          localStorage.setItem("TriplyPackages", JSON.stringify(packages));
           renderPackages();
         }
       }
@@ -373,7 +373,7 @@
             price: newPrice,
             image: newImage,
           };
-          localStorage.setItem("travelaPackages", JSON.stringify(packages));
+          localStorage.setItem("TriplyPackages", JSON.stringify(packages));
           renderPackages();
         }
       }

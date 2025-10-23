@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Travela - Register</title>
+    <title>Triply - Register</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="Travela, Register, Signup, Travel Booking" name="keywords" />
+    <meta content="Triply, Register, Signup, Travel Booking" name="keywords" />
     <meta
-      content="Create your Travela account to explore and book amazing tours around the world."
+      content="Create your Triply account to explore and book amazing tours around the world."
       name="description"
     />
 
@@ -105,7 +105,7 @@
 
   <body>
     <div class="register-box">
-      <h3><i class="fa fa-user-plus me-2"></i>Travela Register</h3>
+      <h3><i class="fa fa-user-plus me-2"></i>Triply Register</h3>
 
       <form id="registerForm">
         <div class="mb-3">
@@ -182,7 +182,7 @@
           return;
         }
 
-        let users = JSON.parse(localStorage.getItem("travelaUsers")) || [];
+        let users = JSON.parse(localStorage.getItem("TriplyUsers")) || [];
 
         if (users.some((u) => u.username === username)) {
           showAlert("Username already exists!", "warning");
@@ -190,7 +190,7 @@
         }
 
         users.push({ username, email, password });
-        localStorage.setItem("travelaUsers", JSON.stringify(users));
+        localStorage.setItem("TriplyUsers", JSON.stringify(users));
 
         showAlert("Registration successful! Redirecting...", "success");
 
