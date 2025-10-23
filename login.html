@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Travela - Login</title>
+    <title>Triply - Login</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="Travela, Login, Account, Travel Booking" name="keywords" />
+    <meta content="Triply, Login, Account, Travel Booking" name="keywords" />
     <meta
-      content="Login to your Travela account to manage your bookings and explore amazing travel packages."
+      content="Login to your Triply account to manage your bookings and explore amazing travel packages."
       name="description"
     />
 
@@ -105,7 +105,7 @@
 
   <body>
     <div class="login-box">
-      <h3><i class="fa fa-user-circle me-2"></i>Travela Login</h3>
+      <h3><i class="fa fa-user-circle me-2"></i>Triply Login</h3>
 
       <form id="loginForm">
         <div class="mb-3">
@@ -150,22 +150,22 @@
     <!-- JS Logic -->
     <script>
       // ====== Default accounts setup ======
-      if (!localStorage.getItem("travelaUsers")) {
+      if (!localStorage.getItem("TriplyUsers")) {
         const defaultUsers = [
           {
             username: "admin",
             password: "123456",
-            email: "admin@travela.com",
+            email: "admin@Triply.com",
             role: "admin",
           },
           {
             username: "traveler",
             password: "123456",
-            email: "user@travela.com",
+            email: "user@Triply.com",
             role: "user",
           },
         ];
-        localStorage.setItem("travelaUsers", JSON.stringify(defaultUsers));
+        localStorage.setItem("TriplyUsers", JSON.stringify(defaultUsers));
       }
 
       const form = document.getElementById("loginForm");
@@ -176,15 +176,15 @@
 
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value.trim();
-        const users = JSON.parse(localStorage.getItem("travelaUsers")) || [];
+        const users = JSON.parse(localStorage.getItem("TriplyUsers")) || [];
 
         const found = users.find(
           (user) => user.username === username && user.password === password
         );
 
         if (found) {
-          localStorage.setItem("travelaLoggedIn", username);
-          localStorage.setItem("travelaRole", found.role);
+          localStorage.setItem("TriplyLoggedIn", username);
+          localStorage.setItem("TriplyRole", found.role);
 
           alertBox.classList.remove("alert-danger");
           alertBox.classList.add("alert-success");

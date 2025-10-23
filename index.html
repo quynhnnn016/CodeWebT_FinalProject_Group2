@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Travela - Tourism Website Template</title>
+        <title>Triply - Tourism Website</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -75,7 +75,7 @@
         <div class="container-fluid position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Travela</h1>
+                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Triply</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -96,6 +96,7 @@
                                 <a href="guides.html" class="dropdown-item">Travel Guides</a>
                                 <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                                 <a href="policy.html" class="dropdown-item">Terms & Conditions</a>
+                                <a href="help.html" class="dropdown-item">Help</a>
                             </div>
                         </div>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -222,13 +223,12 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-6">
                         <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 h-100">
-                             <div class="service-icon p-4">
+                            <div class="service-icon p-4">
                                 <i class="fa fa-map-marker-alt fa-4x text-primary"></i> </div>
                             <div class="service-content">
                                 <h5 class="mb-4">Domestic Tours</h5>
                                 <p class="mb-0">Explore the breathtaking beauty and rich culture of Vietnam. From majestic mountains and stunning coastlines to vibrant cities and ancient traditions, Triply offers curated domestic tours for every traveler. Discover hidden gems and popular destinations with ease. Your unforgettable Vietnamese journey starts here.</p>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -1275,8 +1275,8 @@
         
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const username = localStorage.getItem("travelaLoggedIn");
-    const role = localStorage.getItem("travelaRole");
+    const username = localStorage.getItem("TriplyLoggedIn");
+    const role = localStorage.getItem("TriplyRole");
     const topbar = document.querySelector(".col-lg-4 .d-inline-flex");
 
     if (username) {
@@ -1304,8 +1304,8 @@
         if (logoutBtn) {
           logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            localStorage.removeItem("travelaLoggedIn");
-            localStorage.removeItem("travelaRole");
+            localStorage.removeItem("TriplyLoggedIn");
+            localStorage.removeItem("TriplyRole");
             window.location.reload();
           });
         }
