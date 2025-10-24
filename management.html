@@ -249,6 +249,62 @@
       <div id="packageList" class="row g-4"></div>
     </div>
 
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">
+              <i class="fas fa-edit me-2"></i>Edit Package
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="editTitle" class="form-label">Package Title</label>
+                  <input type="text" class="form-control" id="editTitle" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="editLocation" class="form-label">Location</label>
+                  <input type="text" class="form-control" id="editLocation" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="editPrice" class="form-label">Price ($)</label>
+                  <input type="number" class="form-control" id="editPrice" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="editImage" class="form-label">Image URL</label>
+                  <input type="text" class="form-control" id="editImage" required>
+                </div>
+                <div class="col-12">
+                  <label for="editDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="editDescription" rows="3" placeholder="Enter package description..."></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label for="editDuration" class="form-label">Duration (days)</label>
+                  <input type="number" class="form-control" id="editDuration" placeholder="e.g., 3">
+                </div>
+                <div class="col-md-6">
+                  <label for="editCapacity" class="form-label">Max Capacity</label>
+                  <input type="number" class="form-control" id="editCapacity" placeholder="e.g., 20">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <i class="fas fa-times me-2"></i>Cancel
+            </button>
+            <button type="button" class="btn btn-primary" id="saveEditBtn">
+              <i class="fas fa-save me-2"></i>Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer Start -->
     <div class="container-fluid footer py-5 mt-5 bg-primary text-white">
       <div class="container text-center">
@@ -291,20 +347,31 @@
           location: "Italy",
           price: 349,
           image: "img/italy_tour.webp",
+          description: "Discover the romantic canals and historic architecture of Venice",
+          duration: 3,
+          capacity: 15
         },
         {
           title: "The New California",
           location: "USA",
           price: 449,
           image: "img/calichinh.jpg",
+          description: "Explore the Golden State from San Francisco to Los Angeles",
+          duration: 5,
+          capacity: 20
         },
         {
           title: "Discover Japan",
           location: "Japan",
           price: 549,
           image: "img/japan_tour.webp",
+          description: "Experience the perfect blend of tradition and modernity in Japan",
+          duration: 7,
+          capacity: 12
         },
       ];
+
+      let currentEditIndex = -1;
 
       const listEl = document.getElementById("packageList");
 
@@ -361,22 +428,59 @@
       // --- Chỉnh sửa package ---
       function editPackage(i) {
         const pkg = packages[i];
-        const newTitle = prompt("Edit Title:", pkg.title);
-        const newLocation = prompt("Edit Location:", pkg.location);
-        const newPrice = prompt("Edit Price:", pkg.price);
-        const newImage = prompt("Edit Image URL:", pkg.image);
-
-        if (newTitle && newLocation && newPrice && newImage) {
-          packages[i] = {
-            title: newTitle,
-            location: newLocation,
-            price: newPrice,
-            image: newImage,
-          };
-          localStorage.setItem("TriplyPackages", JSON.stringify(packages));
-          renderPackages();
-        }
+        currentEditIndex = i;
+        
+        // Fill form with current data
+        document.getElementById('editTitle').value = pkg.title || '';
+        document.getElementById('editLocation').value = pkg.location || '';
+        document.getElementById('editPrice').value = pkg.price || '';
+        document.getElementById('editImage').value = pkg.image || '';
+        document.getElementById('editDescription').value = pkg.description || '';
+        document.getElementById('editDuration').value = pkg.duration || '';
+        document.getElementById('editCapacity').value = pkg.capacity || '';
+        
+        // Show modal
+        const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+        editModal.show();
       }
+
+      // --- Save edit ---
+      document.getElementById('saveEditBtn').addEventListener('click', function() {
+        if (currentEditIndex >= 0) {
+          const title = document.getElementById('editTitle').value.trim();
+          const location = document.getElementById('editLocation').value.trim();
+          const price = document.getElementById('editPrice').value.trim();
+          const image = document.getElementById('editImage').value.trim();
+          const description = document.getElementById('editDescription').value.trim();
+          const duration = document.getElementById('editDuration').value.trim();
+          const capacity = document.getElementById('editCapacity').value.trim();
+
+          if (title && location && price && image) {
+            packages[currentEditIndex] = {
+              title,
+              location,
+              price,
+              image,
+              description,
+              duration: duration ? parseInt(duration) : null,
+              capacity: capacity ? parseInt(capacity) : null
+            };
+            localStorage.setItem("TriplyPackages", JSON.stringify(packages));
+            renderPackages();
+            
+            // Hide modal
+            const editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            editModal.hide();
+            
+            // Reset form
+            document.getElementById('editForm').reset();
+            currentEditIndex = -1;
+          } else {
+            alert('Please fill in all required fields (Title, Location, Price, Image)');
+          }
+        }
+      });
     </script>
+    <script src="js/auth.js"></script>
   </body>
 </html>

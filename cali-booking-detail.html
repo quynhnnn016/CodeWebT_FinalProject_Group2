@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Triply - California Tour Booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Triply, Booking Detail, California Tour" name="keywords" />
+    <meta
+      content="View your detailed booking information for The New California trip, including itinerary and payment status."
+      name="description"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons & Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <style>
+      body {
+        background-color: #f5f7fa;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .booking-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        padding: 30px;
+      }
+
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .info-item span:first-child {
+        font-weight: 600;
+        color: #333;
+      }
+
+      .badge-status {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 6px;
+      }
+
+      .badge-warning {
+        background-color: #ffc107;
+        color: #000;
+      }
+
+      .section-title {
+        font-weight: 700;
+        color: #0d6efd;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+      }
+
+      .section-title i {
+        margin-right: 6px;
+      }
+
+      .btn-action {
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-weight: 600;
+      }
+
+      .booking-summary {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+      }
+
+      h4.section-title::before,
+      h4.section-title::after {
+        content: none !important;
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <div class="container-fluid position-relative p-0">
+      <nav
+        class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
+      >
+        <a href="index.html" class="navbar-brand p-0">
+          <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Triply</h1>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0">
+            <a href="index.html" class="nav-item nav-link">Home</a>
+            <a href="about.html" class="nav-item nav-link">About</a>
+            <a href="services.html" class="nav-item nav-link">Services</a>
+            <a href="packages.html" class="nav-item nav-link">Packages</a>
+            <a href="blog.html" class="nav-item nav-link">Blog</a>
+            <a href="contact.html" class="nav-item nav-link">Contact</a>
+          </div>
+          <a
+            href="booking.html"
+            class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4"
+            >Book Now</a
+          >
+        </div>
+      </nav>
+    </div>
+
+    <!-- Header -->
+    <div
+      class="container-fluid bg-breadcrumb py-5 mb-5"
+      style="
+        background: linear-gradient(
+            rgba(15, 23, 43, 0.6),
+            rgba(15, 23, 43, 0.6)
+          ),
+          url('img/cali_banner.jpg') center/cover no-repeat;
+      "
+    >
+      <div class="container text-center py-5">
+        <h1 class="display-4 text-white mb-3">Booking Details</h1>
+        <p class="text-white mb-0">The New California Tour</p>
+      </div>
+    </div>
+
+    <!-- Booking Info -->
+    <div class="container pb-5">
+      <div class="row g-5">
+        <div class="col-lg-8">
+          <div class="booking-card">
+            <h4 class="section-title"><i class="fas fa-info-circle"></i>Booking Information</h4>
+            <div class="info-item"><span>Booking ID:</span><span>#CAL-2025-002</span></div>
+            <div class="info-item"><span>Customer Name:</span><span>John Doe</span></div>
+            <div class="info-item"><span>Email:</span><span>traveler@triply.com</span></div>
+            <div class="info-item"><span>Phone:</span><span>+1 234 567 8900</span></div>
+            <div class="info-item"><span>Booking Date:</span><span>Jan 20, 2025</span></div>
+            <div class="info-item">
+              <span>Status:</span>
+              <span class="badge-status badge-warning">Pending</span>
+            </div>
+
+            <h4 class="section-title mt-4"><i class="fas fa-plane"></i>Flight Details</h4>
+            <p><i class="fas fa-plane-departure text-primary me-2"></i>Departure: 20/03/2025 - 10:20 → 14:00</p>
+            <p><i class="fas fa-plane-arrival text-primary me-2"></i>Return: 25/03/2025 - 16:45 → 20:15</p>
+
+            <h4 class="section-title mt-4"><i class="fas fa-user-friends"></i>Traveler Info</h4>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-user text-primary me-2"></i>John Doe – Adult</li>
+              <li><i class="fas fa-user text-primary me-2"></i>Emma Stone – Adult</li>
+            </ul>
+
+            <h4 class="section-title mt-4"><i class="fas fa-map-marked-alt"></i>Itinerary</h4>
+            <ul>
+              <li>Day 1: Arrival in San Francisco</li>
+              <li>Day 2: Golden Gate Bridge & City Tour</li>
+              <li>Day 3: Road Trip to Yosemite National Park</li>
+              <li>Day 4: Travel to Los Angeles</li>
+              <li>Day 5: Hollywood & Santa Monica Beach</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div class="col-lg-4">
+          <div class="booking-summary">
+            <h5 class="text-primary mb-3"><i class="fas fa-receipt me-2"></i>Payment Summary</h5>
+            <div class="info-item"><span>Package:</span><span>The New California</span></div>
+            <div class="info-item"><span>Price per Person:</span><span>$1,299</span></div>
+            <div class="info-item"><span>Travelers:</span><span>2 Adults</span></div>
+            <div class="info-item"><span>Taxes & Fees:</span><span>$0</span></div>
+            <hr />
+            <div class="info-item fw-bold"><span>Total:</span><span class="text-danger">$2,598</span></div>
+
+            <div class="text-center mt-4">
+              <button class="btn btn-primary btn-action mb-2">
+                <i class="fas fa-file-download me-2"></i>Download Invoice
+              </button>
+              <button class="btn btn-outline-danger btn-action">
+                <i class="fas fa-times me-2"></i>Cancel Booking
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="container-fluid footer py-5" style="background-color: #0b1b31">
+      <div class="container text-center text-white">
+        <p class="mb-0">
+          © 2025 Triply | Designed by <a href="#" class="text-white">Triply Team</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

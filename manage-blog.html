@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Triply - Blog Management</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet"> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Topbar -->
+  <div class="container-fluid bg-primary px-5 d-none d-lg-block">
+    <div class="row gx-0">
+      <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+        <div class="d-inline-flex align-items-center" style="height: 45px;">
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-twitter"></i></a>
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-4 text-center text-lg-end">
+        <div id="topbarUserArea" class="d-inline-flex align-items-center" style="height: 45px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+      <a href="index.html" class="navbar-brand p-0">
+        <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Triply</h1>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+          <a href="index.html" class="nav-item nav-link">Home</a>
+          <a href="about.html" class="nav-item nav-link">About</a>
+          <a href="services.html" class="nav-item nav-link">Services</a>
+          <a href="packages.html" class="nav-item nav-link">Packages</a>
+          <a href="blog.html" class="nav-item nav-link">Blog</a>
+          <a href="contact.html" class="nav-item nav-link">Contact</a>
+        </div>
+        <a href="booking.html" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+      <div class="container py-5 text-center text-white">
+        <h1 class="display-3 mb-3" style="color:white">Blog Management</h1>
+        <p class="fs-5">Create, edit, and manage all travel blog posts</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Table -->
+  <div class="container my-5">
+    <div class="card shadow border-0 rounded-3">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="text-primary"><i class="fas fa-blog me-2"></i>Blog List</h3>
+          <div>
+            <a href="management.html" class="btn btn-outline-secondary rounded-pill me-2">
+              <i class="fas fa-arrow-left me-2"></i>Back
+            </a>
+            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#addBlogModal">
+              <i class="fas fa-plus-circle me-2"></i>Add Blog
+            </button>
+          </div>
+        </div>
+
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Blog -->
+  <div class="modal fade" id="addBlogModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-3">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title"><i class="fas fa-plus-circle me-2"></i>Add New Blog</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addBlogForm">
+            <input type="hidden" id="editIndex">
+            <div class="mb-3">
+              <label class="form-label">Title</label>
+              <input type="text" class="form-control" id="blogTitle" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Author</label>
+              <input type="text" class="form-control" id="blogAuthor" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Date</label>
+              <input type="date" class="form-control" id="blogDate" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <select id="blogStatus" class="form-select">
+                <option>Published</option>
+                <option>Draft</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" id="blogDesc" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 rounded-pill">Save Blog</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="container-fluid footer py-5" style="background-color:#0b1b31;">
+    <div class="container text-center text-white">
+      <p class="mb-0">© 2025 Triply. All rights reserved.</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const username = localStorage.getItem("TriplyLoggedIn");
+      const role = localStorage.getItem("TriplyRole");
+
+      if (!username) {
+        alert("Please log in first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (role !== "admin") {
+        alert("Access denied. Only administrators can view this page.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      const tableBody = document.querySelector("tbody");
+      const form = document.getElementById("addBlogForm");
+
+      let blogs = JSON.parse(localStorage.getItem("TriplyBlogs")) || [
+        { title: "Adventures Trip", author: "NhyNhi", date: "2025-01-28", status: "Published", desc: "Discover breathtaking hikes and adventures across the globe." },
+        { title: "Culture & Cuisine", author: "Huong-Xuan Tran", date: "2025-01-28", status: "Published", desc: "Explore culinary journeys around the world." }
+      ];
+
+      function renderBlogs() {
+        tableBody.innerHTML = "";
+        blogs.forEach((b, i) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${b.title}</td>
+            <td>${b.author}</td>
+            <td>${b.date}</td>
+            <td><span class="badge ${b.status === "Published" ? "bg-success" : "bg-secondary"} px-3 py-2">${b.status}</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary me-2" onclick="editBlog(${i})"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteBlog(${i})"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      }
+
+      renderBlogs();
+
+      // Add or Edit Blog
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("blogTitle").value.trim();
+        const author = document.getElementById("blogAuthor").value.trim();
+        const date = document.getElementById("blogDate").value;
+        const status = document.getElementById("blogStatus").value;
+        const desc = document.getElementById("blogDesc").value.trim();
+        const editIndex = document.getElementById("editIndex").value;
+
+        if (editIndex) {
+          blogs[editIndex] = { title, author, date, status, desc };
+        } else {
+          blogs.push({ title, author, date, status, desc });
+        }
+
+        localStorage.setItem("TriplyBlogs", JSON.stringify(blogs));
+        renderBlogs();
+        form.reset();
+        document.getElementById("editIndex").value = "";
+        bootstrap.Modal.getInstance(document.getElementById("addBlogModal")).hide();
+      });
+
+      window.deleteBlog = (index) => {
+        if (confirm("Delete this blog?")) {
+          blogs.splice(index, 1);
+          localStorage.setItem("TriplyBlogs", JSON.stringify(blogs));
+          renderBlogs();
+        }
+      };
+
+      window.editBlog = (index) => {
+        const b = blogs[index];
+        document.getElementById("editIndex").value = index;
+        document.getElementById("blogTitle").value = b.title;
+        document.getElementById("blogAuthor").value = b.author;
+        document.getElementById("blogDate").value = b.date;
+        document.getElementById("blogStatus").value = b.status;
+        document.getElementById("blogDesc").value = b.desc;
+        document.querySelector(".modal-title").innerHTML = `<i class="fas fa-edit me-2"></i>Edit Blog`;
+        new bootstrap.Modal(document.getElementById("addBlogModal")).show();
+      };
+    });
+  </script>
+</body>
+</html>

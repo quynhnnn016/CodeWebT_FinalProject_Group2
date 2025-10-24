@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Triply - User Profile</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Triply, Profile, User Account, Travel Booking" name="keywords">
+        <meta content="Manage your Triply account profile, bookings, and travel preferences." name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Topbar Start -->
+        <div class="container-fluid bg-primary px-5 d-none d-lg-block">
+            <div class="row gx-0">
+                <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center" style="height: 45px;">
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <div class="d-inline-flex align-items-center" style="height: 45px;">
+                        <a href="register.html"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
+                        <a href="login.html"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
+                            <div class="dropdown-menu rounded">
+                                <a href="profile.html" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Topbar End -->
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Triply</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="services.html" class="nav-item nav-link">Services</a>
+                        <a href="packages.html" class="nav-item nav-link">Packages</a>
+                        <a href="blog.html" class="nav-item nav-link">Blog</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="destination.html" class="dropdown-item">Destination</a>
+                                <a href="tour.html" class="dropdown-item">Explore Tour</a>
+                                <a href="guides.html" class="dropdown-item">Travel Guides</a>
+                                <a href="testimonial.html" class="dropdown-item">Review</a>
+                                <a href="policy.html" class="dropdown-item">Terms & Conditions</a>
+                                <a href="help.html" class="dropdown-item">Help</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                    <a href="booking.html" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
+                </div>
+            </nav>
+
+            <!-- Hero Section -->
+            <div class="container-fluid bg-primary py-5 mb-5" style="background: linear-gradient(rgba(19, 53, 123, 0.8), rgba(19, 53, 123, 0.8)), url('img/hero-bg.jpg') center/cover no-repeat;">
+                <div class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 text-center">
+                            <h1 class="display-3 text-white mb-4">My Profile</h1>
+                            <p class="fs-5 text-white mb-0">Manage your account information and travel preferences</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- Profile Section Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <!-- Profile Sidebar -->
+                    <div class="col-lg-4">
+                        <div class="bg-light rounded p-4 h-100">
+                             <div class="text-center mb-4">
+                                 <div class="position-relative d-inline-block">
+                                     <img id="profileAvatar" src="img/avatar.jpg" class="rounded-circle" width="120" height="120" alt="Profile Avatar" style="object-fit: cover;">
+                                     <button class="btn btn-primary btn-sm position-absolute bottom-0 end-0 rounded-circle" style="width: 35px; height: 35px;">
+                                         <i class="fas fa-camera"></i>
+                                     </button>
+                                 </div>
+                                 <h4 class="mt-3 mb-1" id="profileUsername">Jack97</h4>
+                                 <p class="text-muted mb-0" id="profileEmail">Loading...</p>
+                                 <span class="badge mt-2" id="profileRole">Loading...</span>
+                             </div>
+                            
+                             <div class="list-group list-group-flush" id="profileMenu">
+                                 <a href="#profile-info" class="list-group-item list-group-item-action active" data-bs-toggle="tab">
+                                     <i class="fas fa-user me-2"></i> Profile Information
+                                 </a>
+                                 <a href="#bookings" class="list-group-item list-group-item-action user-only" data-bs-toggle="tab">
+                                     <i class="fas fa-calendar-alt me-2"></i> My Bookings
+                                 </a>
+                                 <a href="#favorites" class="list-group-item list-group-item-action user-only" data-bs-toggle="tab">
+                                     <i class="fas fa-heart me-2"></i> Favorites
+                                 </a>
+                                 <a href="#admin-panel" class="list-group-item list-group-item-action admin-only" data-bs-toggle="tab" style="display: none;">
+                                     <i class="fas fa-tools me-2"></i> Admin Panel
+                                 </a>
+                                 <a href="#settings" class="list-group-item list-group-item-action" data-bs-toggle="tab">
+                                     <i class="fas fa-cog me-2"></i> Settings
+                                 </a>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Content -->
+                    <div class="col-lg-8">
+                        <div class="tab-content">
+                            <!-- Profile Information Tab -->
+                            <div class="tab-pane fade show active" id="profile-info">
+                                <div class="bg-light rounded p-4">
+                                    <h4 class="mb-4"><i class="fas fa-user me-2"></i>Profile Information</h4>
+                                    
+                                    <form id="profileForm">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label for="firstName" class="form-label">First Name</label>
+                                                <input type="text" class="form-control" id="firstName" value="John">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="lastName" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" id="lastName" value="Doe">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email" value="john.doe@example.com">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="phone" class="form-label">Phone</label>
+                                                <input type="tel" class="form-control" id="phone" value="+1 234 567 8900">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="birthDate" class="form-label">Birth Date</label>
+                                                <input type="date" class="form-control" id="birthDate" value="1990-01-01">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="country" class="form-label">Country</label>
+                                                <select class="form-select" id="country">
+                                                    <option value="US">United States</option>
+                                                    <option value="CA">Canada</option>
+                                                    <option value="UK">United Kingdom</option>
+                                                    <option value="AU">Australia</option>
+                                                    <option value="VN">Vietnam</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="bio" class="form-label">Bio</label>
+                                                <textarea class="form-control" id="bio" rows="3" placeholder="Tell us about yourself...">Passionate traveler exploring the world one destination at a time. Love adventure, culture, and making memories.</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-4">
+                                            <button type="submit" class="btn btn-primary me-2">
+                                                <i class="fas fa-save me-2"></i>Save Changes
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary">
+                                                <i class="fas fa-undo me-2"></i>Reset
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- My Bookings Tab -->
+                            <div class="tab-pane fade" id="bookings">
+                                <div class="bg-light rounded p-4">
+                                    <h4 class="mb-4"><i class="fas fa-calendar-alt me-2"></i>My Bookings</h4>
+                                    
+                                    <div class="row g-4">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-3">
+                                                            <img src="img/packages-1.jpg" class="img-fluid rounded" alt="Thailand Trip">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h5 class="card-title">Thailand Trip</h5>
+                                                            <p class="card-text text-muted">3 days • 2 Person</p>
+                                                            <p class="card-text">Bangkok, Phuket</p>
+                                                            <span class="badge bg-success">Confirmed</span>
+                                                        </div>
+                                                        <div class="col-md-3 text-end">
+                                                            <h5 class="text-primary">$649.00</h5>
+                                                            <p class="text-muted small">Booked on Jan 15, 2024</p>
+                                                            <button class="btn btn-outline-primary btn-sm" onclick="window.location.href='thailand-booking-detail.html'">
+                                                                View Details
+                                                              </button>
+                                                              
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-3">
+                                                            <img src="img/packages-2.jpg" class="img-fluid rounded" alt="California Tour">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h5 class="card-title">The New California</h5>
+                                                            <p class="card-text text-muted">5 days • 2 Person</p>
+                                                            <p class="card-text">San Francisco, Los Angeles</p>
+                                                            <span class="badge bg-warning">Pending</span>
+                                                        </div>
+                                                        <div class="col-md-3 text-end">
+                                                            <h5 class="text-primary">$1,299.00</h5>
+                                                            <p class="text-muted small">Booked on Jan 20, 2024</p>
+                                                            <button class="btn btn-outline-primary btn-sm" onclick="window.location.href='cali-booking-detail.html'">
+                                                                View Details
+                                                              </button>
+                                                              
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Favorites Tab -->
+<div class="tab-pane fade" id="favorites">
+    <div class="bg-light rounded p-4">
+      <h4 class="mb-4"><i class="fas fa-heart me-2"></i>My Favorites</h4>
+  
+      <div class="row g-4">
+        <!-- California Card -->
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm border-0">
+            <img src="img/italy_banner.webp" class="card-img-top" alt="The New California">
+            <div class="card-body">
+              <h5 class="card-title">Venice - Italy</h5>
+              <p class="card-text text-muted">Venice - Italy</p>
+              <p class="small text-secondary">
+                From sun-soaked beaches to snow-capped mountains, California has it all. Don’t hesitate to try it now!
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-primary fw-bold">$449.00</span>
+                <div>
+                  <button class="btn btn-outline-primary btn-sm me-2" onclick="window.location.href='italy.html'">
+                    Read More
+                  </button>
+                  <button class="btn btn-primary btn-sm"onclick="window.location.href='italy_booking.html'">Book Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Japan Card -->
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm border-0">
+            <img src="img/japan-main.webp" class="card-img-top" alt="Discover Japan">
+            <div class="card-body">
+              <h5 class="card-title">Discover Japan</h5>
+              <p class="card-text text-muted">Tokyo - Japan</p>
+              <p class="small text-secondary">
+                Experience the perfect mix of tradition and technology as you explore Tokyo, Kyoto, and Mount Fuji.
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-primary fw-bold">$549.00</span>
+                <div>
+                  <button class="btn btn-outline-primary btn-sm me-2" onclick="window.location.href='japan.html'">
+                    Read More
+                  </button>
+                  <button class="btn btn-primary btn-sm"onclick="window.location.href='booking_japan.html'">Book Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+                             <!-- Admin Panel Tab -->
+                             <div class="tab-pane fade" id="admin-panel">
+                                 <div class="bg-light rounded p-4">
+                                     <h4 class="mb-4"><i class="fas fa-tools me-2"></i>Admin Panel</h4>
+                                     
+                                     <div class="row g-4">
+                                         <div class="col-md-6">
+                                             <div class="card border-primary">
+                                                 <div class="card-body text-center">
+                                                     <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                                                     <h5 class="card-title">User Management</h5>
+                                                     <p class="card-text">Manage user accounts, roles, and permissions</p>
+                                                     <button class="btn btn-primary" onclick="window.location.href='user-management.html'">
+                                                        Manage Users
+                                                      </button>
+                                                      
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         
+                                         <div class="col-md-6">
+                                             <div class="card border-success">
+                                                 <div class="card-body text-center">
+                                                     <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
+                                                     <h5 class="card-title">Booking Management</h5>
+                                                     <p class="card-text">View and manage all bookings</p>
+                                                     <button class="btn btn-success" onclick="window.location.href='booking-management.html'">
+                                                        Manage Bookings
+                                                      </button>
+                                                      
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         
+                                         <div class="col-md-6">
+                                            <div class="card border-warning">
+                                              <div class="card-body text-center">
+                                                <i class="fas fa-blog fa-3x text-warning mb-3"></i>
+                                                <h5 class="card-title">Blog Management</h5>
+                                                <p class="card-text">Create, edit, and manage travel blog posts</p>
+                                                <a href="manage-blog.html" class="btn btn-warning">Manage Blogs</a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          
+                                         
+                                         <div class="col-md-6">
+                                             <div class="card border-info">
+                                                 <div class="card-body text-center">
+                                                     <i class="fas fa-cog fa-3x text-info mb-3"></i>
+                                                     <h5 class="card-title">Packages Management</h5>
+                                                     <p class="card-text">Add, edit, delete packages</p>
+                                                     <button class="btn btn-info" onclick="window.location.href='management.html'">
+                                                        Packages Management
+                                                      </button>
+                                                      
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     
+                                     <div class="mt-4">
+                                         <h5>Quick Stats</h5>
+                                         <div class="row g-3">
+                                             <div class="col-md-3">
+                                                 <div class="bg-primary text-white p-3 rounded text-center">
+                                                     <h4>1,234</h4>
+                                                     <small>Total Users</small>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <div class="bg-success text-white p-3 rounded text-center">
+                                                     <h4>567</h4>
+                                                     <small>Active Bookings</small>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <div class="bg-warning text-white p-3 rounded text-center">
+                                                     <h4>89</h4>
+                                                     <small>Pending Reviews</small>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <div class="bg-info text-white p-3 rounded text-center">
+                                                     <h4>$45,678</h4>
+                                                     <small>Total Revenue</small>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <!-- Settings Tab -->
+                             <div class="tab-pane fade" id="settings">
+                                 <div class="bg-light rounded p-4">
+                                     <h4 class="mb-4"><i class="fas fa-cog me-2"></i>Account Settings</h4>
+                                     
+                                     <div class="row g-4">
+                                         <div class="col-12">
+                                             <h5>Change Password</h5>
+                                             <form>
+                                                 <div class="row g-3">
+                                                     <div class="col-md-6">
+                                                         <label for="currentPassword" class="form-label">Current Password</label>
+                                                         <input type="password" class="form-control" id="currentPassword">
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <label for="newPassword" class="form-label">New Password</label>
+                                                         <input type="password" class="form-control" id="newPassword">
+                                                     </div>
+                                                     <div class="col-12">
+                                                         <button type="submit" class="btn btn-primary">Update Password</button>
+                                                     </div>
+                                                 </div>
+                                             </form>
+                                         </div>
+                                         
+                                         <div class="col-12">
+                                             <h5>Notification Preferences</h5>
+                                             <div class="form-check">
+                                                 <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                                 <label class="form-check-label" for="emailNotifications">
+                                                     Email Notifications
+                                                 </label>
+                                             </div>
+                                             <div class="form-check">
+                                                 <input class="form-check-input" type="checkbox" id="smsNotifications">
+                                                 <label class="form-check-label" for="smsNotifications">
+                                                     SMS Notifications
+                                                 </label>
+                                             </div>
+                                             <div class="form-check">
+                                                 <input class="form-check-input" type="checkbox" id="marketingEmails" checked>
+                                                 <label class="form-check-label" for="marketingEmails">
+                                                     Marketing Emails
+                                                 </label>
+                                             </div>
+                                         </div>
+                                         
+                                         <div class="col-12">
+                                             <button type="button" class="btn btn-danger">
+                                                 <i class="fas fa-trash me-2"></i>Delete Account
+                                             </button>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Profile Section End -->
+
+        <!-- Footer Start -->
+        <div class="container-fluid footer py-5" style="background-color:#0b1b31;">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <!-- Get In Touch -->
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Get In Touch</h4>
+                            <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-home me-2"></i>669 National Route 1A, HCM City</a>
+                            <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-envelope me-2"></i>info@example.com</a>
+                            <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-phone me-2"></i>+012 345 67890</a>
+                            <div class="d-flex align-items-center mt-3">
+                                <i class="fas fa-share fa-2x text-white me-2"></i>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company -->
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Company</h4>
+                            <a href="index.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Home</a>
+                            <a href="about.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>About</a>
+                            <a href="blog.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Blog</a>
+                        </div>
+                    </div>
+
+                    <!-- Support -->
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Support</h4>
+                            <a href="contact.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Contact</a>
+                            <a href="help.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Help</a>
+                            <a href="policy.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Terms & Conditions</a>
+                        </div>
+                    </div>
+
+                    <!-- Payments -->
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item">
+                            <h4 class="text-white mb-3">Payments</h4>
+                            <div class="footer-bank-card">
+                                <a href="#" class="text-white me-2"><i class="fab fa-cc-visa fa-2x"></i></a>
+                                <a href="#" class="text-white me-2"><i class="fab fa-cc-mastercard fa-2x"></i></a>
+                                <a href="#" class="text-white me-2"><i class="fab fa-cc-paypal fa-2x"></i></a>
+                                <img src="img/cong-thuong.png" alt="Đã đăng ký Bộ Công Thương" class="cong-thuong-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright text-body py-4" style="background-color:#0b1b31;">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6 text-center text-md-end mb-md-0">
+                        <i class="fas fa-copyright me-2"></i>
+                        <a class="text-white" href="#">Triply</a>, All rights reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-start">
+                        Designed by <a class="text-white" href="https://htmlcodex.com">Triply</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        
+        <script src="js/auth.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const role = localStorage.getItem("TriplyRole");
+              const username = localStorage.getItem("TriplyLoggedIn");
+            
+              const avatarEl = document.getElementById("profileAvatar");
+              const nameEl = document.getElementById("profileUsername");
+              const emailEl = document.getElementById("profileEmail");
+              const roleEl = document.getElementById("profileRole");
+            
+              const firstNameEl = document.getElementById("firstName");
+              const lastNameEl = document.getElementById("lastName");
+              const emailInputEl = document.getElementById("email");
+              const phoneEl = document.getElementById("phone");
+              const birthEl = document.getElementById("birthDate");
+              const countryEl = document.getElementById("country");
+              const bioEl = document.getElementById("bio");
+            
+              // Nếu chưa đăng nhập thì chuyển hướng về login
+              if (!username) {
+                alert("Please login first!");
+                window.location.href = "login.html";
+                return;
+              }
+            
+              // ===============================
+              // THÔNG TIN ADMIN
+              // ===============================
+              if (role === "admin") {
+                avatarEl.src = "img/avatar.jpg";
+                nameEl.textContent = "Jack";
+                emailEl.textContent = "jack@triply.com";
+                roleEl.textContent = "Administrator";
+                roleEl.className = "badge bg-danger mt-2";
+            
+                firstNameEl.value = "Jack";
+                lastNameEl.value = "";
+                emailInputEl.value = "jack@triply.com";
+                phoneEl.value = "+84 987 654 321";
+                birthEl.value = "1985-05-15";
+                countryEl.value = "VN";
+                bioEl.value = "Administrator from Vietnam. Oversees Triply platform, manages bookings and users efficiently.";
+              }
+            
+              // ===============================
+              // THÔNG TIN USER THƯỜNG
+              // ===============================
+              else {
+                avatarEl.src = "img/avatar2.png";
+                nameEl.textContent = "G-Dragon";
+                emailEl.textContent = "gdragon@triply.com";
+                roleEl.textContent = "Traveler";
+                roleEl.className = "badge bg-primary mt-2";
+            
+                firstNameEl.value = "G";
+                lastNameEl.value = "Dragon";
+                emailInputEl.value = "gdragon@triply.com";
+                phoneEl.value = "+82 10 4567 8900";
+                birthEl.value = "1988-08-18";
+                countryEl.value = "KR";
+                bioEl.value = "Traveler from South Korea. Passionate about exploring new destinations and sharing experiences.";
+              }
+            
+              // ===============================
+              // ✅ Tự động mở đúng tab theo hash
+              // ===============================
+              const hash = window.location.hash;
+              if (hash) {
+                const tabTrigger = document.querySelector(`[data-bs-toggle="tab"][href="${hash}"]`);
+                if (tabTrigger) {
+                  const tab = new bootstrap.Tab(tabTrigger);
+                  tab.show();
+                }
+              }
+            });
+            </script>
+            
+            
+                
+    </body>
+
+</html>

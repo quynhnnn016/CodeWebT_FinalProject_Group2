@@ -132,7 +132,7 @@
 
         <div
           id="loginAlert"
-          class="alert alert-danger text-center"
+          class="alert text-center"
           role="alert"
         >
           Invalid username or password!
@@ -157,12 +157,16 @@
             password: "123456",
             email: "admin@Triply.com",
             role: "admin",
+            avatar: "img/admin-avatar.jpg",
+            displayName: "Administrator",
           },
           {
             username: "traveler",
             password: "123456",
             email: "user@Triply.com",
             role: "user",
+            avatar: "img/user-avatar.jpg",
+            displayName: "Traveler",
           },
         ];
         localStorage.setItem("TriplyUsers", JSON.stringify(defaultUsers));
@@ -183,21 +187,28 @@
         );
 
         if (found) {
-          localStorage.setItem("TriplyLoggedIn", username);
+          localStorage.setItem("TriplyLoggedIn", found.username);
           localStorage.setItem("TriplyRole", found.role);
+          localStorage.setItem("TriplyAvatar", found.avatar);
+          localStorage.setItem("TriplyDisplayName", found.displayName);
 
           alertBox.classList.remove("alert-danger");
           alertBox.classList.add("alert-success");
-          alertBox.textContent = "Login successful! Redirecting...";
+          alertBox.textContent = "✅ Login successful! Redirecting...";
           alertBox.style.display = "block";
 
+          // Chuyển hướng dựa trên vai trò
           setTimeout(() => {
-            window.location.href = "index.html";
-          }, 1500);
+            if (found.role === "admin") {
+              window.location.href = "adminsite.html";
+            } else {
+              window.location.href = "profile.html";
+            }
+          }, 1200);
         } else {
           alertBox.classList.remove("alert-success");
           alertBox.classList.add("alert-danger");
-          alertBox.textContent = "Invalid username or password!";
+          alertBox.textContent = "❌ Invalid username or password!";
           alertBox.style.display = "block";
         }
       });
@@ -210,5 +221,8 @@
           window.location.href = "register.html";
         });
     </script>
+
+    <!-- Topbar / Auth Control -->
+    <script src="js/auth.js"></script>
   </body>
 </html>
