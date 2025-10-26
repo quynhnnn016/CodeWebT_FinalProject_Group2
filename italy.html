@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Triply | Venice - Italy</title>
+    <title>Venice - Italy | Triply</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta
       content="Italy travel, Venice, Europe tours, canal gondola"
@@ -151,10 +151,14 @@
     </div>
 
     <!-- Hero -->
-    <div
-      class="container-fluid bg-primary py-5 mb-5 hero-header"
-      style="background: url('img/venice_bia.jpg') center/cover no-repeat"
-    >
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header"
+     style="background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
+            url('img/venice_bia.jpg') center/cover no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 180px 0 100px 0;">
+
       <div class="container text-center text-white py-5">
         <h1 class="display-3 fw-bold mb-3" style="color: white">
           Venice - Italy
@@ -177,10 +181,10 @@
           />
         </div>
         <div class="col-lg-6">
-          <h5 class="text-primary text-uppercase mb-3">Hotel Deals</h5>
-          <h1 class="mb-4">Venice 3-Day Tour Package</h1>
+          <h5 class="text-primary text-uppercase mb-3">Trip Deals</h5>
+          <h1 class="mb-4">Venice 7-Day Tour Package</h1>
           <p>
-            Experience the timeless charm of Venice with our 3-day luxury tour.
+            Experience the timeless charm of Venice with our 7-day luxury tour.
             Sail on a romantic gondola through scenic canals, visit St. Mark’s
             Square and Doge’s Palace, and taste authentic Italian cuisine by the
             water.
@@ -242,6 +246,28 @@
         </div>
       </div>
     </div>
+<!-- Gallery End -->
+ 
+ <!-- Comment Section -->
+ <div id="comment-section" style="max-width:800px;margin:60px auto;padding:20px;">
+  <h3 style="margin-bottom:20px;">🤔 Comments</h3>
+
+  <!-- Form nhập bình luận -->
+  <div id="comment-form-wrapper" style="margin-bottom:24px;">
+    <textarea id="comment-input" placeholder="Write your comment here..." rows="3" 
+      style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;resize:none;"></textarea>
+    
+    <button onclick="postComment()" 
+      style="margin-top:10px;padding:10px 20px;border:none;border-radius:6px;background:#0b7dda;color:white;font-weight:600;">
+      Post Comment
+    </button>
+  </div>
+
+  <hr style="margin:30px 0;">
+  <h4>Recent Comments</h4>
+  <div id="comment-list" style="margin-top:10px;"></div>
+</div>
+<!-- Comment End -->
 
     <!-- Footer -->
     <div class="container-fluid subscribe py-5">
