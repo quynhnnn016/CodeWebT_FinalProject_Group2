@@ -1,155 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <title>Booking Successful - Triply</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="booking confirmation, travel success" name="keywords">
-        <meta content="Your tour booking with Triply was successful! View your details or explore more." name="description">
+<head>
+    <meta charset="utf-8">
+    <title>Triply | Booking Detail</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="booking confirmation, travel detail, trip summary" name="keywords">
+    <meta content="View your detailed tour booking information with Triply." name="description">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-        <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
-        <style>
-            /* Internal Style for Success Message */
-            .booking-success-content {
-                min-height: 40vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
-            .success-icon {
-                font-size: 4rem;
-                margin-bottom: 1.5rem;
-                color: var(--bs-success); /* Green color for success */
-            }
-        </style>
-    </head>
+    <style>
+        body {
+            background-color: #f5f7fa; /* Light background for better contrast */
+            font-family: "Roboto", sans-serif;
+        }
 
-    <body>
+        .booking-card { /* Main info card */
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
 
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+        .booking-summary { /* Payment summary card */
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+        }
+
+        .section-title { /* Section headers like "Booking Information" */
+            font-weight: 700;
+            color: var(--bs-primary); /* Use theme's primary color */
+            margin-bottom: 20px;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--bs-primary);
+            display: inline-block; /* Make border fit the text */
+        }
+        .section-title:first-of-type {
+            margin-top: 0; /* No top margin for the first title */
+        }
+        .section-title i {
+            margin-right: 8px;
+        }
+        /* Override default template styles if necessary */
+        h4.section-title::before,
+        h4.section-title::after {
+            content: none !important;
+        }
+
+        .info-item { /* Row for label and value */
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .info-item span:first-child { /* Label (e.g., "Booking ID:") */
+            font-weight: 600;
+            color: #555; /* Darker grey for labels */
+            min-width: 150px; /* Align labels */
+            padding-right: 15px;
+        }
+        .info-item span:last-child { /* Value */
+             text-align: right;
+             color: #333; /* Standard text color */
+        }
+
+        .detail-block { /* Block for multi-line details like Address/Notes */
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa; /* Light grey background */
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .detail-block strong {
+             display: block;
+             margin-bottom: 5px;
+             color: #555;
+        }
+        .detail-block p {
+            margin-bottom: 0;
+            color: #333;
+        }
+
+        .btn-action { /* Buttons in the summary section */
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .btn-action:last-child {
+             margin-bottom: 0;
+        }
+
+        /* Use standard Bootstrap badge colors */
+        .badge.bg-success { background-color: var(--bs-success) !important; }
+        .badge.bg-warning { background-color: var(--bs-warning) !important; color: #333 !important; } /* Ensure text visibility on yellow */
+        .badge.bg-danger { background-color: var(--bs-danger) !important; }
+
+    </style>
+</head>
+
+<body>
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-        <div class="container-fluid bg-primary px-5 d-none d-lg-block">
-            <div class="row gx-0">
-                <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
-                    <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
-                        </div>
-                </div>
-                <div class="col-lg-4 text-center text-lg-end">
-                     <div id="user-auth-section" class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a href="register.html"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
-                        <a href="login.html"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+    </div>
+    <div class="container-fluid bg-primary px-5 d-none d-lg-block">
+        <div class="row gx-0">
+            <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center" style="height: 45px;">
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
                     </div>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end">
+                 <div id="user-auth-section" class="d-inline-flex align-items-center" style="height: 45px;">
+                    <a href="register.html"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
+                    <a href="login.html"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
                 </div>
             </div>
         </div>
-        <div class="container-fluid position-relative p-0">
-             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="index.html" class="navbar-brand p-0">
-                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Triply</h1>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="services.html" class="nav-item nav-link">Services</a>
-                        <a href="packages.html" class="nav-item nav-link">Packages</a>
-                        <a href="blog.html" class="nav-item nav-link">Blog</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
-                             <div class="dropdown-menu m-0">
-                                <a href="destination.html" class="dropdown-item">Destination</a>
-                                <a href="tour.html" class="dropdown-item">Explore Tour</a>
-                                <a href="booking.html" class="dropdown-item active">Travel Booking</a>
-                                <a href="gallery.html" class="dropdown-item">Our Gallery</a>
-                                <a href="guides.html" class="dropdown-item">Travel Guides</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="policy.html" class="dropdown-item">Terms & Conditions</a>
-                                <a href="destination-detail.html" class="dropdown-item">Destination Detail</a>
-                                <a href="tour_category.html" class="dropdown-item">Tour Category</a>
-                                <a href="tour_comingsoon.html" class="dropdown-item">Tour Coming Soon</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                     <a href="booking.html" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
-                </div>
-            </nav>
-        </div>
-        <div class="container-fluid bg-breadcrumb">
-             <div class="container text-center py-5" style="max-width: 900px;">
-                <h3 class="text-white display-3 mb-4">Booking Successful</h1>
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Booking</a></li>
-                    <li class="breadcrumb-item active text-white">Confirmation</li>
-                </ol>
-            </div>
-        </div>
-        
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <h2 class="mb-4">Booking Details</h2>
-                        <div id="booking-details-container" class="card shadow-sm">
-                            <div class="card-body">
-                                <p class="text-center text-muted">Loading booking details...</p>
-                            </div>
-                        </div>
-                        <div class="text-center mt-4">
-                            <a href="profile.html" class="btn btn-outline-primary rounded-pill py-2 px-4">Back to My Bookings</a>
+    </div>
+    <div class="container-fluid position-relative p-0">
+         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="index.html" class="navbar-brand p-0">
+                <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Triply</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                 <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="services.html" class="nav-item nav-link">Services</a>
+                    <a href="packages.html" class="nav-item nav-link">Packages</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
+                         <div class="dropdown-menu m-0">
+                            <a href="destination.html" class="dropdown-item">Destination</a>
+                            <a href="tour_category.html" class="dropdown-item">Tour Category</a>
+                            <a href="gallery.html" class="dropdown-item">Our Gallery</a>
+                            <a href="guides.html" class="dropdown-item">Travel Guides</a>
+                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            <a href="policy.html" class="dropdown-item">Terms & Conditions</a>
                         </div>
                     </div>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                 <a href="packages.html" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Explore Tours</a>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid bg-breadcrumb">
+         <div class="container text-center py-5" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Booking Details</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="profile.html">My Bookings</a></li>
+                <li class="breadcrumb-item active text-white">Booking Detail</li>
+            </ol>
+        </div>
+    </div>
+    <div class="container py-5">
+        <div class="row g-5">
+
+            <div class="col-lg-8">
+                <div class="booking-card" id="booking-info-container">
+                    <p class="text-center text-muted">Loading booking details...</p>
+                </div>
+                <div class="text-center mt-4 d-lg-none">
+                     <a href="profile.html" class="btn btn-outline-primary rounded-pill py-2 px-4">Back to My Bookings</a>
                 </div>
             </div>
+
+            <div class="col-lg-4">
+                <div class="booking-summary" id="payment-summary-container">
+                    <p class="text-center text-muted">Loading summary...</p>
+                </div>
+                 <div class="text-center mt-4 d-none d-lg-block"> 
+                     <a href="profile.html" class="btn btn-outline-primary rounded-pill py-2 px-4">Back to My Bookings</a>
+                </div>
+            </div>
+
         </div>
-        <!-- Footer Start -->
-        <div class="container-fluid footer py-5" style="background-color:#0b1b31;">
-            <div class="container py-5">
-                <div class="row g-5">
-                
-                <!-- Get In Touch -->
-                <div class="col-md-6 col-lg-6 col-xl-3">
+    </div>
+    <div class="container-fluid footer py-5" style="background-color:#0b1b31;">
+        <div class="container py-5">
+            <div class="row g-5">
+                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="footer-item d-flex flex-column">
-                    <h4 class="mb-4 text-white">Get In Touch</h4>
-                    <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-home me-2"></i>669 National Route 1A, HCM City</a>
-                    <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-envelope me-2"></i>info@example.com</a>
-                    <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-phone me-2"></i>+012 345 67890</a>
-                    <div class="d-flex align-items-center mt-3">
-                        <i class="fas fa-share fa-2x text-white me-2"></i>
-                        <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                        <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
-                        <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                        <h4 class="mb-4 text-white">Get In Touch</h4>
+                        <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-home me-2"></i>Address, City</a>
+                        <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-envelope me-2"></i>info@example.com</a>
+                        <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-phone me-2"></i>+012 345 67890</a>
+                        <div class="d-flex align-items-center mt-3">
+                            <i class="fas fa-share fa-2x text-white me-2"></i>
+                            <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Company -->
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="footer-item d-flex flex-column">
                     <h4 class="mb-4 text-white">Company</h4>
@@ -158,78 +231,59 @@
                     <a href="blog.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Blog</a>
                     </div>
                 </div>
-
-                <!-- Support -->
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                    <h4 class="mb-4 text-white">Support</h4>
-                    <a href="contact.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Contact</a>
-                    <a href="help.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Help</a>
-                    <a href="policy.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Terms & Conditions</a>
+                 <div class="col-md-6 col-lg-6 col-xl-3">
+                     <div class="footer-item d-flex flex-column">
+                        <h4 class="mb-4 text-white">Support</h4>
+                        <a href="contact.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Contact</a>
+                        <a href="policy.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Terms & Conditions</a>
                     </div>
-                </div>
-
-                <!-- Payments -->
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item">
-                    <h4 class="text-white mb-3">Payments</h4>
-                    <div class="footer-bank-card">
-                        <a href="#" class="text-white me-2"><i class="fab fa-cc-visa fa-2x"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-cc-mastercard fa-2x"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-cc-paypal fa-2x"></i></a>
-                        <img src="img/cong-thuong.png" alt="Đã đăng ký Bộ Công Thương" class="cong-thuong-logo">
-
+                 </div>
+                 <div class="col-md-6 col-lg-6 col-xl-3">
+                     <div class="footer-item">
+                        <h4 class="text-white mb-3">Payments</h4>
+                        <div class="footer-bank-card">
+                            <a href="#" class="text-white me-2"><i class="fab fa-cc-visa fa-2x"></i></a>
+                            <a href="#" class="text-white me-2"><i class="fab fa-cc-mastercard fa-2x"></i></a>
+                            <a href="#" class="text-white me-2"><i class="fab fa-cc-paypal fa-2x"></i></a>
+                        </div>
                     </div>
-                    </div>
-                </div>
-
-                </div>
+                 </div>
             </div>
         </div>
-        <!-- Footer End -->
-
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright text-body py-4" style="background-color:#0b1b31;">
-            <div class="container">
-                <div class="row g-4 align-items-center">
-                    <div class="col-md-6 text-center text-md-end mb-md-0">
-                        <i class="fas fa-copyright me-2"></i>
-                        <a class="text-white" href="#">Triply</a>, All rights reserved.
-                    </div>
+    </div>
+    <div class="container-fluid copyright text-body py-4" style="background-color:#0b1b31;">
+         <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-end mb-md-0">
+                    <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">Triply</a>, All rights reserved.
+                </div>
                 <div class="col-md-6 text-center text-md-start">
-                    Designed by <a class="text-white" href="https://htmlcodex.com">Triply</a>
-                </div>
+                    Designed by <a class="text-white" href="https://htmlcodex.com">Triply Team</a> 
                 </div>
             </div>
         </div>
-        <!-- Copyright End -->
-        <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+    </div>
+    <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
 
-        <script src="js/main.js"></script>
-        <script src="js/auth.js"></script>
-    </body>
-
+    <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const detailsContainer = document.getElementById('booking-details-container');
-            const loggedInUser = localStorage.getItem("TriplyLoggedIn"); // Check if needed for security
+            const infoContainer = document.getElementById('booking-info-container');
+            const summaryContainer = document.getElementById('payment-summary-container');
+            const loggedInUser = localStorage.getItem("TriplyLoggedIn");
 
             // --- Get Booking ID from URL ---
             const params = new URLSearchParams(window.location.search);
             const bookingId = params.get('id');
-
-            if (!bookingId) {
-                if (detailsContainer) detailsContainer.innerHTML = '<div class="card-body text-center text-danger">Error: Booking ID not found in URL.</div>';
-                return;
-            }
 
             // --- Get Bookings from localStorage ---
             const allBookings = JSON.parse(localStorage.getItem("triplyBookings")) || [];
@@ -237,76 +291,93 @@
             // --- Find the specific booking ---
             const booking = allBookings.find(b => b.bookingId === bookingId);
 
-            if (!booking) {
-                if (detailsContainer) detailsContainer.innerHTML = '<div class="card-body text-center text-danger">Error: Booking not found.</div>';
+            // --- Handle Errors (Booking not found or ID missing) ---
+            if (!bookingId || !booking) {
+                const errorMsg = !bookingId ? 'Booking ID not found in URL.' : 'Booking not found.';
+                if (infoContainer) infoContainer.innerHTML = `<p class="text-center text-danger p-4">Error: ${errorMsg}</p>`;
+                if (summaryContainer) summaryContainer.innerHTML = `<p class="text-center text-danger p-4">Error loading summary.</p>`;
                 return;
             }
 
-            // --- Security Check (Optional but recommended): Ensure the logged-in user owns this booking ---
+            // --- Security Check: Ensure the logged-in user owns this booking ---
              if (!loggedInUser || booking.username !== loggedInUser) {
-                if (detailsContainer) detailsContainer.innerHTML = '<div class="card-body text-center text-danger">Error: You do not have permission to view this booking.</div>';
-                // Optional: Redirect to login or profile page
-                // window.location.href = 'login.html';
+                const errorMsg = 'You do not have permission to view this booking.';
+                if (infoContainer) infoContainer.innerHTML = `<p class="text-center text-danger p-4">Error: ${errorMsg}</p>`;
+                if (summaryContainer) summaryContainer.innerHTML = `<p class="text-center text-danger p-4">Permission denied.</p>`;
                 return;
              }
 
+            // --- Format Data ---
+            const bookingDate = new Date(booking.bookingTimestamp).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); // Ex: 26 Oct 2025
+            const bookingTime = new Date(booking.bookingTimestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); // Ex: 08:36
+            const totalTravelers = (booking.numAdults || 0) + (booking.numChildren || 0) + (booking.numInfants || 0);
+            const statusClass = booking.status === 'Confirmed' ? 'success' : (booking.status === 'Cancelled' ? 'danger' : 'warning');
+            const statusTextColor = booking.status === 'Warning' ? 'dark' : 'white'; // Make warning text dark
 
-            // --- Format Data for Display ---
-            const bookingDate = new Date(booking.bookingTimestamp).toLocaleString('en-GB'); // dd/mm/yyyy, hh:mm:ss
-
-            // --- Generate HTML for Details ---
-            const detailsHTML = `
-                <div class="card-header bg-primary text-white">
-                    Booking ID: ${booking.bookingId}
+            // --- Generate HTML for Left Column (Booking Info) ---
+            let infoHTML = `
+                <h4 class="section-title"><i class="fas fa-receipt"></i>Booking Information</h4>
+                <div class="info-item"><span>Booking ID:</span><span>${booking.bookingId}</span></div>
+                <div class="info-item"><span>Tour Name:</span><span>${booking.tourName || 'N/A'}</span></div>
+                <div class="info-item"><span>Location:</span><span>${booking.tourLocation || 'N/A'}</span></div>
+                <div class="info-item"><span>Booked By:</span><span>${booking.username}</span></div>
+                <div class="info-item"><span>Date Booked:</span><span>${bookingDate} at ${bookingTime}</span></div>
+                <div class="info-item">
+                    <span>Status:</span>
+                    <span class="badge bg-${statusClass} text-${statusTextColor}">${booking.status || 'Pending'}</span>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span><strong>Tour Name:</strong></span>
-                        <span>${booking.tourName || 'N/A'}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                         <span><strong>Location:</strong></span>
-                         <span>${booking.tourLocation || 'N/A'}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                         <span><strong>Booked By:</strong></span>
-                         <span>${booking.username}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span><strong>Date Booked:</strong></span>
-                        <span>${bookingDate}</span>
-                    </li>
-                     <li class="list-group-item d-flex justify-content-between">
-                        <span><strong>Status:</strong></span>
-                        <span class="badge bg-${booking.status === 'Confirmed' ? 'success' : 'warning'}">${booking.status || 'Pending'}</span>
-                    </li>
-                     <li class="list-group-item d-flex justify-content-between">
-                        <span><strong>Total Price:</strong></span>
-                        <span class="fw-bold text-primary">${booking.tourPrice || '$0'}</span>
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Passengers:</strong><br>
-                        - Adults: ${booking.numAdults}<br>
-                        - Children: ${booking.numChildren}<br>
-                        - Infants: ${booking.numInfants}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Contact Information:</strong><br>
-                        - Name: ${booking.contactName}<br>
-                        - Phone: ${booking.contactPhone}<br>
-                        - Email: ${booking.contactEmail}<br>
-                        - Address: ${booking.contactAddress || 'N/A'}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Notes:</strong><br>
-                        ${booking.notes || 'No additional notes.'}
-                    </li>
-                </ul>
+
+                <h4 class="section-title"><i class="fas fa-users"></i>Passenger Details</h4>
+                <div class="info-item"><span>Adults:</span><span>${booking.numAdults}</span></div>
+                ${booking.numChildren > 0 ? `<div class="info-item"><span>Children:</span><span>${booking.numChildren}</span></div>` : ''}
+                ${booking.numInfants > 0 ? `<div class="info-item"><span>Infants:</span><span>${booking.numInfants}</span></div>` : ''}
+                <div class="info-item"><span>Total Travelers:</span><span>${totalTravelers}</span></div>
+
+                <h4 class="section-title"><i class="fas fa-user-circle"></i>Contact Information</h4>
+                <div class="info-item"><span>Contact Name:</span><span>${booking.contactName}</span></div>
+                <div class="info-item"><span>Phone:</span><span>${booking.contactPhone}</span></div>
+                <div class="info-item"><span>Email:</span><span>${booking.contactEmail}</span></div>
+                ${booking.contactAddress ? `
+                <div class="detail-block">
+                   <strong>Address:</strong>
+                   <p>${booking.contactAddress}</p>
+                </div>` : ''}
+
+                ${booking.notes ? `
+                <h4 class="section-title"><i class="fas fa-sticky-note"></i>Additional Notes</h4>
+                <div class="detail-block">
+                    <p>${booking.notes.replace(/\n/g, '<br>')}</p>
+                </div>` : ''}
             `;
 
-            // --- Display Details ---
-            if (detailsContainer) detailsContainer.innerHTML = detailsHTML;
+            // --- Generate HTML for Right Column (Payment Summary & Actions) ---
+            let summaryHTML = `
+                <h4 class="section-title text-primary text-center"><i class="fas fa-dollar-sign me-2"></i>Payment Summary</h4>
+                <div class="info-item"><span>Package:</span><span>${booking.tourName || 'N/A'}</span></div>
+                <div class="info-item"><span>Travelers:</span><span>${totalTravelers}</span></div>
+                <hr class="my-3">
+                <div class="info-item fw-bold fs-5">
+                     <span>Total Paid:</span>
+                     <span class="text-danger">${booking.tourPrice || '$0'}</span>
+                </div>
 
-        });
+                <div class="mt-4 pt-3 border-top"> 
+                    <button class="btn btn-primary btn-action mb-2" onclick="alert('Download invoice feature not implemented yet.')">
+                        <i class="fas fa-file-download me-2"></i>Download Invoice
+                    </button>
+                    ${booking.status !== 'Cancelled' ?
+                    `<a href="cancel-booking.html?id=${booking.bookingId}" class="btn btn-outline-danger btn-action">
+                        <i class="fas fa-times me-2"></i>Cancel Booking
+                    </a>` :
+                    '<p class="text-danger mt-3 fw-bold"><i class="fas fa-ban me-1"></i> Booking Cancelled</p>'}
+                </div>
+            `;
+
+            // --- Display HTML ---
+            if (infoContainer) infoContainer.innerHTML = infoHTML;
+            if (summaryContainer) summaryContainer.innerHTML = summaryHTML;
+
+        }); // End DOMContentLoaded
     </script>
+    </body>
 </html>
