@@ -22,53 +22,53 @@ function checkLoginStatus() {
     topbarContainer.innerHTML = "";
   
    // Tạo dropdown user
-const dropdownHTML = `
-<div class="dropdown">
-  <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown">
-    <small><i class="fa fa-user me-2"></i>${username}</small>
-  </a>
-  <div class="dropdown-menu rounded shadow-sm mt-2">
-    <a href="profile.html" class="dropdown-item">
-      <i class="fas fa-user-alt me-2"></i>My Profile
-    </a>
-
-    ${role === "user" ? `
-      <a href="profile.html#bookings" class="dropdown-item">
-        <i class="fas fa-suitcase-rolling me-2"></i>My Bookings
+    const dropdownHTML = `
+    <div class="dropdown">
+      <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown">
+        <small><i class="fa fa-user me-2"></i>${username}</small>
       </a>
-    ` : ""}
+      <div class="dropdown-menu rounded shadow-sm mt-2">
+        <a href="profile.html" class="dropdown-item">
+          <i class="fas fa-user-alt me-2"></i>My Profile
+        </a>
 
-    <a href="#" class="dropdown-item">
-      <i class="fas fa-bell me-2"></i>Notifications
-    </a>
+        ${role === "user" ? `
+          <a href="profile.html#bookings" class="dropdown-item">
+            <i class="fas fa-suitcase-rolling me-2"></i>My Bookings
+          </a>
+        ` : ""}
 
-    <a href="profile.html#settings" class="dropdown-item">
-      <i class="fas fa-cog me-2"></i>Account Settings
-    </a>
+        <a href="#" class="dropdown-item">
+          <i class="fas fa-bell me-2"></i>Notifications
+        </a>
 
-    ${role === "admin" ? `
-      <div class="dropdown-divider"></div>
-      <a href="adminsite.html" class="dropdown-item">
-        <i class="fas fa-comment-alt me-2"></i>Admin Site
-      </a>
-      <a href="management.html" class="dropdown-item">
-        <i class="fas fa-tools me-2"></i>Packages Management
-      </a>
-      <a href="booking-management.html" class="dropdown-item">
-        <i class="fas fa-chart-bar me-2"></i>Booking Management
-      </a>
-      <a href="user-management.html" class="dropdown-item">
-        <i class="fas fa-users me-2"></i>User Management
-      </a>
-    ` : ""}
+        <a href="profile.html#settings" class="dropdown-item">
+          <i class="fas fa-cog me-2"></i>Account Settings
+        </a>
 
-    <div class="dropdown-divider"></div>
-    <a href="#" class="dropdown-item text-danger" onclick="logout()">
-      <i class="fas fa-power-off me-2"></i>Log Out
-    </a>
-  </div>
-</div>
-`;
+        ${role === "admin" ? `
+          <div class="dropdown-divider"></div>
+          <a href="adminsite.html" class="dropdown-item">
+            <i class="fas fa-comment-alt me-2"></i>Admin Site
+          </a>
+          <a href="management.html" class="dropdown-item">
+            <i class="fas fa-tools me-2"></i>Packages Management
+          </a>
+          <a href="booking-management.html" class="dropdown-item">
+            <i class="fas fa-chart-bar me-2"></i>Booking Management
+          </a>
+          <a href="user-management.html" class="dropdown-item">
+            <i class="fas fa-users me-2"></i>User Management
+          </a>
+        ` : ""}
+
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item text-danger" onclick="logout()">
+          <i class="fas fa-power-off me-2"></i>Log Out
+        </a>
+      </div>
+    </div>
+    `;
 
     topbarContainer.innerHTML = dropdownHTML;
   }

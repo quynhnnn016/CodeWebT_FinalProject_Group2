@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Triply - Login</title>
+    <title>Triply | Login</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Triply, Login, Account, Travel Booking" name="keywords" />
     <meta
@@ -144,6 +144,12 @@
             >Register here</a
           >
         </p>
+        <p class="text-center mt-3">
+          Back to Homepage?
+          <a href="index.html" id="registerLink" class="text-link"
+            >Click here</a
+          >
+        </p>
       </form>
     </div>
 
@@ -194,7 +200,7 @@
 
           alertBox.classList.remove("alert-danger");
           alertBox.classList.add("alert-success");
-          alertBox.textContent = "✅ Login successful! Redirecting...";
+          alertBox.textContent = "Login successful! Redirecting...";
           alertBox.style.display = "block";
 
           // Chuyển hướng dựa trên vai trò
@@ -202,13 +208,14 @@
             if (found.role === "admin") {
               window.location.href = "adminsite.html";
             } else {
+              debugger;
               window.location.href = "profile.html";
             }
           }, 1200);
         } else {
           alertBox.classList.remove("alert-success");
           alertBox.classList.add("alert-danger");
-          alertBox.textContent = "❌ Invalid username or password!";
+          alertBox.textContent = "Invalid username or password!";
           alertBox.style.display = "block";
         }
       });
