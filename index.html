@@ -172,7 +172,60 @@
             </div>
         </div>
         <!-- Navbar & Hero End -->
-
+        <div class="container my-5">
+            <div class="row g-4 justify-content-center">
+          
+              <!-- 🌤 Weather Widget -->
+              <div class="col-md-6 d-flex">
+                <div class="card shadow-lg border-0 rounded-4 text-white text-center"
+                     style="background: linear-gradient(135deg, #7791c6, #1a4d9c); height: 380px; width: 100%;">
+                  <div class="card-body d-flex flex-column justify-content-center">
+                    <h3 class="card-title mb-3">
+                      <i class="fas fa-cloud-sun me-2" style="color: white !important;">Weather Forecast</i>
+                      
+                    </h3>
+          
+                    <div class="input-group mb-3 px-3">
+                      <select id="province_select" class="form-select rounded-pill">
+                        <option value="">-- Select Province --</option>
+                      </select>
+                    </div>
+          
+                    <div id="weather_result" class="pt-2">
+                      <p class="mb-0">Select a province to see weather forecast</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- 💰 Currency Widget -->
+              <div class="col-md-6 d-flex">
+                <div class="card shadow-lg border-0 rounded-4 text-white text-center"
+                     style="background: linear-gradient(135deg, #7791c6, #1a4d9c); height: 380px; width: 100%;">
+                  <div class="card-body d-flex flex-column justify-content-center">
+                    <h3 class="card-title mb-3">
+                      <i class="fas fa-dollar-sign me-2" style="color: white !important;">Currency Exchange Rates</i>
+                      
+                    </h3>
+          
+                    <div id="currency_result" class="pt-2">
+                      <div id="exchange_rates">
+                        <div class="text-center py-2">
+                          <div class="spinner-border text-light spinner-border-sm"></div>
+                          Loading rates...
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+            </div>
+          </div>
+          
+          
+  
+  
         <!-- About Start -->
         <div class="container-fluid about py-5">
             <div class="container py-5">
@@ -1248,6 +1301,116 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script src="js/auth.js"></script>
+        
+        <!-- Search Functionality -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const searchInput = document.querySelector('.search-bar input');
+                const searchButton = document.querySelector('.search-bar button');
+                
+                // Initialize default packages if not exists
+                if (!localStorage.getItem("TriplyPackages")) {
+                    const defaultPackages = [
+                        {
+                            title: "Venice - Italy",
+                            location: "Italy",
+                            price: 349,
+                            image: "img/italy_tour.webp",
+                            description: "Discover the romantic canals and historic architecture of Venice",
+                            duration: 3,
+                            capacity: 15
+                        },
+                        {
+                            title: "The New California",
+                            location: "USA",
+                            price: 449,
+                            image: "img/calichinh.jpg",
+                            description: "Explore the Golden State from San Francisco to Los Angeles",
+                            duration: 5,
+                            capacity: 20
+                        },
+                        {
+                            title: "Discover Japan",
+                            location: "Japan",
+                            price: 549,
+                            image: "img/japan_tour.webp",
+                            description: "Experience the perfect blend of tradition and modernity in Japan",
+                            duration: 7,
+                            capacity: 12
+                        },
+                        {
+                            title: "Thailand Trip",
+                            location: "Thailand",
+                            price: 649,
+                            image: "img/packages-1.jpg",
+                            description: "Escape to the paradise of Thailand",
+                            duration: 5,
+                            capacity: 18
+                        }
+                    ];
+                    localStorage.setItem("TriplyPackages", JSON.stringify(defaultPackages));
+                }
+                
+                // Lấy danh sách packages từ localStorage
+                function getPackages() {
+                    return JSON.parse(localStorage.getItem("TriplyPackages")) || [];
+                }
+                
+                // Function search packages
+                function performSearch(searchTerm) {
+                    if (!searchTerm || searchTerm.trim() === '') {
+                        alert('Please enter a search term.');
+                        return;
+                    }
+                    
+                    const packages = getPackages();
+                    const searchTermLower = searchTerm.toLowerCase().trim();
+                    
+                    // Tìm packages match theo title hoặc location
+                    const matchingPackages = packages.filter(pkg => {
+                        const titleMatch = pkg.title && pkg.title.toLowerCase().includes(searchTermLower);
+                        const locationMatch = pkg.location && pkg.location.toLowerCase().includes(searchTermLower);
+                        return titleMatch || locationMatch;
+                    });
+                    
+                    if (matchingPackages.length > 0) {
+                        // Lưu kết quả search vào localStorage để hiển thị trên packages.html
+                        localStorage.setItem("TriplySearchResults", JSON.stringify({
+                            searchTerm: searchTerm,
+                            results: matchingPackages
+                        }));
+                        
+                        // Chuyển sang trang packages
+                        window.location.href = 'packages.html';
+                    } else {
+                        alert(`No packages found matching "${searchTerm}". Please try a different search term.`);
+                    }
+                }
+                
+                // Event listener cho nút Search
+                if (searchButton) {
+                    searchButton.addEventListener('click', () => {
+                        const searchTerm = searchInput ? searchInput.value : '';
+                        performSearch(searchTerm);
+                    });
+                }
+                
+                // Event listener cho phím Enter
+                if (searchInput) {
+                    searchInput.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            const searchTerm = searchInput.value;
+                            performSearch(searchTerm);
+                        }
+                    });
+                }
+            });
+        
+        </script>
+        <script src="js/weather.js"></script>
+        <script src="js/currency.js"></script>
+        
+
     </body>
 </html>
 

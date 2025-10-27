@@ -835,11 +835,8 @@ Passionate traveler exploring the world one destination at a time. Love adventur
             // --- Get elements ---
             const loggedInUser = localStorage.getItem("TriplyLoggedIn");
             const userRole = localStorage.getItem("TriplyRole"); // Get user role
-            const users = JSON.parse(localStorage.getItem("travelaUsers")) || [];
-            const allBookings = JSON.parse(localStorage.getItem("triplyBookings")) || [];
-
-            // Sidebar elements
-            const profileUsername = document.getElementById('profileUsername');
+            const profileAvatar = document.getElementById("profileAvatar");
+            const profileUsername = document.getElementById("profileUsername");
             const profileEmail = document.getElementById('profileEmail');
             const profileRoleBadge = document.getElementById('profileRole');
             const adminPanelLink = document.querySelector('a[href="#admin-panel"]'); // Admin link in sidebar
@@ -855,25 +852,60 @@ Passionate traveler exploring the world one destination at a time. Love adventur
             const phoneInput = document.getElementById('phone');
             // Add others if you want to pre-fill more
 
+            const users = JSON.parse(localStorage.getItem("travelaUsers")) || [];
+            const allBookings = JSON.parse(localStorage.getItem("triplyBookings")) || [];
+
             // --- Check Login Status ---
             if (!loggedInUser) {
                 window.location.href = 'login.html';
                 return;
             }
 
-            // --- Find current user data ---
-            const currentUser = users.find(user => user.username === loggedInUser);
-
-            // --- Display User Info in Sidebar ---
-            if (profileUsername) profileUsername.textContent = loggedInUser; // Display username
-            if (currentUser && profileEmail) {
-                profileEmail.textContent = currentUser.email; // Display email
-                // Pre-fill profile form (Optional)
-                if (emailInput) emailInput.value = currentUser.email;
-                // Pre-fill other form fields based on currentUser properties if available
-                // Example: if (firstNameInput && currentUser.firstName) firstNameInput.value = currentUser.firstName;
+            // --- Đặt avatar, tên và thông tin mặc định theo vai trò ---
+            let defaultEmail = '';
+            if (userRole === "admin") {
+                profileAvatar.src = "img/avatar.jpg";
+                profileUsername.textContent = "Jack 97";
+                defaultEmail = "jack97@triply.com";
+                
+                // Điền thông tin cho admin
+                if (firstNameInput) firstNameInput.value = "Jack";
+                if (lastNameInput) lastNameInput.value = "97";
+                if (emailInput) emailInput.value = defaultEmail;
+                if (phoneInput) phoneInput.value = "+84 123 456 789";
+                if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1995-08-18";
+                if (document.getElementById('country')) document.getElementById('country').value = "VN";
+                if (document.getElementById('bio')) {
+                    document.getElementById('bio').value = "Welcome to Triply! I'm passionate about creating amazing travel experiences for our customers. Let's explore the world together!";
+                }
             } else {
-                if (profileEmail) profileEmail.textContent = 'Email not found';
+                profileAvatar.src = "img/avatar2.png";
+                profileUsername.textContent = "GD Dragon";
+                defaultEmail = "gddragon@triply.com";
+                
+                // Điền thông tin cho user
+                if (firstNameInput) firstNameInput.value = "GD";
+                if (lastNameInput) lastNameInput.value = "Dragon";
+                if (emailInput) emailInput.value = defaultEmail;
+                if (phoneInput) phoneInput.value = "+84 987 654 321";
+                if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1990-03-15";
+                if (document.getElementById('country')) document.getElementById('country').value = "VN";
+                if (document.getElementById('bio')) {
+                    document.getElementById('bio').value = "Passionate traveler exploring the world one destination at a time. Love adventure, culture, and making memories.";
+                }
+            }
+
+            // --- Display Email in Sidebar ---
+            if (profileEmail) {
+                // Find current user data
+                const currentUser = users.find(user => user.username === loggedInUser);
+                
+                // Nếu có user trong database thì dùng email của user, nếu không thì dùng email mặc định
+                if (currentUser && currentUser.email) {
+                    profileEmail.textContent = currentUser.email;
+                } else {
+                    profileEmail.textContent = defaultEmail;
+                }
             }
 
             // --- Display Role and Adjust Sidebar Menu ---
@@ -882,6 +914,11 @@ Passionate traveler exploring the world one destination at a time. Love adventur
                     profileRoleBadge.textContent = 'Admin';
                     profileRoleBadge.className = 'badge bg-danger mt-2'; // Admin badge style
                     if (adminPanelLink) adminPanelLink.style.display = 'block'; // Show Admin Panel link
+                    const bookingsLink = document.querySelector('a[href="#bookings"]');
+                    const favoritesLink = document.querySelector('a[href="#favorites"]');
+
+                    if (bookingsLink) bookingsLink.style.display = 'none';
+                    if (favoritesLink) favoritesLink.style.display = 'none';
                 } else {
                     profileRoleBadge.textContent = 'User';
                     profileRoleBadge.className = 'badge bg-primary mt-2'; // User badge style
@@ -955,16 +992,90 @@ Passionate traveler exploring the world one destination at a time. Love adventur
                 bookingContainer.innerHTML = bookingHTML; // Add all generated cards to the container
             }
 
-            // --- Optional: Add functionality for Profile Form saving ---
+            // --- Add functionality for Profile Form saving ---
             const profileForm = document.getElementById('profileForm');
             if (profileForm) {
                 profileForm.addEventListener('submit', (event) => {
                     event.preventDefault();
-                    // Add logic here to get updated values from the form
-                    // Find the user in the 'travelaUsers' array
-                    // Update the user object
-                    // Save the updated 'travelaUsers' array back to localStorage
-                    alert('Profile update functionality not yet implemented.');
+                    
+                    // Get form values
+                    const firstName = firstNameInput ? firstNameInput.value.trim() : '';
+                    const lastName = lastNameInput ? lastNameInput.value.trim() : '';
+                    const email = emailInput ? emailInput.value.trim() : '';
+                    const phone = phoneInput ? phoneInput.value.trim() : '';
+                    const birthDate = document.getElementById('birthDate') ? document.getElementById('birthDate').value : '';
+                    const country = document.getElementById('country') ? document.getElementById('country').value : '';
+                    const bio = document.getElementById('bio') ? document.getElementById('bio').value.trim() : '';
+                    
+                    // Basic validation
+                    if (!firstName || !lastName || !email) {
+                        alert('Please fill in all required fields (First Name, Last Name, Email).');
+                        return;
+                    }
+                    
+                    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                        alert('Please enter a valid email address.');
+                        return;
+                    }
+                    
+                    // Update user data in localStorage
+                    const userIndex = users.findIndex(user => user.username === loggedInUser);
+                    
+                    if (userIndex !== -1) {
+                        // Update existing user
+                        users[userIndex].firstName = firstName;
+                        users[userIndex].lastName = lastName;
+                        users[userIndex].email = email;
+                        users[userIndex].phone = phone;
+                        users[userIndex].birthDate = birthDate;
+                        users[userIndex].country = country;
+                        users[userIndex].bio = bio;
+                        
+                        // Save updated users array
+                        localStorage.setItem("travelaUsers", JSON.stringify(users));
+                        
+                        // Show success message
+                        alert('Profile updated successfully!');
+                        
+                        // Update the displayed email in sidebar
+                        if (profileEmail) {
+                            profileEmail.textContent = email;
+                        }
+                    } else {
+                        // If user not found in database, just show success message
+                        // (for demo purposes, we don't create new entries)
+                        alert('Profile information saved for this session.');
+                    }
+                });
+            }
+            
+            // --- Add Reset button functionality ---
+            const resetButton = profileForm ? profileForm.querySelector('button[type="button"]') : null;
+            if (resetButton) {
+                resetButton.addEventListener('click', () => {
+                    // Reload default values based on role
+                    if (userRole === "admin") {
+                        if (firstNameInput) firstNameInput.value = "Jack";
+                        if (lastNameInput) lastNameInput.value = "97";
+                        if (emailInput) emailInput.value = "jack97@triply.com";
+                        if (phoneInput) phoneInput.value = "+84 123 456 789";
+                        if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1995-08-18";
+                        if (document.getElementById('country')) document.getElementById('country').value = "VN";
+                        if (document.getElementById('bio')) {
+                            document.getElementById('bio').value = "Welcome to Triply! I'm passionate about creating amazing travel experiences for our customers. Let's explore the world together!";
+                        }
+                    } else {
+                        if (firstNameInput) firstNameInput.value = "GD";
+                        if (lastNameInput) lastNameInput.value = "Dragon";
+                        if (emailInput) emailInput.value = "gddragon@triply.com";
+                        if (phoneInput) phoneInput.value = "+84 987 654 321";
+                        if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1990-03-15";
+                        if (document.getElementById('country')) document.getElementById('country').value = "VN";
+                        if (document.getElementById('bio')) {
+                            document.getElementById('bio').value = "Passionate traveler exploring the world one destination at a time. Love adventure, culture, and making memories.";
+                        }
+                    }
+                    alert('Form reset to default values.');
                 });
             }
 
