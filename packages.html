@@ -465,6 +465,97 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script src="js/auth.js"></script>
+        
+        <!-- Search Results Handling -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Kiểm tra xem có search results không
+                const searchData = localStorage.getItem("TriplySearchResults");
+                
+                if (searchData) {
+                    const searchResults = JSON.parse(searchData);
+                    const packagesContainer = document.querySelector('.packages-carousel');
+                    
+                    if (packagesContainer && searchResults.results.length > 0) {
+                        // Hiển thị message về kết quả search
+                        const titleContainer = document.querySelector('.packages h1');
+                        if (titleContainer) {
+                            titleContainer.innerHTML = `Search Results for "${searchResults.searchTerm}"`;
+                        }
+                        
+                        // Xóa content cũ
+                        packagesContainer.innerHTML = '';
+                        
+                        // Render search results
+                        searchResults.results.forEach(pkg => {
+                            const packageCard = document.createElement('div');
+                            packageCard.className = 'packages-item';
+                            packageCard.innerHTML = `
+                                <div class="packages-img">
+                                    <img src="${pkg.image || 'img/packages-4.jpg'}" class="img-fluid w-100 rounded-top" alt="${pkg.title}">
+                                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>${pkg.location || 'N/A'}</small>
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
+                                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
+                                    </div>
+                                    <div class="packages-price py-2 px-4">$${pkg.price || '0'}.00</div>
+                                </div>
+                                <div class="packages-content bg-light">
+                                    <div class="p-4 pb-0">
+                                        <h5 class="mb-0">${pkg.title || 'Package'}</h5>
+                                        <small class="text-uppercase">${pkg.location || 'Location'}</small>
+                                        <div class="mb-3">
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 pb-4">
+                                        <button class="btn btn-primary btn-sm w-100 rounded-pill">Read More</button>
+                                    </div>
+                                </div>
+                            `;
+                            packagesContainer.appendChild(packageCard);
+                        });
+                        
+                        // Xóa search results sau khi hiển thị
+                        localStorage.removeItem("TriplySearchResults");
+                        
+                        // Initialize owl carousel cho search results
+                        if (typeof $.fn.owlCarousel !== 'undefined') {
+                            $('.packages-carousel').owlCarousel({
+                                autoplay: true,
+                                smartSpeed: 1500,
+                                margin: 30,
+                                dots: false,
+                                loop: true,
+                                nav: true,
+                                navText: [
+                                    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                                    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                                ],
+                                responsive: {
+                                    0: {
+                                        items: 1
+                                    },
+                                    576: {
+                                        items: 1
+                                    },
+                                    768: {
+                                        items: 2
+                                    },
+                                    992: {
+                                        items: 3
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        </script>
     </body>
 
 
