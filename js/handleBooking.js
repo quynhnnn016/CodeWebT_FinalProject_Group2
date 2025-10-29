@@ -4,7 +4,47 @@ document.addEventListener('DOMContentLoaded', () =>
         const bookingForm = document.querySelector('.col-lg-7 form'); // Form on the left
         const confirmButton = document.querySelector('.col-lg-5 .btn-book'); // Button on the right (summary box)
 
-        // --- Function to extract tour details from the summary box ---
+        function autoFillUserInfo() {
+        const loggedInUsername = localStorage.getItem("TriplyLoggedIn");
+        if (!loggedInUsername) {
+            return; 
+        }
+
+        const users = JSON.parse(localStorage.getItem("TriplyUsers")) || [];
+        const currentUser = users.find(user => user.username === loggedInUsername);
+
+        if (currentUser && bookingForm) {
+            console.log("Current user data:", currentUser); // Log để kiểm tra
+
+            const fullNameInput = bookingForm.querySelector('input[placeholder="Full Name *"]');
+            const phoneInput = bookingForm.querySelector('input[placeholder="Phone Number *"]');
+            const emailInput = bookingForm.querySelector('input[placeholder="Email *"]');
+            const addressInput = bookingForm.querySelector('input[placeholder="Address"]'); 
+
+            if (fullNameInput && currentUser.firstName && currentUser.lastName) {
+                fullNameInput.value = `${currentUser.firstName} ${currentUser.lastName}`; 
+            } else if (fullNameInput && currentUser.displayName) {
+                 fullNameInput.value = currentUser.displayName; 
+            }
+
+            if (phoneInput && currentUser.phone) {
+                phoneInput.value = currentUser.phone;
+            }
+            if (emailInput && currentUser.email) {
+                emailInput.value = currentUser.email;
+            }
+            if (addressInput && currentUser.address) { 
+                 addressInput.value = currentUser.address;
+            }
+
+            console.log("Form auto-filled.");
+        } else {
+            console.log("Could not find current user data or booking form for auto-fill.");
+        }
+    }
+
+    autoFillUserInfo(); 
+
         function getTourDetails() {
             const summaryBox = document.querySelector('.summary-box');
             if (!summaryBox) return null;

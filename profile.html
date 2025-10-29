@@ -220,7 +220,7 @@
                 <div class="position-relative d-inline-block">
                   <img
                     id="profileAvatar"
-                    src="img/avatar.jpg"
+                    src="img/avatar.png"
                     class="rounded-circle"
                     width="120"
                     height="120"
@@ -300,7 +300,6 @@
                           type="text"
                           class="form-control"
                           id="firstName"
-                          value="John"
                         />
                       </div>
                       <div class="col-md-6">
@@ -311,7 +310,6 @@
                           type="text"
                           class="form-control"
                           id="lastName"
-                          value="Doe"
                         />
                       </div>
                       <div class="col-md-6">
@@ -320,7 +318,6 @@
                           type="email"
                           class="form-control"
                           id="email"
-                          value="john.doe@example.com"
                         />
                       </div>
                       <div class="col-md-6">
@@ -329,7 +326,6 @@
                           type="tel"
                           class="form-control"
                           id="phone"
-                          value="+1 234 567 8900"
                         />
                       </div>
                       <div class="col-md-6">
@@ -340,7 +336,6 @@
                           type="date"
                           class="form-control"
                           id="birthDate"
-                          value="1990-01-01"
                         />
                       </div>
                       <div class="col-md-6">
@@ -360,9 +355,7 @@
                           id="bio"
                           rows="3"
                           placeholder="Tell us about yourself..."
-                        >
-Passionate traveler exploring the world one destination at a time. Love adventure, culture, and making memories.</textarea
-                        >
+                        ></textarea>
                       </div>
                     </div>
 
@@ -829,267 +822,229 @@ Passionate traveler exploring the world one destination at a time. Love adventur
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-    <script src="js/auth.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Get elements ---
-            const loggedInUser = localStorage.getItem("TriplyLoggedIn");
-            const userRole = localStorage.getItem("TriplyRole"); // Get user role
+            const loggedInUser = localStorage.getItem("TriplyLoggedIn"); // Username like "quynhnnn"
+            const userRole = localStorage.getItem("TriplyRole"); // 'admin' or 'user'
+            const users = JSON.parse(localStorage.getItem("TriplyUsers")) || [];
+            const allBookings = JSON.parse(localStorage.getItem("triplyBookings")) || [];
+
+            // Sidebar elements
             const profileAvatar = document.getElementById("profileAvatar");
-            const profileUsername = document.getElementById("profileUsername");
-            const profileEmail = document.getElementById('profileEmail');
+            const profileUsername = document.getElementById("profileUsername"); // h4 tag in sidebar
+            const profileEmail = document.getElementById('profileEmail'); // p tag in sidebar
             const profileRoleBadge = document.getElementById('profileRole');
-            const adminPanelLink = document.querySelector('a[href="#admin-panel"]'); // Admin link in sidebar
+            const adminPanelLink = document.querySelector('a[href="#admin-panel"]');
+            const bookingsLink = document.querySelector('a[href="#bookings"]'); // Link to My Bookings tab
+            const favoritesLink = document.querySelector('a[href="#favorites"]'); // Link to Favorites tab
 
             // Booking history elements
             const bookingContainer = document.getElementById('booking-history-container');
             const noBookingsMessage = document.getElementById('no-bookings-message');
 
-            // Profile form elements (Optional: for pre-filling)
+            // Profile form elements
+            const profileForm = document.getElementById('profileForm');
             const firstNameInput = document.getElementById('firstName');
             const lastNameInput = document.getElementById('lastName');
-            const emailInput = document.getElementById('email');
+            const emailInput = document.getElementById('email'); // Form email input
             const phoneInput = document.getElementById('phone');
-            // Add others if you want to pre-fill more
-
-            const users = JSON.parse(localStorage.getItem("travelaUsers")) || [];
-            const allBookings = JSON.parse(localStorage.getItem("triplyBookings")) || [];
-
+            const birthDateInput = document.getElementById('birthDate');
+            const countrySelect = document.getElementById('country');
+            const bioTextarea = document.getElementById('bio');
+            
             // --- Check Login Status ---
             if (!loggedInUser) {
-                window.location.href = 'login.html';
-                return;
+              console.error("Not logged in, redirecting..."); // Log added
+              window.location.href = 'login.html';
+              return; // Important to stop script execution
             }
 
-            // --- Đặt avatar, tên và thông tin mặc định theo vai trò ---
-            let defaultEmail = '';
-            if (userRole === "admin") {
-                profileAvatar.src = "img/avatar.jpg";
-                profileUsername.textContent = "Jack 97";
-                defaultEmail = "jack97@triply.com";
-                
-                // Điền thông tin cho admin
-                if (firstNameInput) firstNameInput.value = "Jack";
-                if (lastNameInput) lastNameInput.value = "97";
-                if (emailInput) emailInput.value = defaultEmail;
-                if (phoneInput) phoneInput.value = "+84 123 456 789";
-                if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1995-08-18";
-                if (document.getElementById('country')) document.getElementById('country').value = "VN";
-                if (document.getElementById('bio')) {
-                    document.getElementById('bio').value = "Welcome to Triply! I'm passionate about creating amazing travel experiences for our customers. Let's explore the world together!";
-                }
+            // --- Find current user data ---
+            const currentUser = users.find(user => user.username === loggedInUser);
+            console.log("Searching for username:", loggedInUser);
+            console.log("Found currentUser:", currentUser); // DEBUG: Check if currentUser is found correctly
+
+            // --- Display User Info (Sidebar and Form) ---
+            if (currentUser) {
+                // Sidebar display
+                if (profileAvatar) profileAvatar.src = currentUser.avatar || 'img/default-avatar.jpg'; // Use stored avatar or a default
+                if (profileUsername) profileUsername.textContent = currentUser.displayName || currentUser.username; // Prefer displayName, fallback to username
+                if (profileEmail) profileEmail.textContent = currentUser.email || 'N/A'; // Show email in sidebar
+
+                // Form Fields Pre-filling - Use data from currentUser
+                if (firstNameInput) firstNameInput.value = currentUser.firstName || '';
+                if (lastNameInput) lastNameInput.value = currentUser.lastName || '';
+                if (emailInput) emailInput.value = currentUser.email || ''; // Fill form email input
+                if (phoneInput) phoneInput.value = currentUser.phone || '';
+                if (birthDateInput) birthDateInput.value = currentUser.birthDate || ''; // Make sure birthDate is stored in 'YYYY-MM-DD' format
+                if (countrySelect) countrySelect.value = currentUser.country || ''; // Ensure the value exists in the select options
+                if (bioTextarea) bioTextarea.value = currentUser.bio || '';
+
             } else {
-                profileAvatar.src = "img/avatar2.png";
-                profileUsername.textContent = "GD Dragon";
-                defaultEmail = "gddragon@triply.com";
-                
-                // Điền thông tin cho user
-                if (firstNameInput) firstNameInput.value = "GD";
-                if (lastNameInput) lastNameInput.value = "Dragon";
-                if (emailInput) emailInput.value = defaultEmail;
-                if (phoneInput) phoneInput.value = "+84 987 654 321";
-                if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1990-03-15";
-                if (document.getElementById('country')) document.getElementById('country').value = "VN";
-                if (document.getElementById('bio')) {
-                    document.getElementById('bio').value = "Passionate traveler exploring the world one destination at a time. Love adventure, culture, and making memories.";
-                }
-            }
-
-            // --- Display Email in Sidebar ---
-            if (profileEmail) {
-                // Find current user data
-                const currentUser = users.find(user => user.username === loggedInUser);
-                
-                // Nếu có user trong database thì dùng email của user, nếu không thì dùng email mặc định
-                if (currentUser && currentUser.email) {
-                    profileEmail.textContent = currentUser.email;
-                } else {
-                    profileEmail.textContent = defaultEmail;
-                }
+                // Fallback if currentUser data is somehow missing from TriplyUsers
+                console.error("Could not find full data for logged in user:", loggedInUser);
+                if (profileUsername) profileUsername.textContent = loggedInUser; // Show username at least
+                if (profileEmail) profileEmail.textContent = 'User data not found';
+                // Optionally clear the form or show a message
+                if (profileForm) profileForm.reset(); // Clear the form
             }
 
             // --- Display Role and Adjust Sidebar Menu ---
             if (profileRoleBadge) {
                 if (userRole === 'admin') {
                     profileRoleBadge.textContent = 'Admin';
-                    profileRoleBadge.className = 'badge bg-danger mt-2'; // Admin badge style
+                    profileRoleBadge.className = 'badge bg-danger mt-2';
                     if (adminPanelLink) adminPanelLink.style.display = 'block'; // Show Admin Panel link
-                    const bookingsLink = document.querySelector('a[href="#bookings"]');
-                    const favoritesLink = document.querySelector('a[href="#favorites"]');
-
+                    // Hide User-specific tabs for Admin in sidebar
                     if (bookingsLink) bookingsLink.style.display = 'none';
                     if (favoritesLink) favoritesLink.style.display = 'none';
-                } else {
+                } else { // Assumes 'user'
                     profileRoleBadge.textContent = 'User';
-                    profileRoleBadge.className = 'badge bg-primary mt-2'; // User badge style
+                    profileRoleBadge.className = 'badge bg-primary mt-2';
                     if (adminPanelLink) adminPanelLink.style.display = 'none'; // Hide Admin Panel link
+                    // Ensure User-specific tabs are visible (though default is usually visible)
+                    if (bookingsLink) bookingsLink.style.display = 'block';
+                    if (favoritesLink) favoritesLink.style.display = 'block';
                 }
             }
 
             // --- Filter and Display User's Bookings ---
+            // (Your existing code for displaying bookings seems correct and uses loggedInUser)
             const userBookings = allBookings.filter(booking => booking.username === loggedInUser);
 
             if (!bookingContainer) {
                 console.error("Booking history container not found!");
-                return; // Stop if container doesn't exist
-            }
-
-            bookingContainer.innerHTML = ''; // Clear any potential static content
-
-            if (userBookings.length === 0) {
-                if (noBookingsMessage) noBookingsMessage.style.display = 'block';
             } else {
-                if (noBookingsMessage) noBookingsMessage.style.display = 'none';
+                bookingContainer.innerHTML = ''; // Clear static content
 
-                // Sort bookings by date, newest first
-                userBookings.sort((a, b) => new Date(b.bookingTimestamp) - new Date(a.bookingTimestamp));
-
-                let bookingHTML = '';
-                userBookings.forEach(booking => {
-                    const bookingDate = new Date(booking.bookingTimestamp).toLocaleDateString('en-GB'); // dd/mm/yyyy
-
-                // Generate HTML structure similar to your static example
-                  bookingHTML += `
-                    <div class="col-12">
-                        <div class="card mb-3 shadow-sm">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-md-3">
-                                        <img src="${booking.tourImage || 'img/default-package.jpg'}" class="img-fluid rounded" alt="${booking.tourName || 'Tour Image'}">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h5 class="card-title">${booking.tourName || 'Unknown Tour'}</h5>
-                                        <p class="card-text text-muted small">
-                                            <i class="fas fa-users me-1"></i> Adults: ${booking.numAdults}, Children: ${booking.numChildren}, Infants: ${booking.numInfants}
-                                        </p>
-                                        <p class="card-text small">
-                                            <i class="fas fa-map-marker-alt me-1"></i> ${booking.tourLocation || 'N/A'}
-                                        </p>
-                                        <span class="badge bg-${booking.status === 'Confirmed' ? 'success' : (booking.status === 'Cancelled' ? 'danger' : 'warning')}">${booking.status || 'Pending'}</span>
-                                    </div>
-                                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                        <h5 class="text-primary">${booking.tourPrice || '$0'}</h5>
-                                        <p class="text-muted small">
-                                            Booked on ${bookingDate}
-                                        </p>
-                                        <a href="booking-detail.html?id=${booking.bookingId}" class="btn btn-outline-primary btn-sm me-2">
-                                            View Details
-                                        </a>
-                                        
-                                        ${booking.status !== 'Cancelled' ? /* Chỉ hiển thị nút Cancel nếu chưa Cancel */
-                                        `<a href="cancel-booking.html?id=${booking.bookingId}" class="btn btn-outline-danger btn-sm">
-                                            Cancel Tour
-                                        </a>` : 
-                                        '<span class="text-danger small">Cancelled</span>' /* Hiển thị text nếu đã Cancel */
-                                        }
+                if (userBookings.length === 0) {
+                    if (noBookingsMessage) noBookingsMessage.style.display = 'block';
+                } else {
+                    if (noBookingsMessage) noBookingsMessage.style.display = 'none';
+                    userBookings.sort((a, b) => new Date(b.bookingTimestamp) - new Date(a.bookingTimestamp)); // Sort newest first
+                    let bookingHTML = '';
+                    userBookings.forEach(booking => {
+                        const bookingDate = new Date(booking.bookingTimestamp).toLocaleDateString('en-GB');
+                        bookingHTML += `
+                            <div class="col-12">
+                                <div class="card mb-3 shadow-sm">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-3">
+                                                <img src="${booking.tourImage || 'img/default-package.jpg'}" class="img-fluid rounded" alt="${booking.tourName || 'Tour Image'}">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <h5 class="card-title">${booking.tourName || 'Unknown Tour'}</h5>
+                                                <p class="card-text text-muted small">
+                                                    <i class="fas fa-users me-1"></i> Adults: ${booking.numAdults}, Children: ${booking.numChildren}, Infants: ${booking.numInfants}
+                                                </p>
+                                                <p class="card-text small">
+                                                    <i class="fas fa-map-marker-alt me-1"></i> ${booking.tourLocation || 'N/A'}
+                                                </p>
+                                                <span class="badge bg-${booking.status === 'Confirmed' ? 'success' : (booking.status === 'Cancelled' ? 'danger' : 'warning')}">${booking.status || 'Pending'}</span>
+                                            </div>
+                                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                                <h5 class="text-primary">${booking.tourPrice || '$0'}</h5>
+                                                <p class="text-muted small">Booked on ${bookingDate}</p>
+                                                <a href="booking-detail.html?id=${booking.bookingId}" class="btn btn-outline-primary btn-sm me-2">View Details</a>
+                                                ${booking.status !== 'Cancelled' ?
+                                                `<a href="cancel-booking.html?id=${booking.bookingId}" class="btn btn-outline-danger btn-sm">Cancel Tour</a>` :
+                                                '<span class="text-danger small">Cancelled</span>'
+                                                }
+                                            </div>
                                         </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                  `;
-                });
-                bookingContainer.innerHTML = bookingHTML; // Add all generated cards to the container
+                            </div>`;
+                    });
+                    bookingContainer.innerHTML = bookingHTML;
+                }
             }
 
             // --- Add functionality for Profile Form saving ---
-            const profileForm = document.getElementById('profileForm');
             if (profileForm) {
                 profileForm.addEventListener('submit', (event) => {
                     event.preventDefault();
-                    
                     // Get form values
-                    const firstName = firstNameInput ? firstNameInput.value.trim() : '';
-                    const lastName = lastNameInput ? lastNameInput.value.trim() : '';
-                    const email = emailInput ? emailInput.value.trim() : '';
-                    const phone = phoneInput ? phoneInput.value.trim() : '';
-                    const birthDate = document.getElementById('birthDate') ? document.getElementById('birthDate').value : '';
-                    const country = document.getElementById('country') ? document.getElementById('country').value : '';
-                    const bio = document.getElementById('bio') ? document.getElementById('bio').value.trim() : '';
-                    
-                    // Basic validation
-                    if (!firstName || !lastName || !email) {
-                        alert('Please fill in all required fields (First Name, Last Name, Email).');
-                        return;
+                    const updatedFirstName = firstNameInput ? firstNameInput.value.trim() : '';
+                    const updatedLastName = lastNameInput ? lastNameInput.value.trim() : '';
+                    const updatedEmail = emailInput ? emailInput.value.trim() : '';
+                    const updatedPhone = phoneInput ? phoneInput.value.trim() : '';
+                    const updatedBirthDate = birthDateInput ? birthDateInput.value : '';
+                    const updatedCountry = countrySelect ? countrySelect.value : '';
+                    const updatedBio = bioTextarea ? bioTextarea.value.trim() : '';
+
+                    // Basic validation (add more if needed)
+                    if (!updatedFirstName || !updatedLastName || !updatedEmail) {
+                        alert('Please fill in First Name, Last Name, and Email.'); return;
                     }
-                    
-                    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                        alert('Please enter a valid email address.');
-                        return;
+                    if (updatedEmail && !updatedEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                      alert('Please enter a valid email address.'); return;
                     }
-                    
-                    // Update user data in localStorage
+
+                    // Find user index
                     const userIndex = users.findIndex(user => user.username === loggedInUser);
-                    
+
                     if (userIndex !== -1) {
-                        // Update existing user
-                        users[userIndex].firstName = firstName;
-                        users[userIndex].lastName = lastName;
-                        users[userIndex].email = email;
-                        users[userIndex].phone = phone;
-                        users[userIndex].birthDate = birthDate;
-                        users[userIndex].country = country;
-                        users[userIndex].bio = bio;
-                        
-                        // Save updated users array
-                        localStorage.setItem("travelaUsers", JSON.stringify(users));
-                        
-                        // Show success message
+                        // Update user object
+                        users[userIndex].firstName = updatedFirstName;
+                        users[userIndex].lastName = updatedLastName;
+                        users[userIndex].email = updatedEmail; // Allow email change if desired
+                        users[userIndex].phone = updatedPhone;
+                        users[userIndex].birthDate = updatedBirthDate;
+                        users[userIndex].country = updatedCountry;
+                        users[userIndex].bio = updatedBio;
+                        users[userIndex].displayName = `${updatedFirstName} ${updatedLastName}`.trim() || loggedInUser; // Update displayName too
+
+                        // Save updated users array back to localStorage
+                        localStorage.setItem("TriplyUsers", JSON.stringify(users));
+
                         alert('Profile updated successfully!');
-                        
-                        // Update the displayed email in sidebar
-                        if (profileEmail) {
-                            profileEmail.textContent = email;
-                        }
+
+                        // Update sidebar email if it changed
+                        if (profileEmail) profileEmail.textContent = updatedEmail;
+                        // Update sidebar username if displayName changed
+                        if (profileUsername) profileUsername.textContent = users[userIndex].displayName;
+
+
                     } else {
-                        // If user not found in database, just show success message
-                        // (for demo purposes, we don't create new entries)
-                        alert('Profile information saved for this session.');
+                        alert('Error: Could not find user data to update.');
                     }
                 });
             }
             
-            // --- Add Reset button functionality ---
-            const resetButton = profileForm ? profileForm.querySelector('button[type="button"]') : null;
+                // --- Add Reset button functionality ---
+            const resetButton = profileForm ? profileForm.querySelector('button[type="button"].btn-outline-secondary') : null;
             if (resetButton) {
                 resetButton.addEventListener('click', () => {
-                    // Reload default values based on role
-                    if (userRole === "admin") {
-                        if (firstNameInput) firstNameInput.value = "Jack";
-                        if (lastNameInput) lastNameInput.value = "97";
-                        if (emailInput) emailInput.value = "jack97@triply.com";
-                        if (phoneInput) phoneInput.value = "+84 123 456 789";
-                        if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1995-08-18";
-                        if (document.getElementById('country')) document.getElementById('country').value = "VN";
-                        if (document.getElementById('bio')) {
-                            document.getElementById('bio').value = "Welcome to Triply! I'm passionate about creating amazing travel experiences for our customers. Let's explore the world together!";
-                        }
+                    // Re-populate form with currentUser data
+                    if (currentUser) {
+                        if (firstNameInput) firstNameInput.value = currentUser.firstName || '';
+                        if (lastNameInput) lastNameInput.value = currentUser.lastName || '';
+                        if (emailInput) emailInput.value = currentUser.email || '';
+                        if (phoneInput) phoneInput.value = currentUser.phone || '';
+                        if (birthDateInput) birthDateInput.value = currentUser.birthDate || '';
+                        if (countrySelect) countrySelect.value = currentUser.country || '';
+                        if (bioTextarea) bioTextarea.value = currentUser.bio || '';
+                        alert('Form reset to previously saved values.');
                     } else {
-                        if (firstNameInput) firstNameInput.value = "GD";
-                        if (lastNameInput) lastNameInput.value = "Dragon";
-                        if (emailInput) emailInput.value = "gddragon@triply.com";
-                        if (phoneInput) phoneInput.value = "+84 987 654 321";
-                        if (document.getElementById('birthDate')) document.getElementById('birthDate').value = "1990-03-15";
-                        if (document.getElementById('country')) document.getElementById('country').value = "VN";
-                        if (document.getElementById('bio')) {
-                            document.getElementById('bio').value = "Passionate traveler exploring the world one destination at a time. Love adventure, culture, and making memories.";
-                        }
+                        profileForm.reset(); // Standard form reset if no currentUser
+                        alert('Form reset.');
                     }
-                    alert('Form reset to default values.');
                 });
             }
 
             // --- Optional: Add functionality for changing avatar ---
             const avatarButton = document.querySelector('.btn-primary.btn-sm.position-absolute');
             if (avatarButton) {
-                 avatarButton.addEventListener('click', () => {
+                avatarButton.addEventListener('click', () => {
                     alert('Avatar change functionality not yet implemented.');
-                    // Add logic for file input if needed later
                 });
             }
-
-
         }); // End DOMContentLoaded
     </script>
+    <script src="js/auth.js"></script>
   </body>
 </html>
