@@ -109,64 +109,43 @@
 
       <form id="registerForm">
         <div class="mb-3">
-          <input
-            type="text"
-            id="username"
-            class="form-control"
-            placeholder="Username *"
-            required
-          />
+            <input type="text" id="username" class="form-control" placeholder="Username *" required />
+        </div>
+        <div class="mb-3">
+            <input type="email" id="email" class="form-control" placeholder="Email *" required />
         </div>
 
         <div class="mb-3">
-          <input
-            type="email"
-            id="email"
-            class="form-control"
-            placeholder="Email *"
-            required
-          />
+            <input type="tel" id="phone" class="form-control" placeholder="Phone Number *" required/>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <input type="text" id="firstName" class="form-control" placeholder="First Name *" required/>
+            </div>
+            <div class="col-md-6">
+                  <input type="text" id="lastName" class="form-control" placeholder="Last Name *" required/>
+            </div>
         </div>
 
         <div class="mb-3">
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            placeholder="Password *"
-            required
-          />
+            <input type="password" id="password" class="form-control" placeholder="Password *" required />
         </div>
-
         <div class="mb-3">
-          <input
-            type="password"
-            id="confirmPassword"
-            class="form-control"
-            placeholder="Confirm Password *"
-            required
-          />
+            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password *" required />
         </div>
 
-        <button type="submit" class="btn-register">Create Account</button>
+        <button type="submit" class="btn-register">Register</button>
 
-        <div
-          id="registerAlert"
-          class="alert text-center"
-          role="alert"
-        ></div>
-
-        <p class="text-center mt-3">
-          Already have an account?
-          <a href="login.html" class="text-link">Login here</a>
-        </p>
-
-        <p class="text-center mt-3">
-          Back to Homepage?
-          <a href="index.html" id="registerLink" class="text-link"
-            >Click here</a
-          >
-        </p>
+        <div id="registerAlert" class="alert mt-3" role="alert" style="display: none;"></div>
+          <p class="text-center mt-3">
+            Already have an account?
+            <a href="login.html" class="text-link">Login here</a>
+          </p>
+          <p class="text-center mt-3">
+              Back to Homepage?
+              <a href="index.html" class="text-link">Click here</a>
+          </p>
       </form>
     </div>
 
@@ -175,6 +154,17 @@
       const form = document.getElementById("registerForm");
       const alertBox = document.getElementById("registerAlert");
 
+      function showAlert(message, type = 'danger') { 
+          if (alertBox) {
+              alertBox.classList.remove('alert-success', 'alert-danger', 'alert-warning');
+              alertBox.classList.add(`alert-${type}`); 
+              alertBox.textContent = message;
+              alertBox.style.display = 'block';
+          } else {
+              console.error("Alert box element not found!");
+              alert(`${type.toUpperCase()}: ${message}`); 
+          }
+      }
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -183,9 +173,15 @@
         const password = document.getElementById("password").value.trim();
         const confirmPassword =
           document.getElementById("confirmPassword").value.trim();
+        const phoneValue = document.getElementById('phone').value.trim();
+        const firstNameValue = document.getElementById('firstName').value.trim();
+        const lastNameValue = document.getElementById('lastName').value.trim();
 
+        
         if (password !== confirmPassword) {
-          showAlert("Passwords do not match!", "danger");
+          if (alertBox) {
+            showAlert("Passwords do not match!", "danger");
+          }
           return;
         }
 
@@ -196,21 +192,27 @@
           return;
         }
 
-        users.push({ username, email, password });
-        localStorage.setItem("TriplyUsers", JSON.stringify(users));
+      const newUser = {
+        username: username,
+        email: email,
+        password: password,
+        role: 'user',
+        phone: phoneValue,
+        firstName: firstNameValue,
+        lastName: lastNameValue,
+        avatar: "img/default-avatar.jpg",
+        displayName: `${firstNameValue} ${lastNameValue}`.trim() || username
+      };
 
-        showAlert("Registration successful! Redirecting...", "success");
+      users.push(newUser);
+      localStorage.setItem('TriplyUsers', JSON.stringify(users));
+      
+      showAlert('Registration successful! Redirecting to login...', 'success');
 
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 1500);
-      });
-
-      function showAlert(message, type) {
-        alertBox.textContent = message;
-        alertBox.className = "alert alert-" + type + " text-center";
-        alertBox.style.display = "block";
-      }
+      setTimeout(() => {
+          window.location.href = 'login.html';
+      }, 1500); 
+    });
     </script>
   </body>
 </html>
