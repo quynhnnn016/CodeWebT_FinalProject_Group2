@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Triply | Packages</title>
+        <title>Triply - Tourism Website Template</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -111,11 +111,7 @@
         <div class="container-fluid bg-breadcrumb">
             <div class="container text-center py-5" style="max-width: 900px;">
                 <h3 class="text-white display-3 mb-4">Travel Packages</h1>
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                    <li class="breadcrumb-item active text-white">Packages</li>
-                </ol>    
+                <p class="text-white mb-4">Choose your dream destination and let us turn your travel plans into reality.</p>   
             </div>
         </div>
         <!-- Header End -->
@@ -141,7 +137,7 @@
                         <div class="packages-content bg-light">
                             <div class="p-4 pb-0">
                                 <h5 class="mb-0">Venice - Italy</h5>
-                                <small class="text-uppercase">Hotel Deals</small>
+                                <small class="text-uppercase">Trip Deals</small>
                                 <div class="mb-3">
                                     <small class="fa fa-star text-primary"></small>
                                     <small class="fa fa-star text-primary"></small>
@@ -175,7 +171,7 @@
                         <div class="packages-content bg-light">
                             <div class="p-4 pb-0">
                                 <h5 class="mb-0">The New California</h5>
-                                <small class="text-uppercase">Hotel Deals</small>
+                                <small class="text-uppercase">Trip Deals</small>
                                 <div class="mb-3">
                                     <small class="fa fa-star text-primary"></small>
                                     <small class="fa fa-star text-primary"></small>
@@ -209,7 +205,7 @@
                         <div class="packages-content bg-light">
                             <div class="p-4 pb-0">
                                 <h5 class="mb-0">Discover Japan</h5>
-                                <small class="text-uppercase">Hotel Deals</small>
+                                <small class="text-uppercase">Trip Deals</small>
                                 <div class="mb-3">
                                     <small class="fa fa-star text-primary"></small>
                                     <small class="fa fa-star text-primary"></small>
@@ -243,7 +239,7 @@
                         <div class="packages-content bg-light">
                             <div class="p-4 pb-0">
                                 <h5 class="mb-0">Thailand Trip</h5>
-                                <small class="text-uppercase">Hotel Deals</small>
+                                <small class="text-uppercase">Trip Deals</small>
                                 <div class="mb-3">
                                     <small class="fa fa-star text-primary"></small>
                                     <small class="fa fa-star text-primary"></small>
@@ -285,8 +281,7 @@
                     <div class="col-lg-6">
                         <h1 class="text-white mb-3">Book A Tour Deals</h1>
                         <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip With Triply. Get More Deal Offers Here.</p>
-                        <form id="tourBookingForm" action="#" onsubmit="return false;">
-
+                        <form>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
@@ -466,187 +461,6 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script src="js/auth.js"></script>
-        
-        <!-- Search Results Handling -->
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Kiểm tra xem có search results không
-                const searchData = localStorage.getItem("TriplySearchResults");
-                
-                if (searchData) {
-                    const searchResults = JSON.parse(searchData);
-                    const packagesContainer = document.querySelector('.packages-carousel');
-                    
-                    if (packagesContainer && searchResults.results.length > 0) {
-                        // Hiển thị message về kết quả search
-                        const titleContainer = document.querySelector('.packages h1');
-                        if (titleContainer) {
-                            titleContainer.innerHTML = `Search Results for "${searchResults.searchTerm}"`;
-                        }
-                        
-                        // Xóa content cũ
-                        packagesContainer.innerHTML = '';
-                        
-                        // Render search results
-                        searchResults.results.forEach(pkg => {
-                            const packageCard = document.createElement('div');
-                            packageCard.className = 'packages-item';
-                            packageCard.innerHTML = `
-                                <div class="packages-img">
-                                    <img src="${pkg.image || 'img/packages-4.jpg'}" class="img-fluid w-100 rounded-top" alt="${pkg.title}">
-                                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>${pkg.location || 'N/A'}</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                                    </div>
-                                    <div class="packages-price py-2 px-4">$${pkg.price || '0'}.00</div>
-                                </div>
-                                <div class="packages-content bg-light">
-                                    <div class="p-4 pb-0">
-                                        <h5 class="mb-0">${pkg.title || 'Package'}</h5>
-                                        <small class="text-uppercase">${pkg.location || 'Location'}</small>
-                                        <div class="mb-3">
-                                            <small class="fa fa-star text-primary"></small>
-                                            <small class="fa fa-star text-primary"></small>
-                                            <small class="fa fa-star text-primary"></small>
-                                            <small class="fa fa-star text-primary"></small>
-                                            <small class="fa fa-star text-primary"></small>
-                                        </div>
-                                    </div>
-                                    <div class="px-4 pb-4">
-                                        <button class="btn btn-primary btn-sm w-100 rounded-pill">Read More</button>
-                                    </div>
-                                </div>
-                            `;
-                            packagesContainer.appendChild(packageCard);
-                        });
-                        
-                        // Xóa search results sau khi hiển thị
-                        localStorage.removeItem("TriplySearchResults");
-                        
-                        // Initialize owl carousel cho search results
-                        if (typeof $.fn.owlCarousel !== 'undefined') {
-                            $('.packages-carousel').owlCarousel({
-                                autoplay: true,
-                                smartSpeed: 1500,
-                                margin: 30,
-                                dots: false,
-                                loop: true,
-                                nav: true,
-                                navText: [
-                                    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-                                    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-                                ],
-                                responsive: {
-                                    0: {
-                                        items: 1
-                                    },
-                                    576: {
-                                        items: 1
-                                    },
-                                    768: {
-                                        items: 2
-                                    },
-                                    992: {
-                                        items: 3
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-            });
-        </script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  // Lấy danh sách packages từ localStorage
-  const storedPackages = JSON.parse(localStorage.getItem("TriplyPackages")) || [];
-
-  // Chọn container chính trong carousel
-  const carousel = document.querySelector(".packages-carousel");
-
-  // Nếu không có dữ liệu hoặc carousel không tồn tại, thoát
-  if (!carousel || storedPackages.length === 0) return;
-
-  // 🔄 Giữ lại các tour mặc định (nếu bạn muốn xóa cũ thì uncomment dòng dưới)
-  // carousel.innerHTML = "";
-
-  // ✅ Thêm từng package từ LocalStorage vào carousel
-  storedPackages.forEach(pkg => {
-    const item = document.createElement("div");
-    item.className = "packages-item";
-    item.innerHTML = `
-      <div class="packages-img">
-        <img src="${pkg.image}" class="img-fluid w-100 rounded-top" alt="${pkg.title}">
-        <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
-             style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-          <small class="flex-fill text-center border-end py-2">
-            <i class="fa fa-map-marker-alt me-2"></i>${pkg.location}
-          </small>
-          <small class="flex-fill text-center border-end py-2">
-            <i class="fa fa-calendar-alt me-2"></i>${pkg.duration || "3"} days
-          </small>
-          <small class="flex-fill text-center py-2">
-            <i class="fa fa-user me-2"></i>${pkg.capacity || "2"} Person
-          </small>
-        </div>
-        <div class="packages-price py-2 px-4">$${pkg.price}.00</div>
-      </div>
-      <div class="packages-content bg-light">
-        <div class="p-4 pb-0">
-          <h5 class="mb-0">${pkg.title}</h5>
-          <small class="text-uppercase">${pkg.location}</small>
-          <div class="mb-3">
-            <small class="fa fa-star text-primary"></small>
-            <small class="fa fa-star text-primary"></small>
-            <small class="fa fa-star text-primary"></small>
-            <small class="fa fa-star text-primary"></small>
-            <small class="fa fa-star text-primary"></small>
-          </div>
-          <p class="mb-4">${pkg.description || "Discover amazing destinations with Triply!"}</p>
-        </div>
-        <div class="row bg-primary rounded-bottom mx-0">
-          <div class="col-6 text-start px-0">
-            <a href="booking.html" class="btn-hover btn text-white py-2 px-4">Read More</a>
-          </div>
-          <div class="col-6 text-end px-0">
-            <a href="booking.html" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-          </div>
-        </div>
-      </div>
-    `;
-    carousel.appendChild(item);
-  });
-
-  // 🔁 Reinitialize Owl Carousel để các gói mới xuất hiện trong phần trượt
-  if (typeof $.fn.owlCarousel !== "undefined") {
-    $(".packages-carousel").owlCarousel("destroy"); // Xóa config cũ
-    $(".packages-carousel").owlCarousel({
-      autoplay: true,
-      smartSpeed: 1500,
-      margin: 30,
-      dots: false,
-      loop: true,
-      nav: true,
-      navText: [
-        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-      ],
-      responsive: {
-        0: { items: 1 },
-        576: { items: 1 },
-        768: { items: 2 },
-        992: { items: 3 }
-      }
-    });
-  }
-});
-</script>
-
-
-
-
-
     </body>
 
 
