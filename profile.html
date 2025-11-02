@@ -306,27 +306,15 @@
                         <label for="lastName" class="form-label"
                           >Last Name</label
                         >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="lastName"
-                        />
+                        <input type="text" class="form-control" id="lastName" />
                       </div>
                       <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="email"
-                        />
+                        <input type="email" class="form-control" id="email" />
                       </div>
                       <div class="col-md-6">
                         <label for="phone" class="form-label">Phone</label>
-                        <input
-                          type="tel"
-                          class="form-control"
-                          id="phone"
-                        />
+                        <input type="tel" class="form-control" id="phone" />
                       </div>
                       <div class="col-md-6">
                         <label for="birthDate" class="form-label"
@@ -378,9 +366,14 @@
                     <i class="fas fa-calendar-alt me-2"></i>My Bookings
                   </h4>
 
-                  <div class="row g-4" id="booking-history-container">
-                  </div>
-                  <p id="no-bookings-message" class="text-muted mt-3" style="display: none;">You haven't booked any tours yet.</p>
+                  <div class="row g-4" id="booking-history-container"></div>
+                  <p
+                    id="no-bookings-message"
+                    class="text-muted mt-3"
+                    style="display: none"
+                  >
+                    You haven't booked any tours yet.
+                  </p>
                 </div>
               </div>
 
@@ -822,229 +815,388 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Get elements ---
-            const loggedInUser = localStorage.getItem("TriplyLoggedIn"); // Username like "quynhnnn"
-            const userRole = localStorage.getItem("TriplyRole"); // 'admin' or 'user'
-            const users = JSON.parse(localStorage.getItem("TriplyUsers")) || [];
-            const allBookings = JSON.parse(localStorage.getItem("triplyBookings")) || [];
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Get elements ---
+        const loggedInUser = localStorage.getItem("TriplyLoggedIn"); // Username like "quynhnnn"
+        const userRole = localStorage.getItem("TriplyRole"); // 'admin' or 'user'
+        const users = JSON.parse(localStorage.getItem("TriplyUsers")) || [];
+        const allBookings =
+          JSON.parse(localStorage.getItem("triplyBookings")) || [];
 
-            // Sidebar elements
-            const profileAvatar = document.getElementById("profileAvatar");
-            const profileUsername = document.getElementById("profileUsername"); // h4 tag in sidebar
-            const profileEmail = document.getElementById('profileEmail'); // p tag in sidebar
-            const profileRoleBadge = document.getElementById('profileRole');
-            const adminPanelLink = document.querySelector('a[href="#admin-panel"]');
-            const bookingsLink = document.querySelector('a[href="#bookings"]'); // Link to My Bookings tab
-            const favoritesLink = document.querySelector('a[href="#favorites"]'); // Link to Favorites tab
+        // Sidebar elements
+        const profileAvatar = document.getElementById("profileAvatar");
+        const profileUsername = document.getElementById("profileUsername"); // h4 tag in sidebar
+        const profileEmail = document.getElementById("profileEmail"); // p tag in sidebar
+        const profileRoleBadge = document.getElementById("profileRole");
+        const adminPanelLink = document.querySelector('a[href="#admin-panel"]');
+        const bookingsLink = document.querySelector('a[href="#bookings"]'); // Link to My Bookings tab
+        const favoritesLink = document.querySelector('a[href="#favorites"]'); // Link to Favorites tab
 
-            // Booking history elements
-            const bookingContainer = document.getElementById('booking-history-container');
-            const noBookingsMessage = document.getElementById('no-bookings-message');
+        // Booking history elements
+        const bookingContainer = document.getElementById(
+          "booking-history-container"
+        );
+        const noBookingsMessage = document.getElementById(
+          "no-bookings-message"
+        );
 
-            // Profile form elements
-            const profileForm = document.getElementById('profileForm');
-            const firstNameInput = document.getElementById('firstName');
-            const lastNameInput = document.getElementById('lastName');
-            const emailInput = document.getElementById('email'); // Form email input
-            const phoneInput = document.getElementById('phone');
-            const birthDateInput = document.getElementById('birthDate');
-            const countrySelect = document.getElementById('country');
-            const bioTextarea = document.getElementById('bio');
-            
-            // --- Check Login Status ---
-            if (!loggedInUser) {
-              console.error("Not logged in, redirecting..."); // Log added
-              window.location.href = 'login.html';
-              return; // Important to stop script execution
-            }
+        // Profile form elements
+        const profileForm = document.getElementById("profileForm");
+        const firstNameInput = document.getElementById("firstName");
+        const lastNameInput = document.getElementById("lastName");
+        const emailInput = document.getElementById("email"); // Form email input
+        const phoneInput = document.getElementById("phone");
+        const birthDateInput = document.getElementById("birthDate");
+        const countrySelect = document.getElementById("country");
+        const bioTextarea = document.getElementById("bio");
 
-            // --- Find current user data ---
-            const currentUser = users.find(user => user.username === loggedInUser);
-            console.log("Searching for username:", loggedInUser);
-            console.log("Found currentUser:", currentUser); // DEBUG: Check if currentUser is found correctly
+        // --- Check Login Status ---
+        if (!loggedInUser) {
+          console.error("Not logged in, redirecting..."); // Log added
+          window.location.href = "login.html";
+          return; // Important to stop script execution
+        }
 
-            // --- Display User Info (Sidebar and Form) ---
-            if (currentUser) {
-                // Sidebar display
-                if (profileAvatar) profileAvatar.src = currentUser.avatar || 'img/default-avatar.jpg'; // Use stored avatar or a default
-                if (profileUsername) profileUsername.textContent = currentUser.displayName || currentUser.username; // Prefer displayName, fallback to username
-                if (profileEmail) profileEmail.textContent = currentUser.email || 'N/A'; // Show email in sidebar
+        // --- Find current user data ---
+        const currentUser = users.find(
+          (user) => user.username === loggedInUser
+        );
+        console.log("Searching for username:", loggedInUser);
+        console.log("Found currentUser:", currentUser); // DEBUG: Check if currentUser is found correctly
 
-                // Form Fields Pre-filling - Use data from currentUser
-                if (firstNameInput) firstNameInput.value = currentUser.firstName || '';
-                if (lastNameInput) lastNameInput.value = currentUser.lastName || '';
-                if (emailInput) emailInput.value = currentUser.email || ''; // Fill form email input
-                if (phoneInput) phoneInput.value = currentUser.phone || '';
-                if (birthDateInput) birthDateInput.value = currentUser.birthDate || ''; // Make sure birthDate is stored in 'YYYY-MM-DD' format
-                if (countrySelect) countrySelect.value = currentUser.country || ''; // Ensure the value exists in the select options
-                if (bioTextarea) bioTextarea.value = currentUser.bio || '';
+        // --- Display User Info (Sidebar and Form) ---
+        if (currentUser) {
+          // Sidebar display
+          if (profileAvatar)
+            profileAvatar.src = currentUser.avatar || "img/default-avatar.jpg"; // Use stored avatar or a default
+          if (profileUsername)
+            profileUsername.textContent =
+              currentUser.displayName || currentUser.username; // Prefer displayName, fallback to username
+          if (profileEmail)
+            profileEmail.textContent = currentUser.email || "N/A"; // Show email in sidebar
 
-            } else {
-                // Fallback if currentUser data is somehow missing from TriplyUsers
-                console.error("Could not find full data for logged in user:", loggedInUser);
-                if (profileUsername) profileUsername.textContent = loggedInUser; // Show username at least
-                if (profileEmail) profileEmail.textContent = 'User data not found';
-                // Optionally clear the form or show a message
-                if (profileForm) profileForm.reset(); // Clear the form
-            }
+          // Form Fields Pre-filling - Use data from currentUser
+          if (firstNameInput)
+            firstNameInput.value = currentUser.firstName || "";
+          if (lastNameInput) lastNameInput.value = currentUser.lastName || "";
+          if (emailInput) emailInput.value = currentUser.email || ""; // Fill form email input
+          if (phoneInput) phoneInput.value = currentUser.phone || "";
+          if (birthDateInput)
+            birthDateInput.value = currentUser.birthDate || ""; // Make sure birthDate is stored in 'YYYY-MM-DD' format
+          if (countrySelect) countrySelect.value = currentUser.country || ""; // Ensure the value exists in the select options
+          if (bioTextarea) bioTextarea.value = currentUser.bio || "";
+        } else {
+          // Fallback if currentUser data is somehow missing from TriplyUsers
+          console.error(
+            "Could not find full data for logged in user:",
+            loggedInUser
+          );
+          if (profileUsername) profileUsername.textContent = loggedInUser; // Show username at least
+          if (profileEmail) profileEmail.textContent = "User data not found";
+          // Optionally clear the form or show a message
+          if (profileForm) profileForm.reset(); // Clear the form
+        }
 
-            // --- Display Role and Adjust Sidebar Menu ---
-            if (profileRoleBadge) {
-                if (userRole === 'admin') {
-                    profileRoleBadge.textContent = 'Admin';
-                    profileRoleBadge.className = 'badge bg-danger mt-2';
-                    if (adminPanelLink) adminPanelLink.style.display = 'block'; // Show Admin Panel link
-                    // Hide User-specific tabs for Admin in sidebar
-                    if (bookingsLink) bookingsLink.style.display = 'none';
-                    if (favoritesLink) favoritesLink.style.display = 'none';
-                } else { // Assumes 'user'
-                    profileRoleBadge.textContent = 'User';
-                    profileRoleBadge.className = 'badge bg-primary mt-2';
-                    if (adminPanelLink) adminPanelLink.style.display = 'none'; // Hide Admin Panel link
-                    // Ensure User-specific tabs are visible (though default is usually visible)
-                    if (bookingsLink) bookingsLink.style.display = 'block';
-                    if (favoritesLink) favoritesLink.style.display = 'block';
-                }
-            }
+        // --- Display Role and Adjust Sidebar Menu ---
+        if (profileRoleBadge) {
+          if (userRole === "admin") {
+            profileRoleBadge.textContent = "Admin";
+            profileRoleBadge.className = "badge bg-danger mt-2";
+            if (adminPanelLink) adminPanelLink.style.display = "block"; // Show Admin Panel link
+            // Hide User-specific tabs for Admin in sidebar
+            if (bookingsLink) bookingsLink.style.display = "none";
+            if (favoritesLink) favoritesLink.style.display = "none";
+          } else {
+            // Assumes 'user'
+            profileRoleBadge.textContent = "User";
+            profileRoleBadge.className = "badge bg-primary mt-2";
+            if (adminPanelLink) adminPanelLink.style.display = "none"; // Hide Admin Panel link
+            // Ensure User-specific tabs are visible (though default is usually visible)
+            if (bookingsLink) bookingsLink.style.display = "block";
+            if (favoritesLink) favoritesLink.style.display = "block";
+          }
+        }
 
-            // --- Filter and Display User's Bookings ---
-            // (Your existing code for displaying bookings seems correct and uses loggedInUser)
-            const userBookings = allBookings.filter(booking => booking.username === loggedInUser);
+        // --- Filter and Display User's Bookings ---
+        // (Your existing code for displaying bookings seems correct and uses loggedInUser)
+        const userBookings = allBookings.filter(
+          (booking) => booking.username === loggedInUser
+        );
 
-            if (!bookingContainer) {
-                console.error("Booking history container not found!");
-            } else {
-                bookingContainer.innerHTML = ''; // Clear static content
+        if (!bookingContainer) {
+          console.error("Booking history container not found!");
+        } else {
+          bookingContainer.innerHTML = ""; // Clear static content
 
-                if (userBookings.length === 0) {
-                    if (noBookingsMessage) noBookingsMessage.style.display = 'block';
-                } else {
-                    if (noBookingsMessage) noBookingsMessage.style.display = 'none';
-                    userBookings.sort((a, b) => new Date(b.bookingTimestamp) - new Date(a.bookingTimestamp)); // Sort newest first
-                    let bookingHTML = '';
-                    userBookings.forEach(booking => {
-                        const bookingDate = new Date(booking.bookingTimestamp).toLocaleDateString('en-GB');
-                        bookingHTML += `
+          if (userBookings.length === 0) {
+            if (noBookingsMessage) noBookingsMessage.style.display = "block";
+          } else {
+            if (noBookingsMessage) noBookingsMessage.style.display = "none";
+            userBookings.sort(
+              (a, b) =>
+                new Date(b.bookingTimestamp) - new Date(a.bookingTimestamp)
+            ); // Sort newest first
+            let bookingHTML = "";
+            userBookings.forEach((booking) => {
+              const bookingDate = new Date(
+                booking.bookingTimestamp
+              ).toLocaleDateString("en-GB");
+              bookingHTML += `
                             <div class="col-12">
                                 <div class="card mb-3 shadow-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-md-3">
-                                                <img src="${booking.tourImage || 'img/default-package.jpg'}" class="img-fluid rounded" alt="${booking.tourName || 'Tour Image'}">
+                                                <img src="${
+                                                  booking.tourImage ||
+                                                  "img/default-package.jpg"
+                                                }" class="img-fluid rounded" alt="${
+                booking.tourName || "Tour Image"
+              }">
                                             </div>
                                             <div class="col-md-5">
-                                                <h5 class="card-title">${booking.tourName || 'Unknown Tour'}</h5>
+                                                <h5 class="card-title">${
+                                                  booking.tourName ||
+                                                  "Unknown Tour"
+                                                }</h5>
                                                 <p class="card-text text-muted small">
-                                                    <i class="fas fa-users me-1"></i> Adults: ${booking.numAdults}, Children: ${booking.numChildren}, Infants: ${booking.numInfants}
+                                                    <i class="fas fa-users me-1"></i> Adults: ${
+                                                      booking.numAdults
+                                                    }, Children: ${
+                booking.numChildren
+              }, Infants: ${booking.numInfants}
                                                 </p>
                                                 <p class="card-text small">
-                                                    <i class="fas fa-map-marker-alt me-1"></i> ${booking.tourLocation || 'N/A'}
+                                                    <i class="fas fa-map-marker-alt me-1"></i> ${
+                                                      booking.tourLocation ||
+                                                      "N/A"
+                                                    }
                                                 </p>
-                                                <span class="badge bg-${booking.status === 'Confirmed' ? 'success' : (booking.status === 'Cancelled' ? 'danger' : 'warning')}">${booking.status || 'Pending'}</span>
+                                                <span class="badge bg-${
+                                                  booking.status === "Confirmed"
+                                                    ? "success"
+                                                    : booking.status ===
+                                                      "Cancelled"
+                                                    ? "danger"
+                                                    : "warning"
+                                                }">${
+                booking.status || "Pending"
+              }</span>
                                             </div>
                                             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                                <h5 class="text-primary">${booking.tourPrice || '$0'}</h5>
+                                                <h5 class="text-primary">${
+                                                  booking.tourPrice || "$0"
+                                                }</h5>
                                                 <p class="text-muted small">Booked on ${bookingDate}</p>
-                                                <a href="booking-detail.html?id=${booking.bookingId}" class="btn btn-outline-primary btn-sm me-2">View Details</a>
-                                                ${booking.status !== 'Cancelled' ?
-                                                `<a href="cancel-booking.html?id=${booking.bookingId}" class="btn btn-outline-danger btn-sm">Cancel Tour</a>` :
-                                                '<span class="text-danger small">Cancelled</span>'
+                                                <a href="booking-detail.html?id=${
+                                                  booking.bookingId
+                                                }" class="btn btn-outline-primary btn-sm me-2">View Details</a>
+                                                ${
+                                                  booking.status !== "Cancelled"
+                                                    ? `<a href="cancel-booking.html?id=${booking.bookingId}" class="btn btn-outline-danger btn-sm">Cancel Tour</a>`
+                                                    : '<span class="text-danger small">Cancelled</span>'
                                                 }
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>`;
-                    });
-                    bookingContainer.innerHTML = bookingHTML;
-                }
+            });
+            bookingContainer.innerHTML = bookingHTML;
+          }
+        }
+
+        // --- Add functionality for Profile Form saving ---
+        if (profileForm) {
+          profileForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            // Get form values
+            const updatedFirstName = firstNameInput
+              ? firstNameInput.value.trim()
+              : "";
+            const updatedLastName = lastNameInput
+              ? lastNameInput.value.trim()
+              : "";
+            const updatedEmail = emailInput ? emailInput.value.trim() : "";
+            const updatedPhone = phoneInput ? phoneInput.value.trim() : "";
+            const updatedBirthDate = birthDateInput ? birthDateInput.value : "";
+            const updatedCountry = countrySelect ? countrySelect.value : "";
+            const updatedBio = bioTextarea ? bioTextarea.value.trim() : "";
+
+            // Basic validation (add more if needed)
+            if (!updatedFirstName || !updatedLastName || !updatedEmail) {
+              alert("Please fill in First Name, Last Name, and Email.");
+              return;
+            }
+            if (
+              updatedEmail &&
+              !updatedEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+            ) {
+              alert("Please enter a valid email address.");
+              return;
             }
 
-            // --- Add functionality for Profile Form saving ---
-            if (profileForm) {
-                profileForm.addEventListener('submit', (event) => {
-                    event.preventDefault();
-                    // Get form values
-                    const updatedFirstName = firstNameInput ? firstNameInput.value.trim() : '';
-                    const updatedLastName = lastNameInput ? lastNameInput.value.trim() : '';
-                    const updatedEmail = emailInput ? emailInput.value.trim() : '';
-                    const updatedPhone = phoneInput ? phoneInput.value.trim() : '';
-                    const updatedBirthDate = birthDateInput ? birthDateInput.value : '';
-                    const updatedCountry = countrySelect ? countrySelect.value : '';
-                    const updatedBio = bioTextarea ? bioTextarea.value.trim() : '';
+            // Find user index
+            const userIndex = users.findIndex(
+              (user) => user.username === loggedInUser
+            );
 
-                    // Basic validation (add more if needed)
-                    if (!updatedFirstName || !updatedLastName || !updatedEmail) {
-                        alert('Please fill in First Name, Last Name, and Email.'); return;
-                    }
-                    if (updatedEmail && !updatedEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                      alert('Please enter a valid email address.'); return;
-                    }
+            if (userIndex !== -1) {
+              // Update user object
+              users[userIndex].firstName = updatedFirstName;
+              users[userIndex].lastName = updatedLastName;
+              users[userIndex].email = updatedEmail; // Allow email change if desired
+              users[userIndex].phone = updatedPhone;
+              users[userIndex].birthDate = updatedBirthDate;
+              users[userIndex].country = updatedCountry;
+              users[userIndex].bio = updatedBio;
+              users[userIndex].displayName =
+                `${updatedFirstName} ${updatedLastName}`.trim() || loggedInUser; // Update displayName too
 
-                    // Find user index
-                    const userIndex = users.findIndex(user => user.username === loggedInUser);
+              // Save updated users array back to localStorage
+              localStorage.setItem("TriplyUsers", JSON.stringify(users));
 
-                    if (userIndex !== -1) {
-                        // Update user object
-                        users[userIndex].firstName = updatedFirstName;
-                        users[userIndex].lastName = updatedLastName;
-                        users[userIndex].email = updatedEmail; // Allow email change if desired
-                        users[userIndex].phone = updatedPhone;
-                        users[userIndex].birthDate = updatedBirthDate;
-                        users[userIndex].country = updatedCountry;
-                        users[userIndex].bio = updatedBio;
-                        users[userIndex].displayName = `${updatedFirstName} ${updatedLastName}`.trim() || loggedInUser; // Update displayName too
+              alert("Profile updated successfully!");
 
-                        // Save updated users array back to localStorage
-                        localStorage.setItem("TriplyUsers", JSON.stringify(users));
-
-                        alert('Profile updated successfully!');
-
-                        // Update sidebar email if it changed
-                        if (profileEmail) profileEmail.textContent = updatedEmail;
-                        // Update sidebar username if displayName changed
-                        if (profileUsername) profileUsername.textContent = users[userIndex].displayName;
-
-
-                    } else {
-                        alert('Error: Could not find user data to update.');
-                    }
-                });
+              // Update sidebar email if it changed
+              if (profileEmail) profileEmail.textContent = updatedEmail;
+              // Update sidebar username if displayName changed
+              if (profileUsername)
+                profileUsername.textContent = users[userIndex].displayName;
+            } else {
+              alert("Error: Could not find user data to update.");
             }
-            
-                // --- Add Reset button functionality ---
-            const resetButton = profileForm ? profileForm.querySelector('button[type="button"].btn-outline-secondary') : null;
-            if (resetButton) {
-                resetButton.addEventListener('click', () => {
-                    // Re-populate form with currentUser data
-                    if (currentUser) {
-                        if (firstNameInput) firstNameInput.value = currentUser.firstName || '';
-                        if (lastNameInput) lastNameInput.value = currentUser.lastName || '';
-                        if (emailInput) emailInput.value = currentUser.email || '';
-                        if (phoneInput) phoneInput.value = currentUser.phone || '';
-                        if (birthDateInput) birthDateInput.value = currentUser.birthDate || '';
-                        if (countrySelect) countrySelect.value = currentUser.country || '';
-                        if (bioTextarea) bioTextarea.value = currentUser.bio || '';
-                        alert('Form reset to previously saved values.');
-                    } else {
-                        profileForm.reset(); // Standard form reset if no currentUser
-                        alert('Form reset.');
-                    }
-                });
-            }
+          });
+        }
 
-            // --- Optional: Add functionality for changing avatar ---
-            const avatarButton = document.querySelector('.btn-primary.btn-sm.position-absolute');
-            if (avatarButton) {
-                avatarButton.addEventListener('click', () => {
-                    alert('Avatar change functionality not yet implemented.');
-                });
+        // --- Add Reset button functionality ---
+        const resetButton = profileForm
+          ? profileForm.querySelector(
+              'button[type="button"].btn-outline-secondary'
+            )
+          : null;
+        if (resetButton) {
+          resetButton.addEventListener("click", () => {
+            // Re-populate form with currentUser data
+            if (currentUser) {
+              if (firstNameInput)
+                firstNameInput.value = currentUser.firstName || "";
+              if (lastNameInput)
+                lastNameInput.value = currentUser.lastName || "";
+              if (emailInput) emailInput.value = currentUser.email || "";
+              if (phoneInput) phoneInput.value = currentUser.phone || "";
+              if (birthDateInput)
+                birthDateInput.value = currentUser.birthDate || "";
+              if (countrySelect)
+                countrySelect.value = currentUser.country || "";
+              if (bioTextarea) bioTextarea.value = currentUser.bio || "";
+              alert("Form reset to previously saved values.");
+            } else {
+              profileForm.reset(); // Standard form reset if no currentUser
+              alert("Form reset.");
             }
-        }); // End DOMContentLoaded
+          });
+        }
+
+        // --- Optional: Add functionality for changing avatar ---
+        const avatarButton = document.querySelector(
+          ".btn-primary.btn-sm.position-absolute"
+        );
+        if (avatarButton) {
+          avatarButton.addEventListener("click", () => {
+            alert("Avatar change functionality not yet implemented.");
+          });
+        }
+      }); // End DOMContentLoaded
     </script>
     <script src="js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const favoritesContainer = document.querySelector(
+          "#favorites .row.g-4"
+        );
+        const favoritesList =
+          JSON.parse(localStorage.getItem("TriplyFavorites")) || [];
+
+        // Clear existing sample cards
+        favoritesContainer.innerHTML = "";
+
+        if (favoritesList.length === 0) {
+          favoritesContainer.innerHTML = `
+      <div class="text-center text-muted py-4">
+        <i class="fas fa-heart-broken fa-3x mb-3 text-secondary"></i>
+        <p>You haven’t added any favorites yet.</p>
+      </div>`;
+          return;
+        }
+
+        // Define your tour data (can expand later or fetch dynamically)
+        const allTours = {
+          "Venice - Italy": {
+            img: "img/packages-4.jpg",
+            desc: "Discover the floating city of love, its canals, and timeless beauty.",
+            price: "$349.00",
+            link: "italy.html",
+            book: "booking_italy.html",
+          },
+          "The New California": {
+            img: "img/packages-2.jpg",
+            desc: "From beaches to mountains, experience the Golden State’s best adventures.",
+            price: "$449.00",
+            link: "cali.html",
+            book: "booking_cali.html",
+          },
+          "Discover Japan": {
+            img: "img/packages-3.jpg",
+            desc: "Experience tradition and technology in Tokyo, Kyoto, and Mount Fuji.",
+            price: "$549.00",
+            link: "japan.html",
+            book: "booking_japan.html",
+          },
+          "Thailand Trip": {
+            img: "img/packages-1.jpg",
+            desc: "Escape to Thailand’s paradise of temples and turquoise beaches.",
+            price: "$649.00",
+            link: "thailand.html",
+            book: "thailand_booking.html",
+          },
+        };
+
+        // Render each favorite tour
+        favoritesList.forEach((name) => {
+          const tour = allTours[name];
+          if (!tour) return; // Skip unknown ones
+
+          const card = document.createElement("div");
+          card.className = "col-md-6";
+          card.innerHTML = `
+      <div class="card h-100 shadow-sm border-0">
+        <img src="${tour.img}" class="card-img-top" alt="${name}">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">${name}</h5>
+            <i class="fa fa-heart text-danger" style="font-size: 18px;"></i>
+          </div>
+          <p class="small text-muted">${tour.desc}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-primary fw-bold">${tour.price}</span>
+            <div>
+              <button class="btn btn-outline-primary btn-sm me-2"
+                      onclick="window.location.href='${tour.link}'">
+                Read More
+              </button>
+              <button class="btn btn-primary btn-sm"
+                      onclick="window.location.href='${tour.book}'">
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+          favoritesContainer.appendChild(card);
+        });
+      });
+    </script>
   </body>
 </html>

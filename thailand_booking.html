@@ -164,14 +164,21 @@
             <a href="packages.html" class="nav-item nav-link">Packages</a>
             <a href="blog.html" class="nav-item nav-link">Blog</a>
             <div class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                >Pages</a
+              >
               <div class="dropdown-menu m-0">
-                  <a href="destination.html" class="dropdown-item">Destination</a>
-                  <a href="tour.html" class="dropdown-item">Explore Tour</a>
-                  <a href="guides.html" class="dropdown-item">Travel Guides</a>
-                  <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                  <a href="policy.html" class="dropdown-item">Terms & Conditions</a>
-                  <a href="help.html" class="dropdown-item">Help</a>
+                <a href="destination.html" class="dropdown-item">Destination</a>
+                <a href="tour.html" class="dropdown-item">Explore Tour</a>
+                <a href="guides.html" class="dropdown-item">Travel Guides</a>
+                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                <a href="policy.html" class="dropdown-item"
+                  >Terms & Conditions</a
+                >
+                <a href="help.html" class="dropdown-item">Help</a>
               </div>
             </div>
             <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -214,7 +221,76 @@
         <!-- Left Form -->
         <div class="col-lg-7">
           <div class="bg-light p-4 rounded shadow-sm">
-            <h4 class="mb-4 text-primary">Contact Information</h4>
+            <!-- 🚀 Departure Schedule Section -->
+            <h4 class="mb-4 text-primary text-center">Departure Schedule</h4>
+
+            <div class="d-flex flex-column flex-lg-row align-items-start gap-3">
+              <!-- Month Selector -->
+              <div class="month-list p-2 bg-white border rounded">
+                <button
+                  class="btn btn-light w-100 my-1 month-btn"
+                  data-month="11/2025"
+                >
+                  Nov 2025
+                </button>
+                <button
+                  class="btn btn-primary w-100 my-1 month-btn active"
+                  data-month="12/2025"
+                >
+                  Dec 2025
+                </button>
+                <button
+                  class="btn btn-light w-100 my-1 month-btn"
+                  data-month="1/2026"
+                >
+                  Jan 2026
+                </button>
+                <button
+                  class="btn btn-light w-100 my-1 month-btn"
+                  data-month="2/2026"
+                >
+                  Feb 2026
+                </button>
+              </div>
+
+              <!-- Calendar -->
+              <div
+                class="calendar-container flex-grow-1 bg-white border rounded p-3"
+              >
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <button class="btn btn-outline-primary btn-sm" id="prevMonth">
+                    &lt;
+                  </button>
+                  <h5 class="m-0" id="calendarTitle">December 2025</h5>
+                  <button class="btn btn-outline-primary btn-sm" id="nextMonth">
+                    &gt;
+                  </button>
+                </div>
+
+                <div class="calendar-grid text-center">
+                  <div class="row fw-bold text-muted">
+                    <div class="col">Mon</div>
+                    <div class="col">Tue</div>
+                    <div class="col">Wed</div>
+                    <div class="col">Thu</div>
+                    <div class="col">Fri</div>
+                    <div class="col text-danger">Sat</div>
+                    <div class="col text-danger">Sun</div>
+                  </div>
+                  <div id="calendarDays" class="mt-2"></div>
+                </div>
+
+                <p class="text-danger small mt-3">
+                  Please select an available departure date to continue booking.
+                </p>
+              </div>
+            </div>
+            <!-- 🚀 End Departure Schedule Section -->
+
+            <!-- Contact Info -->
+            <h4 class="mb-4 text-primary mt-5">Contact Information</h4>
             <form>
               <div class="row g-3 mb-3">
                 <div class="col-md-6">
@@ -307,6 +383,77 @@
               <i class="fa fa-plane-arrival text-primary me-2"></i>Return:
               10/11/2025 - 15:20 → 18:45
             </p>
+            <h6 class="fw-semibold mb-3 mt-4">Itinerary</h6>
+
+            <div class="itinerary-box border rounded p-3 bg-white mb-4">
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-city me-2"></i>Day 1 – Arrive in Bangkok
+                </h6>
+                <p class="small mb-0">
+                  Arrive at Suvarnabhumi Airport and transfer to your hotel.
+                  Enjoy a traditional Thai welcome dinner and evening river
+                  cruise along the Chao Phraya River.
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-landmark me-2"></i>Day 2 – Bangkok Sightseeing
+                </h6>
+                <p class="small mb-0">
+                  Visit the Grand Palace, Wat Pho (Reclining Buddha), and Wat
+                  Arun. Explore local street markets and enjoy a tuk-tuk ride
+                  through old Bangkok.
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-umbrella-beach me-2"></i>Day 3 – Bangkok →
+                  Pattaya
+                </h6>
+                <p class="small mb-0">
+                  Drive to Pattaya. Stop at Nong Nooch Tropical Garden to see
+                  Thai cultural shows and elephant performances. Free time to
+                  relax at Pattaya Beach.
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-ship me-2"></i>Day 4 – Coral Island Excursion
+                </h6>
+                <p class="small mb-0">
+                  Take a speedboat trip to Coral Island (Koh Larn). Enjoy
+                  swimming, snorkeling, or optional parasailing before returning
+                  to the mainland.
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-plane-departure me-2"></i>Day 5 – Pattaya →
+                  Phuket
+                </h6>
+                <p class="small mb-0">
+                  Fly to Phuket. Visit Promthep Cape for sunset views and
+                  explore the lively Patong nightlife district.
+                </p>
+              </div>
+
+              <div>
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-mountain-sun me-2"></i>Day 6 – Phi Phi Islands
+                  & Departure
+                </h6>
+                <p class="small mb-0">
+                  Take a boat trip to Phi Phi Islands for sightseeing and lunch.
+                  Return to Phuket Airport for your departure flight. End of
+                  tour.
+                </p>
+              </div>
+            </div>
 
             <div class="d-flex justify-content-between mb-2">
               <span>1 Adult</span>
@@ -339,6 +486,9 @@
             </div>
 
             <button class="btn-book">Confirm Booking</button>
+            <button id="btnContact" class="btn btn-outline-primary w-100 mt-3">
+              Talk to a Travel Expert
+            </button>
           </div>
         </div>
       </div>
@@ -361,5 +511,103 @@
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/handleBooking.js"></script>
+    <script src="js/handleCalendar.js"></script>
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+          <div class="modal-header border-0">
+            <h5 class="modal-title">Request a Consultation</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <p class="small text-muted">
+              Please fill in your details below. Our team will contact you as
+              soon as possible.
+            </p>
+
+            <form id="contactForm">
+              <div class="mb-3">
+                <label class="form-label">Full Name *</label>
+                <input type="text" class="form-control" name="name" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Phone Number *</label>
+                <input type="tel" class="form-control" name="phone" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Email *</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  name="message"
+                  placeholder="Example: I'd like more information about the California tour..."
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100">
+                Send Request
+              </button>
+            </form>
+
+            <div
+              id="thankyouMsg"
+              class="text-center mt-3"
+              style="display: none"
+            >
+              <h6 class="text-success">🎉 Thank You!</h6>
+              <p>
+                Your information has been received. We’ll get in touch shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactBtn = document.getElementById("btnContact");
+        const contactModal = new bootstrap.Modal(
+          document.getElementById("contactModal")
+        );
+        const form = document.getElementById("contactForm");
+        const thankyouMsg = document.getElementById("thankyouMsg");
+
+        // Open pop-up
+        contactBtn.addEventListener("click", function () {
+          form.reset();
+          thankyouMsg.style.display = "none";
+          form.style.display = "block";
+          contactModal.show();
+        });
+
+        // Handle form submission
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          form.style.display = "none";
+          thankyouMsg.style.display = "block";
+          setTimeout(() => contactModal.hide(), 3000); // Auto close after 3s
+        });
+      });
+    </script>
   </body>
 </html>

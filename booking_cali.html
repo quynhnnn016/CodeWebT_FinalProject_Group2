@@ -76,6 +76,56 @@
         background-color: #084ec4;
         color: #fff;
       }
+      /* === Departure Calendar Styling === */
+      .calendar-day {
+        border-radius: 6px;
+        padding: 8px 0;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-height: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .calendar-day.unavailable {
+        color: #ccc;
+        cursor: not-allowed;
+      }
+
+      .calendar-day.available {
+        background-color: #f8f9ff;
+        color: #333;
+        border: 1px solid transparent;
+      }
+
+      .calendar-day.available:hover {
+        border-color: #0d6efd;
+        background-color: #e7f0ff;
+      }
+
+      .calendar-day.selected {
+        background-color: #0d6efd !important;
+        color: white !important;
+        border-color: #0d6efd !important;
+      }
+
+      .calendar-day small {
+        display: block;
+        font-size: 0.75rem;
+        color: #dc3545;
+      }
+
+      .month-btn.active {
+        background-color: #0d6efd !important;
+        color: white !important;
+      }
+
+      .month-btn {
+        border-radius: 6px;
+        transition: all 0.2s;
+      }
     </style>
   </head>
 
@@ -176,7 +226,9 @@
                 <a href="gallery.html" class="dropdown-item">Our Gallery</a>
                 <a href="guides.html" class="dropdown-item">Travel Guides</a>
                 <a href="testimonial.html" class="dropdown-item">Review</a>
-                <a href="policy.html" class="dropdown-item">Terms & Conditions</a>
+                <a href="policy.html" class="dropdown-item"
+                  >Terms & Conditions</a
+                >
               </div>
             </div>
             <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -219,7 +271,76 @@
         <!-- Left Form -->
         <div class="col-lg-7">
           <div class="bg-light p-4 rounded shadow-sm">
-            <h4 class="mb-4 text-primary">Contact Information</h4>
+            <!-- 🚀 Departure Schedule Section -->
+            <h4 class="mb-4 text-primary text-center">Departure Schedule</h4>
+
+            <div class="d-flex flex-column flex-lg-row align-items-start gap-3">
+              <!-- Month Selector -->
+              <div class="month-list p-2 bg-white border rounded">
+                <button
+                  class="btn btn-light w-100 my-1 month-btn"
+                  data-month="11/2025"
+                >
+                  Nov 2025
+                </button>
+                <button
+                  class="btn btn-primary w-100 my-1 month-btn active"
+                  data-month="12/2025"
+                >
+                  Dec 2025
+                </button>
+                <button
+                  class="btn btn-light w-100 my-1 month-btn"
+                  data-month="1/2026"
+                >
+                  Jan 2026
+                </button>
+                <button
+                  class="btn btn-light w-100 my-1 month-btn"
+                  data-month="2/2026"
+                >
+                  Feb 2026
+                </button>
+              </div>
+
+              <!-- Calendar -->
+              <div
+                class="calendar-container flex-grow-1 bg-white border rounded p-3"
+              >
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <button class="btn btn-outline-primary btn-sm" id="prevMonth">
+                    &lt;
+                  </button>
+                  <h5 class="m-0" id="calendarTitle">December 2025</h5>
+                  <button class="btn btn-outline-primary btn-sm" id="nextMonth">
+                    &gt;
+                  </button>
+                </div>
+
+                <div class="calendar-grid text-center">
+                  <div class="row fw-bold text-muted">
+                    <div class="col">Mon</div>
+                    <div class="col">Tue</div>
+                    <div class="col">Wed</div>
+                    <div class="col">Thu</div>
+                    <div class="col">Fri</div>
+                    <div class="col text-danger">Sat</div>
+                    <div class="col text-danger">Sun</div>
+                  </div>
+                  <div id="calendarDays" class="mt-2"></div>
+                </div>
+
+                <p class="text-danger small mt-3">
+                  Please select an available departure date to continue booking.
+                </p>
+              </div>
+            </div>
+            <!-- 🚀 End Departure Schedule Section -->
+
+            <!-- Contact Info -->
+            <h4 class="mb-4 text-primary mt-5">Contact Information</h4>
             <form>
               <div class="row g-3 mb-3">
                 <div class="col-md-6">
@@ -312,6 +433,64 @@
               <i class="fa fa-plane-arrival text-primary me-2"></i>Return:
               25/08/2025 - 13:40 → 19:10
             </p>
+            <h6 class="fw-semibold mb-3 mt-4">Itinerary</h6>
+
+            <div class="itinerary-box border rounded p-3 bg-white mb-4">
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-calendar-day me-2"></i>Day 1 – Los Angeles
+                  Arrival & City Tour
+                </h6>
+                <p class="small mb-0">
+                  Arrive in Los Angeles and start your adventure with visits to
+                  Hollywood Walk of Fame, Beverly Hills, and Santa Monica Beach.
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-bus me-2"></i>Day 2 – San Francisco
+                  Exploration
+                </h6>
+                <p class="small mb-0">
+                  Transfer to San Francisco. Visit Golden Gate Bridge,
+                  Fisherman’s Wharf, and enjoy a cable car ride through the
+                  city.
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-mountain me-2"></i>Day 3 – Yosemite National
+                  Park
+                </h6>
+                <p class="small mb-0">
+                  Discover the beauty of Yosemite’s waterfalls, cliffs, and
+                  giant sequoias. Perfect for nature photography.
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-city me-2"></i>Day 4 – Shopping & Local
+                  Experience
+                </h6>
+                <p class="small mb-0">
+                  Visit local markets and premium outlets for shopping and
+                  dining before returning to the hotel.
+                </p>
+              </div>
+
+              <div>
+                <h6 class="text-primary fw-bold mb-1">
+                  <i class="fa fa-plane-departure me-2"></i>Day 5 – Departure
+                </h6>
+                <p class="small mb-0">
+                  Check out and head to the airport. End of the California
+                  adventure.
+                </p>
+              </div>
+            </div>
 
             <div class="d-flex justify-content-between mb-2">
               <span>1 Adult</span>
@@ -343,91 +522,146 @@
               </div>
             </div>
 
-            <button class="btn-book">Confirm Booking</button>
+            <button class="btn-book btn btn-primary w-100">
+              Confirm Booking
+            </button>
+            <button id="btnContact" class="btn btn-outline-primary w-100 mt-3">
+              Talk to a Travel Expert
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Footer Start -->
-   <div class="container-fluid footer py-5" style="background-color:#0b1b31;">
-  <div class="container py-5">
-    <div class="row g-5">
-      
-      <!-- Get In Touch -->
-      <div class="col-md-6 col-lg-6 col-xl-3">
-        <div class="footer-item d-flex flex-column">
-          <h4 class="mb-4 text-white">Get In Touch</h4>
-          <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-home me-2"></i>669 National Route 1A, HCM City</a>
-          <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-envelope me-2"></i>info@example.com</a>
-          <a href="#" style="color:#ccc; text-decoration:none;"><i class="fas fa-phone me-2"></i>+012 345 67890</a>
-          <div class="d-flex align-items-center mt-3">
-            <i class="fas fa-share fa-2x text-white me-2"></i>
-            <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
-            <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
-            <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+    <div class="container-fluid footer py-5" style="background-color: #0b1b31">
+      <div class="container py-5">
+        <div class="row g-5">
+          <!-- Get In Touch -->
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="footer-item d-flex flex-column">
+              <h4 class="mb-4 text-white">Get In Touch</h4>
+              <a href="#" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-home me-2"></i>669 National Route 1A, HCM
+                City</a
+              >
+              <a href="#" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-envelope me-2"></i>info@example.com</a
+              >
+              <a href="#" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-phone me-2"></i>+012 345 67890</a
+              >
+              <div class="d-flex align-items-center mt-3">
+                <i class="fas fa-share fa-2x text-white me-2"></i>
+                <a
+                  class="btn-square btn btn-primary rounded-circle mx-1"
+                  href="#"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a
+                  class="btn-square btn btn-primary rounded-circle mx-1"
+                  href="#"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a
+                  class="btn-square btn btn-primary rounded-circle mx-1"
+                  href="#"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a
+                  class="btn-square btn btn-primary rounded-circle mx-1"
+                  href="#"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company -->
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="footer-item d-flex flex-column">
+              <h4 class="mb-4 text-white">Company</h4>
+              <a href="index.html" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-angle-right me-2"></i>Home</a
+              >
+              <a href="about.html" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-angle-right me-2"></i>About</a
+              >
+              <a href="blog.html" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-angle-right me-2"></i>Blog</a
+              >
+            </div>
+          </div>
+
+          <!-- Support -->
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="footer-item d-flex flex-column">
+              <h4 class="mb-4 text-white">Support</h4>
+              <a href="contact.html" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-angle-right me-2"></i>Contact</a
+              >
+              <a href="help.html" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-angle-right me-2"></i>Help</a
+              >
+              <a href="policy.html" style="color: #ccc; text-decoration: none"
+                ><i class="fas fa-angle-right me-2"></i>Terms & Conditions</a
+              >
+            </div>
+          </div>
+
+          <!-- Payments -->
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="footer-item">
+              <h4 class="text-white mb-3">Payments</h4>
+              <div class="footer-bank-card">
+                <a href="#" class="text-white me-2"
+                  ><i class="fab fa-cc-visa fa-2x"></i
+                ></a>
+                <a href="#" class="text-white me-2"
+                  ><i class="fab fa-cc-mastercard fa-2x"></i
+                ></a>
+                <a href="#" class="text-white me-2"
+                  ><i class="fab fa-cc-paypal fa-2x"></i
+                ></a>
+                <img
+                  src="img/cong-thuong.png"
+                  alt="Đã đăng ký Bộ Công Thương"
+                  class="cong-thuong-logo"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <!-- Footer End -->
 
-      <!-- Company -->
-      <div class="col-md-6 col-lg-6 col-xl-3">
-        <div class="footer-item d-flex flex-column">
-          <h4 class="mb-4 text-white">Company</h4>
-          <a href="index.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Home</a>
-          <a href="about.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>About</a>
-          <a href="blog.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Blog</a>
-        </div>
-      </div>
-
-      <!-- Support -->
-      <div class="col-md-6 col-lg-6 col-xl-3">
-        <div class="footer-item d-flex flex-column">
-          <h4 class="mb-4 text-white">Support</h4>
-          <a href="contact.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Contact</a>
-          <a href="help.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Help</a>
-          <a href="policy.html" style="color:#ccc; text-decoration:none;"><i class="fas fa-angle-right me-2"></i>Terms & Conditions</a>
-        </div>
-      </div>
-
-      <!-- Payments -->
-      <div class="col-md-6 col-lg-6 col-xl-3">
-        <div class="footer-item">
-          <h4 class="text-white mb-3">Payments</h4>
-          <div class="footer-bank-card">
-            <a href="#" class="text-white me-2"><i class="fab fa-cc-visa fa-2x"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-cc-mastercard fa-2x"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-cc-paypal fa-2x"></i></a>
-            <img src="img/cong-thuong.png" alt="Đã đăng ký Bộ Công Thương" class="cong-thuong-logo">
-
+    <!-- Copyright Start -->
+    <div
+      class="container-fluid copyright text-body py-4"
+      style="background-color: #0b1b31"
+    >
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-6 text-center text-md-end mb-md-0">
+            <i class="fas fa-copyright me-2"></i>
+            <a class="text-white" href="#">Triply</a>, All rights reserved.
+          </div>
+          <div class="col-md-6 text-center text-md-start">
+            Designed by
+            <a class="text-white" href="https://htmlcodex.com">Triply</a>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
-</div>
-<!-- Footer End -->
-
-<!-- Copyright Start -->
-<div class="container-fluid copyright text-body py-4" style="background-color:#0b1b31;">
-  <div class="container">
-    <div class="row g-4 align-items-center">
-      <div class="col-md-6 text-center text-md-end mb-md-0">
-        <i class="fas fa-copyright me-2"></i>
-        <a class="text-white" href="#">Triply</a>, All rights reserved.
-      </div>
-      <div class="col-md-6 text-center text-md-start">
-        Designed by <a class="text-white" href="https://htmlcodex.com">Triply</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Copyright End -->
+    <!-- Copyright End -->
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a> 
+    <a
+      href="#"
+      class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -439,5 +673,103 @@
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/handleBooking.js"></script>
+    <script src="js/handleCalendar.js"></script>
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+          <div class="modal-header border-0">
+            <h5 class="modal-title">Request a Consultation</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <p class="small text-muted">
+              Please fill in your details below. Our team will contact you as
+              soon as possible.
+            </p>
+
+            <form id="contactForm">
+              <div class="mb-3">
+                <label class="form-label">Full Name *</label>
+                <input type="text" class="form-control" name="name" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Phone Number *</label>
+                <input type="tel" class="form-control" name="phone" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Email *</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  name="message"
+                  placeholder="Example: I'd like more information about the California tour..."
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100">
+                Send Request
+              </button>
+            </form>
+
+            <div
+              id="thankyouMsg"
+              class="text-center mt-3"
+              style="display: none"
+            >
+              <h6 class="text-success">🎉 Thank You!</h6>
+              <p>
+                Your information has been received. We’ll get in touch shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactBtn = document.getElementById("btnContact");
+        const contactModal = new bootstrap.Modal(
+          document.getElementById("contactModal")
+        );
+        const form = document.getElementById("contactForm");
+        const thankyouMsg = document.getElementById("thankyouMsg");
+
+        // Open pop-up
+        contactBtn.addEventListener("click", function () {
+          form.reset();
+          thankyouMsg.style.display = "none";
+          form.style.display = "block";
+          contactModal.show();
+        });
+
+        // Handle form submission
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          form.style.display = "none";
+          thankyouMsg.style.display = "block";
+          setTimeout(() => contactModal.hide(), 3000); // Auto close after 3s
+        });
+      });
+    </script>
   </body>
 </html>
