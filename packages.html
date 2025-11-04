@@ -644,32 +644,54 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <!-- Favorite Script -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const favs = JSON.parse(localStorage.getItem('TriplyFavorites')) || [];
+document.addEventListener("DOMContentLoaded", () => {
+  // Lấy username đang đăng nhập
+  const currentUser = localStorage.getItem("TriplyLoggedIn");
 
-  document.querySelectorAll('.btn-fav').forEach(icon => {
-    const name = icon.getAttribute('data-name');
-    if (favs.includes(name)) icon.style.color = '#e63946';
+  // Nếu chưa đăng nhập, không cho thao tác yêu thích
+  if (!currentUser) {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("btn-fav")) {
+        e.preventDefault();
+        alert("Please log in to use favorites!");
+      }
+    });
+    return;
+  }
+
+  // Lấy danh sách yêu thích của user hiện tại
+  const favKey = `TriplyFavorites_${currentUser}`;
+  let favs = JSON.parse(localStorage.getItem(favKey)) || [];
+
+  // Hiển thị trạng thái yêu thích đã lưu
+  document.querySelectorAll(".btn-fav").forEach((icon) => {
+    const name = icon.getAttribute("data-name");
+    if (favs.includes(name)) icon.style.color = "#e63946";
   });
 
-  document.addEventListener('click', e => {
-    if (e.target.classList.contains('btn-fav')) {
-      const name = e.target.getAttribute('data-name');
-      let favorites = JSON.parse(localStorage.getItem('TriplyFavorites')) || [];
+  // Xử lý click yêu thích
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-fav")) {
+      const name = e.target.getAttribute("data-name");
+      let favorites = JSON.parse(localStorage.getItem(favKey)) || [];
 
       if (favorites.includes(name)) {
-        favorites = favorites.filter(item => item !== name);
-        e.target.style.color = '#ccc';
+        // Xóa khỏi danh sách
+        favorites = favorites.filter((item) => item !== name);
+        e.target.style.color = "#ccc";
       } else {
+        // Thêm vào danh sách
         favorites.push(name);
-        e.target.style.color = '#e63946';
+        e.target.style.color = "#e63946";
       }
 
-      localStorage.setItem('TriplyFavorites', JSON.stringify(favorites));
+      // Lưu lại theo user
+      localStorage.setItem(favKey, JSON.stringify(favorites));
     }
   });
 });
 </script>
+
 
 <style>
 .btn-fav {

@@ -420,5 +420,38 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script src="js/auth.js"></script>
+        <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const faqItems = document.querySelectorAll(".faq-question");
+
+  faqItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const answer = item.nextElementSibling;
+      const arrow = item.querySelector("span:last-child");
+
+      // Đóng các câu hỏi khác (nếu muốn chỉ mở 1 cái 1 lúc)
+      document.querySelectorAll(".faq-answer").forEach((ans) => {
+        if (ans !== answer) {
+          ans.style.display = "none";
+          ans.previousElementSibling.querySelector("span:last-child").style.transform = "rotate(0deg)";
+        }
+      });
+
+      // Toggle phần trả lời
+      if (answer.style.display === "block") {
+        answer.style.display = "none";
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        answer.style.display = "block";
+        arrow.style.transform = "rotate(90deg)";
+      }
+
+      // Thêm hiệu ứng mượt
+      answer.style.transition = "all 0.3s ease";
+    });
+  });
+});
+</script>
+
 </body>
 </html>

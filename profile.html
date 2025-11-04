@@ -1111,72 +1111,86 @@
       }); // End DOMContentLoaded
     </script>
     <script src="js/auth.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const favoritesContainer = document.querySelector(
-          "#favorites .row.g-4"
-        );
-        const favoritesList =
-          JSON.parse(localStorage.getItem("TriplyFavorites")) || [];
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const favoritesContainer = document.querySelector("#favorites .row.g-4");
 
-        // Clear existing sample cards
-        favoritesContainer.innerHTML = "";
+  // ✅ Lấy tên user hiện đang đăng nhập
+  const currentUser = localStorage.getItem("TriplyLoggedIn");
 
-        if (favoritesList.length === 0) {
-          favoritesContainer.innerHTML = `
+  // Nếu chưa đăng nhập
+  if (!currentUser) {
+    favoritesContainer.innerHTML = `
+      <div class="text-center text-muted py-4">
+        <i class="fas fa-sign-in-alt fa-3x mb-3 text-secondary"></i>
+        <p>Please log in to view your favorites.</p>
+      </div>`;
+    return;
+  }
+
+  // ✅ Dùng key riêng cho từng tài khoản
+  const favKey = `TriplyFavorites_${currentUser}`;
+  const favoritesList = JSON.parse(localStorage.getItem(favKey)) || [];
+
+  // Xóa danh sách cũ (hoặc mẫu tĩnh)
+  favoritesContainer.innerHTML = "";
+
+  // Nếu user chưa có yêu thích nào
+  if (favoritesList.length === 0) {
+    favoritesContainer.innerHTML = `
       <div class="text-center text-muted py-4">
         <i class="fas fa-heart-broken fa-3x mb-3 text-secondary"></i>
         <p>You haven’t added any favorites yet.</p>
       </div>`;
-          return;
-        }
+    return;
+  }
 
-        // Define your tour data (can expand later or fetch dynamically)
-        const allTours = {
-          "Venice - Italy": {
-            img: "img/packages-4.jpg",
-            desc: "Discover the floating city of love, its canals, and timeless beauty.",
-            price: "$349.00",
-            link: "italy.html",
-            book: "booking_italy.html",
-          },
-          "The New California": {
-            img: "img/packages-2.jpg",
-            desc: "From beaches to mountains, experience the Golden State’s best adventures.",
-            price: "$449.00",
-            link: "cali.html",
-            book: "booking_cali.html",
-          },
-          "Discover Japan": {
-            img: "img/packages-3.jpg",
-            desc: "Experience tradition and technology in Tokyo, Kyoto, and Mount Fuji.",
-            price: "$549.00",
-            link: "japan.html",
-            book: "booking_japan.html",
-          },
-          "Thailand Trip": {
-            img: "img/packages-1.jpg",
-            desc: "Escape to Thailand’s paradise of temples and turquoise beaches.",
-            price: "$649.00",
-            link: "thailand.html",
-            book: "thailand_booking.html",
-          },
-        };
+  // ✅ Dữ liệu tour mẫu (dùng chung cho tất cả user)
+  const allTours = {
+    "Venice - Italy": {
+      img: "img/packages-4.jpg",
+      desc: "Discover the floating city of love, its canals, and timeless beauty.",
+      price: "$349.00",
+      link: "italy.html",
+      book: "booking_italy.html",
+    },
+    "The New California": {
+      img: "img/packages-2.jpg",
+      desc: "From beaches to mountains, experience the Golden State’s best adventures.",
+      price: "$449.00",
+      link: "cali.html",
+      book: "booking_cali.html",
+    },
+    "Discover Japan": {
+      img: "img/packages-3.jpg",
+      desc: "Experience tradition and technology in Tokyo, Kyoto, and Mount Fuji.",
+      price: "$549.00",
+      link: "japan.html",
+      book: "booking_japan.html",
+    },
+    "Thailand Trip": {
+      img: "img/packages-1.jpg",
+      desc: "Escape to Thailand’s paradise of temples and turquoise beaches.",
+      price: "$649.00",
+      link: "thailand.html",
+      book: "thailand_booking.html",
+    },
+  };
 
-        // Render each favorite tour
-        favoritesList.forEach((name) => {
-          const tour = allTours[name];
-          if (!tour) return; // Skip unknown ones
+  // ✅ Render danh sách tour yêu thích của user
+  favoritesList.forEach((name) => {
+    const tour = allTours[name];
+    if (!tour) return;
 
-          const card = document.createElement("div");
-          card.className = "col-md-6";
-          card.innerHTML = `
+    const card = document.createElement("div");
+    card.className = "col-md-6";
+    card.innerHTML = `
       <div class="card h-100 shadow-sm border-0">
         <img src="${tour.img}" class="card-img-top" alt="${name}">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <h5 class="card-title mb-0">${name}</h5>
-            <i class="fa fa-heart text-danger" style="font-size: 18px;"></i>
+            <i class="fa fa-heart text-danger" style="font-size: 18px; cursor:pointer;" title="Remove from favorites"></i>
           </div>
           <p class="small text-muted">${tour.desc}</p>
           <div class="d-flex justify-content-between align-items-center">
@@ -1194,9 +1208,29 @@
           </div>
         </div>
       </div>`;
-          favoritesContainer.appendChild(card);
-        });
-      });
-    </script>
+    favoritesContainer.appendChild(card);
+
+    // ✅ Thêm sự kiện xóa yêu thích ngay tại đây
+    const heartIcon = card.querySelector(".fa-heart");
+    heartIcon.addEventListener("click", () => {
+      if (confirm(`Remove "${name}" from your favorites?`)) {
+        const updatedList = favoritesList.filter((item) => item !== name);
+        localStorage.setItem(favKey, JSON.stringify(updatedList));
+        card.remove();
+
+        // Nếu xóa hết, hiển thị thông báo trống
+        if (updatedList.length === 0) {
+          favoritesContainer.innerHTML = `
+            <div class="text-center text-muted py-4">
+              <i class="fas fa-heart-broken fa-3x mb-3 text-secondary"></i>
+              <p>You haven’t added any favorites yet.</p>
+            </div>`;
+        }
+      }
+    });
+  });
+});
+</script>
+
   </body>
 </html>

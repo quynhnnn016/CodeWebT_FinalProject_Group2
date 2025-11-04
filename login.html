@@ -130,50 +130,101 @@
 
         <button type="submit" class="btn-login">Login</button>
 
-        <div
-          id="loginAlert"
-          class="alert text-center"
-          role="alert"
-        >
+        <p class="text-center mt-3">
+          <a href="#" id="forgotPasswordLink" class="text-link">Forgot Password?</a>
+        </p>
+
+        <div id="loginAlert" class="alert text-center" role="alert">
           Invalid username or password!
         </div>
 
         <p class="text-center mt-3">
           Don't have an account?
-          <a href="register.html" id="registerLink" class="text-link"
-            >Register here</a
-          >
+          <a href="register.html" id="registerLink" class="text-link">Register here</a>
         </p>
         <p class="text-center mt-3">
           Back to Homepage?
-          <a href="index.html" id="registerLink" class="text-link"
-            >Click here</a
-          >
+          <a href="index.html" id="homeLink" class="text-link">Click here</a>
         </p>
       </form>
     </div>
 
-    <!-- JS Logic -->
+    <!-- Forgot Password Modal -->
+    <div
+      class="modal fade"
+      id="forgotPasswordModal"
+      tabindex="-1"
+      aria-labelledby="forgotPasswordLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="forgotPasswordLabel">Reset Password</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Enter your email address to reset your password:</p>
+            <input
+              type="email"
+              id="resetEmail"
+              class="form-control mb-3"
+              placeholder="Enter your email"
+              required
+            />
+            <div id="resetAlert" class="alert text-center" role="alert"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="resetBtn" class="btn btn-primary">
+              Send Reset Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS & EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      // ⚙️ Initialize EmailJS (use only your PUBLIC key)
+      emailjs.init("bMH_gmIxbUCYRVxIy"); // Replace with your actual public key
+    </script>
+
+    <!-- Main JS Logic -->
     <script>
       // ====== Default accounts setup ======
       if (!localStorage.getItem("TriplyUsers")) {
         const defaultUsers = [
           {
-            username: "admin",
-            password: "123456",
-            email: "admin@Triply.com",
-            role: "admin",
-            avatar: "img/admin-avatar.jpg",
-            displayName: "Administrator",
-          },
-          {
-            username: "traveler",
-            password: "123456",
-            email: "user@Triply.com",
-            role: "user",
-            avatar: "img/user-avatar.jpg",
-            displayName: "Traveler",
-          },
+      username: "admin",
+      password: "123456",
+      email: "admin@Triply.com",
+      role: "admin",
+      avatar: "img/admin-avatar.jpg",
+      displayName: "Administrator",
+    },
+    {
+      username: "traveler",
+      password: "123456",
+      email: "user@Triply.com",
+      role: "user",
+      avatar: "img/user-avatar.jpg",
+      displayName: "Traveler",
+    },
+    {
+      username: "student",
+      password: "123456",
+      email: "nhinhy23411@st.uel.edu.vn",
+      role: "user",
+      avatar: "img/student-avatar.jpg",
+      displayName: "Nhinhy Student",
+    },
         ];
         localStorage.setItem("TriplyUsers", JSON.stringify(defaultUsers));
       }
@@ -203,12 +254,10 @@
           alertBox.textContent = "Login successful! Redirecting...";
           alertBox.style.display = "block";
 
-          // Chuyển hướng dựa trên vai trò
           setTimeout(() => {
             if (found.role === "admin") {
               window.location.href = "adminsite.html";
             } else {
-              debugger;
               window.location.href = "profile.html";
             }
           }, 1200);
@@ -220,16 +269,73 @@
         }
       });
 
-      // Registration shortcut
-      document
-        .getElementById("registerLink")
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-          window.location.href = "register.html";
-        });
+      // Navigation links
+      document.getElementById("registerLink").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = "register.html";
+      });
+
+      document.getElementById("homeLink").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = "index.html";
+      });
+
+      // ===== Forgot Password Logic (EmailJS Integration) =====
+// ===== Forgot Password Logic (Simulated Email Send) =====
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+const resetBtn = document.getElementById("resetBtn");
+const resetEmailInput = document.getElementById("resetEmail");
+const resetAlert = document.getElementById("resetAlert");
+
+forgotPasswordLink.addEventListener("click", function (e) {
+  e.preventDefault();
+  const modal = new bootstrap.Modal(
+    document.getElementById("forgotPasswordModal")
+  );
+  resetAlert.style.display = "none";
+  resetEmailInput.value = "";
+  modal.show();
+});
+
+resetBtn.addEventListener("click", function () {
+  const email = resetEmailInput.value.trim();
+  const users = JSON.parse(localStorage.getItem("TriplyUsers")) || [];
+  const user = users.find((u) => u.email === email);
+
+  resetAlert.style.display = "block";
+  resetAlert.classList.remove("alert-success", "alert-danger");
+
+  if (!email) {
+    resetAlert.classList.add("alert-danger");
+    resetAlert.textContent = "Please enter your email!";
+    return;
+  }
+
+  if (!user) {
+    resetAlert.classList.add("alert-danger");
+    resetAlert.textContent = "No account found with that email.";
+    return;
+  }
+
+  // Giả lập quá trình gửi mail (fake)
+  resetAlert.classList.add("alert-info");
+  resetAlert.textContent = "Sending reset link...";
+  resetBtn.disabled = true;
+
+  setTimeout(() => {
+    resetAlert.classList.remove("alert-info");
+    resetAlert.classList.add("alert-success");
+    resetAlert.innerHTML = `
+      We've sent a password reset link to <strong>${email}</strong>.<br>
+      (Simulation only — no real email sent.)
+    `;
+    resetBtn.disabled = false;
+  }, 1500);
+});
+
     </script>
 
-    <!-- Topbar / Auth Control -->
+    <!-- Optional Auth Control -->
     <script src="js/auth.js"></script>
   </body>
 </html>
