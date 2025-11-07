@@ -135,50 +135,61 @@
     </div>
 
     <div class="row g-4">
-      <!-- LEFT FILTER SIDEBAR -->
-      <div class="col-lg-3">
-        <div class="bg-light p-4 rounded shadow-sm sticky-top" style="top: 90px;">
-          <h5 class="text-primary fw-bold mb-3">
-            <i class="fa fa-filter me-2"></i>Search Filter
-          </h5>
+<!-- LEFT FILTER SIDEBAR -->
+<div class="col-lg-3">
+  <div class="bg-light p-4 rounded shadow-sm sticky-top" style="top: 90px;">
+    <h5 class="text-primary fw-bold mb-3">
+      <i class="fa fa-filter me-2"></i>Search Filter
+    </h5>
 
-          <label class="form-label fw-semibold">Budget</label>
-          <select id="filterBudget" class="form-select mb-3">
-            <option value="all">All</option>
-            <option value="10">Under $10,000</option>
-            <option value="20">$10,000 - $20,000</option>
-            <option value="30">Above $20,000</option>
-          </select>
+    <!-- Budget -->
+    <label class="form-label fw-semibold">Budget ($)</label>
+    <select id="filterBudget" class="form-select mb-3">
+      <option value="all">All</option>
+      <option value="low">&lt; 500</option>
+      <option value="mid">500 - 1000</option>
+      <option value="high">&gt; 1000</option>
+    </select>
 
-          <label class="form-label fw-semibold">Departure</label>
-          <select id="filterStart" class="form-select mb-3">
-            <option value="all">All</option>
-            <option value="HCM">Ho Chi Minh City</option>
-            <option value="HN">Hanoi</option>
-          </select>
+    <!-- Departure -->
+    <label class="form-label fw-semibold">Departure</label>
+    <select id="filterStart" class="form-select mb-3">
+      <option value="all">All</option>
+      <option value="HCM">Ho Chi Minh City</option>
+      <option value="HN">Hanoi</option>
+    </select>
 
-          <label class="form-label fw-semibold">Departure Date</label>
-          <input type="date" id="filterDate" class="form-control mb-3" />
+    <!-- Departure Date Range -->
+    <label class="form-label fw-semibold">Departure Date (From - To)</label>
+    <input type="date" id="filterDateFrom" class="form-control mb-2" />
+    <input type="date" id="filterDateTo" class="form-control mb-3" />
 
-          <label class="form-label fw-semibold">Tour Type</label>
-          <select id="filterType" class="form-select mb-3">
-            <option value="all">All</option>
-            <option value="premium">Premium</option>
-            <option value="budget">Budget</option>
-          </select>
+    <!-- Tour Type -->
+    <label class="form-label fw-semibold">Tour Type</label>
+    <select id="filterType" class="form-select mb-3">
+      <option value="all">All</option>
+      <option value="premium">Premium</option>
+      <option value="budget">Budget</option>
+    </select>
 
-          <label class="form-label fw-semibold">Transport</label>
-          <select id="filterTransport" class="form-select mb-3">
-            <option value="all">All</option>
-            <option value="plane">Plane</option>
-            <option value="bus">Bus</option>
-          </select>
+    <!-- Transport -->
+    <label class="form-label fw-semibold">Transport</label>
+    <select id="filterTransport" class="form-select mb-3">
+      <option value="all">All</option>
+      <option value="plane">Plane</option>
+      <option value="bus">Bus</option>
+    </select>
 
-          <button id="applyFilter" class="btn btn-primary w-100 mt-2">
-            Apply Filter
-          </button>
-        </div>
-      </div>
+    <button id="applyFilter" class="btn btn-primary w-100 mt-2">
+      Apply Filter
+    </button>
+    <button id="clearFilter" class="btn btn-outline-secondary w-100 mt-2">
+  Clear Filter
+</button>
+
+  </div>
+</div>
+
 
       <!-- RIGHT PACKAGES CAROUSEL -->
       <div class="col-lg-9">
@@ -565,83 +576,190 @@
         <script src="js/auth.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  // ======= DỮ LIỆU TOUR THẬT =======
   const tours = [
-    { name: "Venice - Italy", price: 8, start: "HCM", type: "premium", transport: "plane", date: "2025-12-10" },
-    { name: "Discover Japan", price: 20, start: "HN", type: "premium", transport: "plane", date: "2025-12-12" },
-    { name: "Thailand Trip", price: 10, start: "HCM", type: "budget", transport: "plane", date: "2025-11-05" },
+    { 
+      name: "Venice - Italy", 
+      price: 349, 
+      start: "HCM", 
+      type: "premium", 
+      transport: "plane", 
+      date: "2025-12-10", 
+      img: "img/packages-4.jpg",
+      desc: "Discover Venice, the floating city of love. Cruise the romantic canals, admire Renaissance architecture, and enjoy the timeless charm of Italy’s most enchanting destination.",
+      readMore: "italy.html",
+      booking: "booking_italy.html"
+    },
+    { 
+      name: "Discover Japan", 
+      price: 549, 
+      start: "HN", 
+      type: "premium", 
+      transport: "plane", 
+      date: "2025-12-12", 
+      img: "img/packages-3.jpg",
+      desc: "Experience the perfect mix of tradition and technology as you explore Tokyo, Kyoto, and Mount Fuji.",
+      readMore: "japan.html",
+      booking: "booking_japan.html"
+    },
+    { 
+      name: "Thailand Trip", 
+      price: 649, 
+      start: "HCM", 
+      type: "budget", 
+      transport: "plane", 
+      date: "2025-11-05", 
+      img: "img/packages-1.jpg",
+      desc: "Escape to the paradise of Thailand — golden temples, turquoise seas, and the vibrant culture of Bangkok.",
+      readMore: "thailand.html",
+      booking: "thailand_booking.html"
+    }
   ];
 
+  // ======= KHỞI TẠO CONTAINER =======
+  const container = document.querySelector('.col-lg-9');
+  container.innerHTML = '<div id="tourList" class="row g-4"></div>';
   const list = document.getElementById('tourList');
 
+  // ======= HÀM HIỂN THỊ TOUR =======
   const renderTours = (data) => {
     if (data.length === 0) {
       list.innerHTML = `<p class="text-center text-muted mt-4">No tours found matching your criteria.</p>`;
       return;
     }
 
-    list.innerHTML = data.map(tour => `
-      <div class="col-md-6">
-        <div class="packages-item border rounded position-relative">
+    list.innerHTML = data.map(t => `
+      <div class="col-md-6 col-lg-4">
+        <div class="packages-item position-relative border rounded overflow-hidden shadow-sm">
+          
+          <!-- Image & Info -->
           <div class="packages-img position-relative">
-            <img src="img/packages-1.jpg" class="img-fluid w-100 rounded-top" alt="">
-            <div class="favorite-icon position-absolute top-0 end-0 m-2">
-              <i class="fa fa-heart text-light bg-danger p-2 rounded-circle btn-fav" 
-                 data-name="${tour.name}" 
-                 style="cursor:pointer;"></i>
+            <img src="${t.img}" class="img-fluid w-100 rounded-top" alt="${t.name}">
+            <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
+                style="width: 100%; bottom: 0; left: 0; z-index: 5;">
+              <small class="flex-fill text-center border-end py-2">
+                <i class="fa fa-map-marker-alt me-2"></i>${t.name}
+              </small>
+              <small class="flex-fill text-center border-end py-2">
+                <i class="fa fa-calendar-alt me-2"></i>${t.date}
+              </small>
+              <small class="flex-fill text-center py-2">
+                <i class="fa fa-user me-2"></i>2 Person
+              </small>
+            </div>
+            <div class="packages-price py-2 px-4">$${t.price}.00</div>
+          </div>
+
+          <!-- Content -->
+          <div class="packages-content bg-light">
+            <div class="p-4 pb-0">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0">${t.name}</h5>
+                <i class="fa fa-heart btn-fav" 
+                   data-name="${t.name}" 
+                   style="cursor:pointer; font-size:18px; color:#ccc;"></i>
+              </div>
+              <small class="text-uppercase text-muted">${t.type} tour</small>
+
+              <!-- Stars -->
+              <div class="mb-3 mt-2">
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+              </div>
+
+              <!-- Description -->
+              <p class="mb-4">${t.desc}</p>
+            </div>
+
+            <!-- Buttons -->
+            <div class="row bg-primary rounded-bottom mx-0">
+              <div class="col-6 text-start px-0">
+                <a href="${t.readMore}" class="btn-hover btn text-white py-2 px-4">Read More</a>
+              </div>
+              <div class="col-6 text-end px-0">
+                <a href="${t.booking}" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+              </div>
             </div>
           </div>
-          <div class="p-3">
-            <h5>${tour.name}</h5>
-            <p>Price: $${tour.price},000 | Departure: ${tour.start}</p>
-            <p>Transport: ${tour.transport}</p>
-            <a href="#" class="btn btn-primary w-100">View Details</a>
-          </div>
+
         </div>
       </div>
     `).join('');
   };
 
+  // ======= HIỂN THỊ BAN ĐẦU =======
   renderTours(tours);
 
-  // Filter logic
+  // ======= ÁP DỤNG FILTER =======
   document.getElementById('applyFilter').addEventListener('click', () => {
     const budget = document.getElementById('filterBudget').value;
     const start = document.getElementById('filterStart').value;
     const type = document.getElementById('filterType').value;
     const transport = document.getElementById('filterTransport').value;
-    const date = document.getElementById('filterDate').value;
+    const dateFrom = document.getElementById('filterDateFrom')?.value || "";
+    const dateTo = document.getElementById('filterDateTo')?.value || "";
 
     const filtered = tours.filter(t => {
-      return (budget === 'all' || 
-              (budget === '10' && t.price < 10) ||
-              (budget === '20' && t.price >= 10 && t.price <= 20) ||
-              (budget === '30' && t.price > 20)) &&
-             (start === 'all' || t.start === start) &&
-             (type === 'all' || t.type === type) &&
-             (transport === 'all' || t.transport === transport) &&
-             (date === '' || new Date(t.date).toISOString().split('T')[0] === new Date(date).toISOString().split('T')[0]);
+      const inBudget =
+        budget === 'all' ||
+        (budget === 'low' && t.price < 500) ||
+        (budget === 'mid' && t.price >= 500 && t.price <= 1000) ||
+        (budget === 'high' && t.price > 1000);
+
+      const inDate =
+        (!dateFrom || new Date(t.date) >= new Date(dateFrom)) &&
+        (!dateTo || new Date(t.date) <= new Date(dateTo));
+
+      return (
+        inBudget &&
+        (start === 'all' || t.start === start) &&
+        (type === 'all' || t.type === type) &&
+        (transport === 'all' || t.transport === transport) &&
+        inDate
+      );
     });
 
-    console.log("Filtered tours:", filtered);
     renderTours(filtered);
   });
 
-  // Add to favorites
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('btn-fav')) {
-      const name = e.target.getAttribute('data-name');
-      let favs = JSON.parse(localStorage.getItem('TriplyFavorites')) || [];
+  // ======= CLEAR FILTER =======
+  document.getElementById('clearFilter').addEventListener('click', () => {
+    // Reset input filter
+    document.getElementById('filterBudget').value = 'all';
+    document.getElementById('filterStart').value = 'all';
+    document.getElementById('filterType').value = 'all';
+    document.getElementById('filterTransport').value = 'all';
+    document.getElementById('filterDateFrom').value = '';
+    document.getElementById('filterDateTo').value = '';
+
+    // Reload lại trang (đưa về trạng thái ban đầu thực sự)
+    window.location.reload();
+  });
+
+  // ======= YÊU THÍCH =======
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-fav")) {
+      const name = e.target.getAttribute("data-name");
+      let favs = JSON.parse(localStorage.getItem("TriplyFavorites")) || [];
       if (!favs.includes(name)) {
         favs.push(name);
-        localStorage.setItem('TriplyFavorites', JSON.stringify(favs));
-        alert(`Added "${name}" to your favorites!`);
+        localStorage.setItem("TriplyFavorites", JSON.stringify(favs));
+        e.target.style.color = "#e63946";
       } else {
-        alert(`"${name}" is already in your favorites.`);
+        favs = favs.filter(f => f !== name);
+        localStorage.setItem("TriplyFavorites", JSON.stringify(favs));
+        e.target.style.color = "#ccc";
       }
     }
   });
 });
 </script>
+
+
+
 <!-- Favorite Script -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
