@@ -137,6 +137,10 @@
         transform: scale(1.2);
         background-color: #dc3545;
       }
+      .calendar-header {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+      }
     </style>
   </head>
 
@@ -361,14 +365,14 @@
                 </div>
 
                 <div class="calendar-grid text-center">
-                  <div class="row fw-bold text-muted">
-                    <div class="col">Mon</div>
-                    <div class="col">Tue</div>
-                    <div class="col">Wed</div>
-                    <div class="col">Thu</div>
-                    <div class="col">Fri</div>
-                    <div class="col text-danger">Sat</div>
-                    <div class="col text-danger">Sun</div>
+                  <div class="calendar-header fw-bold text-muted mb-2">
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div class="text-danger">Sat</div>
+                    <div class="text-danger">Sun</div>
                   </div>
                   <div id="calendarDays" class="mt-2"></div>
                 </div>
@@ -920,27 +924,53 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const contactBtn = document.getElementById("btnContact");
-        const contactModal = new bootstrap.Modal(
-          document.getElementById("contactModal")
-        );
-        const form = document.getElementById("contactForm");
-        const thankyouMsg = document.getElementById("thankyouMsg");
+        const monthButtons = document.querySelectorAll(".month-btn");
+        const calendarTitle = document.getElementById("calendarTitle");
+        const prevBtn = document.getElementById("prevMonth");
+        const nextBtn = document.getElementById("nextMonth");
 
-        // Open pop-up
-        contactBtn.addEventListener("click", function () {
-          form.reset();
-          thankyouMsg.style.display = "none";
-          form.style.display = "block";
-          contactModal.show();
+        // Lấy tháng hiện tại ban đầu
+        let currentIndex = Array.from(monthButtons).findIndex((btn) =>
+          btn.classList.contains("active")
+        );
+
+        // Hàm cập nhật class và tiêu đề tháng
+        function setActiveMonth(index) {
+          monthButtons.forEach((btn) =>
+            btn.classList.remove("active", "btn-primary")
+          );
+          monthButtons.forEach((btn) => btn.classList.add("btn-light"));
+
+          const activeBtn = monthButtons[index];
+          activeBtn.classList.remove("btn-light");
+          activeBtn.classList.add("active", "btn-primary");
+
+          // Cập nhật tiêu đề tháng trên lịch
+          calendarTitle.textContent = activeBtn.innerText;
+        }
+
+        // Nút chuyển tháng trái
+        prevBtn.addEventListener("click", function () {
+          if (currentIndex > 0) {
+            currentIndex--;
+            setActiveMonth(currentIndex);
+          }
         });
 
-        // Handle form submission
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          form.style.display = "none";
-          thankyouMsg.style.display = "block";
-          setTimeout(() => contactModal.hide(), 3000); // Auto close after 3s
+        // Nút chuyển tháng phải
+        nextBtn.addEventListener("click", function () {
+          if (currentIndex < monthButtons.length - 1) {
+            currentIndex++;
+            setActiveMonth(currentIndex);
+          }
+        });
+
+        // Click trực tiếp nút tháng bên trái
+        monthButtons.forEach((btn, i) => {
+          btn.addEventListener("click", function () {
+            currentIndex = i;
+            setActiveMonth(i);
+          });
         });
       });
     </script>
