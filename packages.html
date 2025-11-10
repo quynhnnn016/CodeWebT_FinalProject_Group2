@@ -577,40 +577,55 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   // ======= DỮ LIỆU TOUR THẬT =======
-  const tours = [
-    { 
-      name: "Venice - Italy", 
-      price: 349, 
-      start: "HCM", 
-      type: "premium", 
-      transport: "plane", 
-      date: "2025-12-10", 
+  // === LẤY DỮ LIỆU TỪ LOCALSTORAGE NẾU CÓ ===
+  const storedPackages = JSON.parse(localStorage.getItem("TriplyPackages")) || [];
+
+  // Nếu không có dữ liệu, fallback sang dữ liệu mặc định
+  const tours = storedPackages.length > 0 ? storedPackages.map(p => ({
+    name: p.title,
+    price: Number(p.price),
+    start: "HCM", // bạn có thể thêm trường này trong admin nếu muốn
+    type: "premium",
+    transport: "plane",
+    date: "2025-12-10",
+    img: p.image,
+    desc: p.description || "Explore this amazing destination!",
+    readMore: "italy.html",
+    booking: "booking_italy.html"
+  })) : [
+    {
+      name: "Venice - Italy",
+      price: 349,
+      start: "HCM",
+      type: "premium",
+      transport: "plane",
+      date: "2025-12-10",
       img: "img/packages-4.jpg",
-      desc: "Discover Venice, the floating city of love. Cruise the romantic canals, admire Renaissance architecture, and enjoy the timeless charm of Italy’s most enchanting destination.",
+      desc: "Discover Venice, the floating city of love...",
       readMore: "italy.html",
       booking: "booking_italy.html"
     },
-    { 
-      name: "Discover Japan", 
-      price: 549, 
-      start: "HN", 
-      type: "premium", 
-      transport: "plane", 
-      date: "2025-12-12", 
+    {
+      name: "Discover Japan",
+      price: 549,
+      start: "HN",
+      type: "premium",
+      transport: "plane",
+      date: "2025-12-12",
       img: "img/packages-3.jpg",
-      desc: "Experience the perfect mix of tradition and technology as you explore Tokyo, Kyoto, and Mount Fuji.",
+      desc: "Experience the perfect mix of tradition and technology...",
       readMore: "japan.html",
       booking: "booking_japan.html"
     },
-    { 
-      name: "Thailand Trip", 
-      price: 649, 
-      start: "HCM", 
-      type: "budget", 
-      transport: "plane", 
-      date: "2025-11-05", 
+    {
+      name: "Thailand Trip",
+      price: 649,
+      start: "HCM",
+      type: "budget",
+      transport: "plane",
+      date: "2025-11-05",
       img: "img/packages-1.jpg",
-      desc: "Escape to the paradise of Thailand — golden temples, turquoise seas, and the vibrant culture of Bangkok.",
+      desc: "Escape to the paradise of Thailand...",
       readMore: "thailand.html",
       booking: "thailand_booking.html"
     }
